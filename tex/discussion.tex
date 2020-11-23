@@ -1,0 +1,13 @@
+A Poisson-Boltzmann solver is not something new in itself. They have been around for decades, are available as stand-alone applications and web servers, and come in a variety of implementations, ranging from FD [apbs,delphi,mibpb], to FE[apbs], and BE[afmpb,tabi,pygbe] methods. Moreover, some are integrated into a number of computational workflows that use them for mean field potential visualization [VMD] and free energy calculations [g\_mmpbsa,mmpbsa], usually interfaced through bash or Python scripts.
+
+This effort stands out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
+\begin{enumerate}
+\item Interoperability: bempp is written in Python, and hence, is callable from a Jupyter notebook. Then it fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM [openmm], Biobb [biobb], pytraj [pytraj], or pymol [pymol]. Then, the Jupyter notebook becomes a computational glue across models and scales, no interface script required. 
+
+\item Ease of use: Python and Jupyter notebooks are widely used, even in non-computational settings. Bempp is easily installed through conda, and gives a result in less than 20 lines of code. This, moreover, using parallel and state-of-the-art algorithms in a way that is almost transparent to the user. Also, there is a thin layer between the application and bempp, giving a more experienced user access to develop new models, for example, through the FEM-BEM coupling capability of bempp.
+
+\item Robustness: bempp is actively developed with high standards of software engineering, such as unit and system testing, continuous integration, etc. Moreover, it was originally designed for scattering problems, impacting a large group of people, well beyond the molecular simulation community. Then, the software has a better chance to survive in the long term, and any improvements done by people in other domains will have an effect in its use to solve the Poisson-Boltzmann equation. 
+\end{enumerate}
+
+There is a large number of popular molecular simulation software designed for different applications, scales, quantities of interest, etc. This led to community-wide efforts, such as BioExcel and MolSSI, that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes. This standard is very much aligned with our work.
+
