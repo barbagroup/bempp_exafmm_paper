@@ -1,0 +1,74 @@
+\subsection{Mesh refinement study using a spherical molecule}
+
+To verify our BEM-FMM integration, we first performed a mesh refinement study for a spherical molecule with an off-center charge.
+Figure ? depicts the problem setup.
+The molecule has a radius of $4$ Angstrom and a relative permittivity of $\epsilon_1 = 4$; the unit charge is located at $(1,1,1)$.
+The solvent region has a relative permittivity of water ($\epsilon_2 = 80$); and the salt concentration is set to $150mM$ $(\kappa = 1/8A^{-1})$.
+Other parameters are listed in Table ?.
+We compute the solvation energy of this molecule using $5$ meshes with a constant refinement factor of $4$.
+
+Kirkwood's derivation allows us to compute the analytical solution of the solvation energy for this spherical molecule: $-12.258363$ [kcal/mol],
+with which we can compare our results. Figure ? shows the error of the solvation energy converges at the expected rate of $1/N$ for both formulations.
+
+
+\subsection{Mesh refinement study using 5PTI}
+
+Next, we tested our code on a realistic structure - bovine pancreatic trypsin inhibitor.
+Similarly, we compute its solvation energy using $5$ meshes with the element density ranging from $1$ to $16$ (Table ?).
+Same fine parameters in Table ?, were used as the previous test, to reveal the discretization error.
+Since an analytical solution is not available for this geometry, the reference values for error estimation come from Richardson extrapolation.
+
+Figure ? shows that the error of computing solvation energy of 5PTI converges linearly with respect to $N$, for both direct and Juffer's formulation.
+Both convergence results confirm that bempp solves the mathematical model correctly.
+
+
+\subsection{Performance study using a spherical molecule}
+
+In this section, we investigate bempp-cl's software performance using a spherical molecule.
+The sphere has a radius of $1$; $100$ charges are placed randomly inside, representing the atoms in the solute.
+We used the same dielectric constants and salt concentration as in previous the grid-convergence study.
+Other simulation parameters are reported in Table ?.
+
+To imitate a wide range of problem sizes, we used five surface discretizations, number of elements ranging from $8$ thousand to $2$ million.
+Table ? presents the assembly time, the solution time and the number of iterations to converge in each case for both direct and Juffer's formulation.
+The convergence results show that the condition number grows as the problem size increases in direct formulation; while it remains at the same level in Juffer's formulation.
+
+In our implementation, each iteration in direct formulation requires $8$ \fmm evaluations, whereas each iteration in Juffer's formulation requires $19$, making it more than twice as expensive.
+That explains why the direct formulation leads to a shorter solution time (\gmres time), despite a slower convergence, in the two smaller cases.
+For larger problem sizes, a faster convergence in Juffer's formulation offsets the larger cost per iteration.
+
+Juffer's formulation always takes more time in matrix assembly.
+With $2,097,152$ panels, it is $2.5$x slower than using direct formulation.
+There are two reasons.
+On one hand, the system matrix in Juffer's formulation requires two hypersingular operators, thus is more involved.
+On the other hand, the assembly time also includes the time spent on preparing preconditioners.
+Calculating the mass-matrix preconditioner used in Juffer's formulation is much more cumbersome than the block-diagonal preconditioner used in direct formulation.
+
+Figure ? shows the linear scaling of the assembly time with respect to $N$.
+In fact, all the steps in matrix assembly scale linearly except for the sparse LU-decomposition required in computing the mass-matrix preconditioner for Juffer's formulation.
+It explains why the slope between the last two blue triangles is slightly steeper than $\mathcal{O}(N)$.
+
+Next, we want to confirm that the time complexity of mat-vecs in \gmres is also $\mathcal{O}(N)$.
+As we mentioned before, each iteration involves multiple \fmm evaluations: $4$ Laplace {\fmm}s and $4$ modified Helmholtz {\fmm}s for direct formulation, $8$ and $11$ for Juffer's formulation.
+We averaged the time spent on $1$ Laplace \fmm and $1$ modified Helmholtz \fmm respectively using direct formulation, and plot them with respect to $N$ in Figure ?.
+The linear scaling substantiates the efficiency of our \fmm implementation.
+
+In bempp-cl, pre-computing of the invariant matrices in \fmm, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
+In addition, each \fmm evaluation in \gmres is followed by a singular correction which compensates the singular integrals that were not ignored by \fmm.
+Therefore, the \gmres time reported here also reflects these contributions.
+Figure ? demonstrates the time breakdown of \gmres in percentage.
+As problem size increases, \fmm evaluations dominate solution time.
+
+Finally, we measured the amount of memory taken by the simulations, using the Linux command `/usr/bin/time -v`.
+We observed a linear space complexity as shown in Figure ?.
+The largest case, with more than $2$ million panels, requires $45$GB for direct formulation and $65$GB for Juffer's formulation.
+
+\subsection{Free energy of Zika virus}
+
+Finally, we present a more challenging problem that studies the free energy of the Zika virus.
+We acquired the molecular structure (6CO8) from ?, parameterized it with pdb2pqr and generated mesh on the solvent-excluded surface using Nanoshaper.
+The prepared structure contains about $1.6$ million atoms (charges) and our mesh has around $10$ million boundary elements, which corresponds to an element density of ?.
+In this experiment, $3$ quadrature points were used for regular Galerkin integrals over disjoint elements.
+The \fmm expansion order was $4$ and the tolerance of \gmres was $10^{-4}$.
+
+Table ? shows the result and performance using both formulations.

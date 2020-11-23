@@ -1,0 +1,64 @@
+\documentclass[final,5p,times,twocolumn]{elsarticle}
+
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xspace}
+
+\newcommand{\pygbe}{\texttt{PyGBe}\xspace}
+\newcommand{\gmres}{\textsc{gmres}\xspace}
+\newcommand{\bem}{\textsc{bem}\xspace}
+\newcommand{\fmm}{\textsc{fmm}\xspace}
+\newcommand{\ses}{\textsc{ses}\xspace}
+\newcommand{\msms}{\texttt{\textsc{msms}}\xspace}
+
+\graphicspath{{figs/}}
+
+\journal{Computer Physics Communications}
+\begin{document}
+
+\begin{frontmatter}
+\title{Bempp exafmm paper}
+
+\author[gwu]{Tingyu Wang}
+\ead{twang66@gwu.edu}
+
+\author[usm]{Christopher D. Cooper}
+\ead{christopher.cooper@usm.cl}
+
+\author[ucl]{Timo Betcke}
+\ead{t.betcke@ucl.ac.uk}
+
+\author[gwu]{Lorena A. Barba}
+\ead{labarba@gwu.edu}
+
+\address[gwu]{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington DC}
+\address[usm]{Department of Mechanical Engineering, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
+\address[ucl]{Department of Mathematics, University College London, UK}
+
+%% abstract
+\begin{abstract}
+    Add abstract here.
+\end{abstract}
+
+%% keyword
+\begin{keyword}
+    boundary integral equation \sep boundary element method \sep Galerkin method \sep fast multipole method \sep
+    Python \sep biomolecular electrostatics \sep implicit solvent \sep Poisson-Boltzmann
+\end{keyword}
+
+\end{frontmatter}
+
+% body of paper
+\section{Introduction}\label{sec:intro}
+\input{introduction}
+
+\section{Methods}\label{sec:methods}
+\input{methods}
+
+\section{Results}\label{sec:results}
+\input{results}
+
+
+\end{document}
