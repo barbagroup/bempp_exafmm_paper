@@ -2,7 +2,7 @@ A Poisson-Boltzmann solver is not something new in itself. They have been around
 
 The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language. This makes our effort stand out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
 \begin{enumerate}
-\item Interoperability: Bempp is written in Python, and hence, is callable from a Jupyter notebook. This fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM [openmm], Biobb [biobb], pytraj [pytraj], or pymol [pymol]. Then, the Jupyter notebook becomes a computational glue across models and scales; no interface script required. 
+\item Interoperability: Bempp is written in Python, and hence, is callable from a Jupyter notebook. This fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM [openmm], Biobb [biobb],MDAnalysis \cite{GowersETal2016}, pytraj [pytraj], or pymol [pymol]. Then, the Jupyter notebook becomes a computational glue across models and scales; no interface script required. 
 
 \item Ease of use: Python and Jupyter notebooks are widely used, even in non-computational settings. Bempp is easily installed through conda, and gives a result in less than 20 lines of code. This, moreover, using parallel and state-of-the-art algorithms in a way that is almost transparent to the user, allowing for large-scale simulations on workstations or small clusters at no extra cost.
 
