@@ -34,10 +34,17 @@ with which we can compare our results. Figure \ref{fig:sphere_convergence} shows
 
 \subsection{Mesh refinement study using 5PTI}
 
-Next, we tested our code on a realistic structure - bovine pancreatic trypsin inhibitor (PDB code 5PTI).
+Next, we tested our code on a realistic structure - bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure is shown in Figure \ref{fig:5PTI_structure}.
 Similarly, we compute its solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
 Same fine parameters in Table \ref{tab:sim_params_convergence}, were used as the previous test, to reveal the discretization error.
 Since an analytical solution is not available for this geometry, the reference values for error estimation come from Richardson extrapolation.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{5PTI.png}
+    \caption{Structure of bovine pancreatic trypsin inhibitor (PDB code 5PTI).}
+    \label{fig:5PTI_structure}
+\end{figure}
 
 \begin{table}[]
     \centering
@@ -179,5 +186,12 @@ We acquired the molecular structure from ?, parameterized it with \texttt{pdb2pq
 The prepared structure contains about 1.6 million atoms (charges) and our mesh has around 10 million boundary elements, which corresponds to an element density of ?.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{6CO8_potential.pdf} 
+    \caption{Surface electrostatic potential of Zika virus.}
+    \label{fig:6CO8_potential}
+\end{figure}
 
 Table ? shows the result and performance using both formulations.
