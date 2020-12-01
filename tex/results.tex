@@ -138,7 +138,7 @@ Calculating the mass-matrix preconditioner used in Juffer's formulation is much 
 
 Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
 In fact, all the steps in matrix assembly scale linearly except for the sparse LU-decomposition required in computing the mass-matrix preconditioner for Juffer's formulation.
-It explains why the slope between the last two blue triangles is slightly steeper than $\mathcal{O}(N)$.
+It explains why the slope between the last two triangles is slightly steeper than $\mathcal{O}(N)$.
 
 \begin{figure}[htbp]
     \centering
@@ -160,7 +160,7 @@ The linear scaling substantiates the efficiency of our \fmm implementation.
 \end{figure}
 
 In Bempp, pre-computing of the invariant matrices in \fmm, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
-In addition, each \fmm evaluation in \gmres is followed by a singular correction which compensates the singular integrals that were not ignored by \fmm.
+In addition, each \fmm evaluation in \gmres is followed by a singular correction which compensates the singular integrals that are not ignored by \fmm.
 Therefore, the \gmres time reported here also reflects these contributions.
 Figure \ref{fig:sphere_gmres} demonstrates the time breakdown of \gmres in percentage.
 As problem size increases, \fmm evaluations dominate solution time.
@@ -198,6 +198,17 @@ We acquired the molecular structure from ?, parameterized it with \texttt{pdb2pq
 The prepared structure contains about 1.6 million atoms (charges) and our mesh has around 10 million boundary elements, which corresponds to an element density of ?.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
+
+\begin{table*}[]
+    \centering
+    \begin{tabular}{c|c|ccclc}
+                 & \begin{tabular}[c]{@{}c@{}}$\Delta G_{\mathrm{solv}}$\\ (kcal/mol)\end{tabular} & \begin{tabular}[c]{@{}c@{}}total \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}l@{}}memory\\ (GB)\end{tabular} & \# iterations \\ \hline
+    Bempp direct & -116587.5                                                   & 10864.9                                                   & 1505.5                                                       & 9359.4                                                    & 111.8                                                 & 105           \\
+    Bempp Juffer & -116190.9                                                   & 16691.6                                                   & 7180.6                                                       & 9511.0                                                    & 172.8                                                 & 37            \\
+    \pygbe        & -117261.1                                                   & -                                                         & -                                                            & -                                                         & \multicolumn{1}{c}{-}                                 & -            
+    \end{tabular}
+    \caption{Bempp and \pygbe results for the solvation energy of Zika virus.}
+\end{table*}
 
 \begin{figure*}[htbp]
     \centering
