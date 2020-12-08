@@ -30,9 +30,9 @@ The latter medium represents the solvent, usually water ($\epsilon\approx 80$) w
 Mathematically, this can be represented as the following coupled partial differential equations
 %
 \begin{align} \label{eq:pde}
-\nabla^2\phi_1 &= \\frac{1}{\epsilon_1}\sum_k q_k\delta(\mathbf{r},\mathbf{r}_k) \text{ in the solute ($\Omega_1$),}\nonumber\\
+\nabla^2\phi_1 &= \frac{1}{\epsilon_1}\sum_k q_k\delta(\mathbf{r},\mathbf{r}_k) \text{ in the solute ($\Omega_1$),}\nonumber\\
 (\nabla^2-\kappa^2)\phi_2 &= 0 \text{ in the solvent ($\Omega_2$),}\nonumber\\
-\phi_1 = \phi_2 &\quad \epsilon_1\frac{\partial \phi_1}{\partial\mathbf{n}} = \epsilon_2\frac{\partial \phi_2}{\partial\mathbf{n}} \text{ on the interface ($\Gamma$)}.
+\phi_1 &= \phi_2 \quad \epsilon_1\frac{\partial \phi_1}{\partial\mathbf{n}} = \epsilon_2\frac{\partial \phi_2}{\partial\mathbf{n}} \text{ on the interface ($\Gamma$)}.
 \end{align}
 %
 where $\Omega_1$ and $\Omega_2$ are the solute and solvent regions, respectively, interfaced by the molecular surface $\Gamma$.
