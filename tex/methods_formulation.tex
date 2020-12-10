@@ -1,0 +1,15 @@
+\subsection{A boundary integral formulation of electrostatics in molecular solvation}
+
+We showcase our development by modeling molecular solvation with the so-called implicit-solvent model \cite{RouxSimonson1999,DescherchiETal2015}. 
+In it, we compute the electrostatic potential as we move the partial charges, represented as a collection of Dirac-delta functions, into a solute-shaped cavityi ($\Omega_1$) inside an infinite dielectric medium ($\Omega_2$). 
+The latter medium represents the solvent, usually water ($\epsilon\approx 80$) with ions, which reacts to the incoming charges by polarizing and rearranging the free ions, generating a reaction potential.
+Mathematically, this can be represented as the following coupled partial differential equations
+%
+\begin{align} \label{eq:pde}
+\nabla^2\phi_1 &= \frac{1}{\epsilon_1}\sum_k q_k\delta(\mathbf{r},\mathbf{r}_k) \text{ in the solute ($\Omega_1$),}\nonumber\\
+(\nabla^2-\kappa^2)\phi_2 &= 0 \text{ in the solvent ($\Omega_2$),}\nonumber\\
+\phi_1 &= \phi_2 \quad \epsilon_1\frac{\partial \phi_1}{\partial\mathbf{n}} = \epsilon_2\frac{\partial \phi_2}{\partial\mathbf{n}} \text{ on the interface ($\Gamma$)}.
+\end{align}
+%
+where $\Omega_1$ and $\Omega_2$ are the solute and solvent regions, respectively, interfaced by the molecular surface $\Gamma$.
+There are several available definitions for $\Gamma$, such as van der Waals, solvent accessible (SAS), solvent excluded (SES), and Gaussian surfaces \cite{HarrisFenley2013}, however, in this work we use the SES.
