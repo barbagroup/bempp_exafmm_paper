@@ -1,9 +1,13 @@
 \subsection{A boundary integral formulation of electrostatics in molecular solvation}
 
 We showcase our development by modeling molecular solvation with the so-called implicit-solvent model \cite{RouxSimonson1999,DescherchiETal2015}. 
-In it, we compute the electrostatic potential as we move the partial charges, represented as a collection of Dirac-delta functions, into a solute-shaped cavityi ($\Omega_1$) inside an infinite dielectric medium ($\Omega_2$). 
-The latter medium represents the solvent, usually water ($\epsilon\approx 80$) with ions, which reacts to the incoming charges by polarizing and rearranging the free ions, generating a reaction potential.
-Mathematically, this can be represented as the following coupled partial differential equations
+As sketched in Figure XX, this model represents a dissolved molecule as a solute-shaped cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), where we can apply continuum electrostatic theory.
+Then, we can compute the change in electrostatic potential as we charge up the cavity with the solute's partial charges, represented as a collection of Direc-delta functions.
+The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx$80) with salt, which is pushed around by the electric field. 
+At equilibrium, the salt ions arrange according to a Boltzmann distribution, and if we consider them as point charges, this is well modeled by the linearized Poisson-Boltzmann equation. 
+On the other hand, the electrostatics in the solute cavity behaves according to the Poisson equation in a low dielectric medium ($\epsilon_1\approx$2---4), forced by the solute's point charges.
+These two equations are interfaced on the molecular surface ($\Gamma$), where the potential and electric displacement must be continuous.
+The resulting system of partial differential equations is
 %
 \begin{align} \label{eq:pde}
 \nabla^2\phi_1 &= \frac{1}{\epsilon_1}\sum_k q_k\delta(\mathbf{r},\mathbf{r}_k) \text{ in the solute ($\Omega_1$),}\nonumber\\
@@ -13,3 +17,39 @@ Mathematically, this can be represented as the following coupled partial differe
 %
 where $\Omega_1$ and $\Omega_2$ are the solute and solvent regions, respectively, interfaced by the molecular surface $\Gamma$.
 There are several available definitions for $\Gamma$, such as van der Waals, solvent accessible (SAS), solvent excluded (SES), and Gaussian surfaces \cite{HarrisFenley2013}, however, in this work we use the SES.
+
+Equation \eqref{eq:pde} can be represented as an integral equation running over $\Gamma$ by using Green's second identity, yielding
+%
+\begin{align} \label{eq:volume_potential}
+\phi_{1}+ K_{L}^{\Omega_1}(\phi_{1,\Gamma}) -  V_{L}^{\Omega_1} \left(\frac{\partial}{\partial \mathbf{n}}  \phi_{1,\Gamma}  \right) & = \frac{1}{\epsilon_1} \sum_{k=0}^{N_q}  \frac{q_k}{4\pi|\mathbf{r}_{\Omega_1} - \mathbf{r}_k|}  \quad \text{on $\Omega_1$,} \nonumber \\
+\phi_{2} - K_{Y}^{\Omega_2}(\phi_{2,\Gamma}) + V_{Y}^{\Omega_2} \left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right) & = 0 \quad \text{on $\Omega_2$,}
+\end{align}
+%
+where $\phi_{1,\Gamma} = \phi_1(\mathbf{r}_\Gamma)$ and $\phi_{2,\Gamma} = \phi_2(\mathbf{r}_\Gamma)$ evaluated at $\Gamma$ approaching from $\Omega_1$ and $\Omega_2$, respectively. $K$ and $V$ are the double- and single-layer potentials from Equation XX, for the Laplace and modified Helmholtz (Yukawa) kernel. 
+We can use Equation \eqref{eq:volume_potential} to compute $\phi_\Gamma$ and $\partial\phi_\Gamma/\partial\mathbf{n}$ with either the \emph{direct} or \emph{Juffer} formulations.
+The simpler direct formulation is a result of evaluating $\phi_1$ and $\phi_2$ in the limit as $\mathbf{r}$ approaches $\Gamma$, and applying the interface conditions from Equation \eqref{eq:pde}, giving
+%
+\begin{align} \label{eq:direct}
+\frac{\phi_{1,\Gamma}}{2}+ K_{L}^{\Gamma}(\phi_{1,\Gamma}) -  V_{L}^{\Gamma} \left(\frac{\partial}{\partial \mathbf{n}}  \phi_{1,\Gamma}  \right) & = \frac{1}{\epsilon_1} \sum_{k=0}^{N_q}  \frac{q_k}{4\pi|\mathbf{r}_{\Gamma} - \mathbf{r}_k|} \nonumber \\
+\frac{\phi_{1,\Gamma}}{2} - K_{Y}^{\Gamma}(\phi_{1,\Gamma}) + \frac{\epsilon_1}{\epsilon_2}V_{Y}^{\Gamma} \left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right) & = 0
+\end{align}
+%
+Unfortunately, this formulation is ill-conditioned, as the condition number of the resulting matrix grows with the number of discretization elements. 
+A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1992}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
+%
+\begin{equation}\label{eq:juffer}
+\end{equation}
+
+As we charge up the cavity, the solvent will react due to polarization and rearrangement of the salt ions. 
+We call the electrostatic potential resulting from this solvent effect a \emph{reaction} potential ($\phi_{reac}$), and we can write the following decomposition in $\Omega_1$ 
+%
+\begin{equation}
+\phi_1 = \phi_{reac} + \phi_{coul}
+\end{equation}
+%
+where $\phi_{coul}$ is the Coulombic potential from the solute point charges only.
+Having $\phi_{1,\Gamma}$ and $\partial\phi_{1,\Gamma}/\partial\mathbf{n}$ from Equation \eqref{eq:direct} or Equation \eqref{eq:juffer}, we can compute $\phi_{reac}$ by substracting out the Coulombic contribution in Equation \eqref{eq:potential_volume}
+%
+\begin{equation}\label{eq:phi_reac}
+\phi_{reac} = -K_{L}^{\Omega_1}(\phi_{1,\Gamma}) +  V_{L}^{\Omega_1} \left(\frac{\partial}{\partial \mathbf{n}}  \phi_{1,\Gamma}  \right) 
+\end{equation}
