@@ -48,8 +48,16 @@ We call the electrostatic potential resulting from this solvent effect a \emph{r
 \end{equation}
 %
 where $\phi_{coul}$ is the Coulombic potential from the solute point charges only.
-Having $\phi_{1,\Gamma}$ and $\partial\phi_{1,\Gamma}/\partial\mathbf{n}$ from Equation \eqref{eq:direct} or Equation \eqref{eq:juffer}, we can compute $\phi_{reac}$ by substracting out the Coulombic contribution in Equation \eqref{eq:potential_volume}
+Having $\phi_{1,\Gamma}$ and $\partial\phi_{1,\Gamma}/\partial\mathbf{n}$ from Equation \eqref{eq:direct} or Equation \eqref{eq:juffer}, we can compute $\phi_{reac}$ by substracting out the Coulombic contribution in the right-hand side of Equation \eqref{eq:potential_volume}
 %
 \begin{equation}\label{eq:phi_reac}
 \phi_{reac} = -K_{L}^{\Omega_1}(\phi_{1,\Gamma}) +  V_{L}^{\Omega_1} \left(\frac{\partial}{\partial \mathbf{n}}  \phi_{1,\Gamma}  \right) 
+\end{equation}
+
+The work required to dissolve a molecule, known as solvation free energy, is usually divided into nonpolar and polar components.
+The nonpolar part generates the empty solute-shaped cavity in the solvent, which is later charged by placing the partial charges inside the cavity, giving rise to a polar term in the energy. 
+The work in placing the partial charges is performed under $\phi_{reac}$, and it can be computed as
+%
+\begin{equation} \label{eq:energy}
+\Delta G^{polar}_{solv} = \frac{1}{2}\int_{\Omega_1} \rho\phi_{reac}d\mathbf{r} = \frac{1}{2}\sum_{k=1}^{N_q}q_k\phi_{reac}(\mathbf{r}_k)
 \end{equation}
