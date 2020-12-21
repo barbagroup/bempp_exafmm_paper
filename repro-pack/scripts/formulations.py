@@ -125,7 +125,7 @@ def juffer_ex(dirichl_space, neumann_space, assembler, q, x_q):
     C = dF0 - 1.0/ep*dP0
 
     A_sys = bempp.api.BlockedOperator(2, 2)
-    A_sys[0, 0] = (0.5*(1.0 + ep)*phi_id) + B
+    A_sys[0, 0] = (0.5*(1.0 + (1.0/ep))*phi_id) + B
     A_sys[0, 1] = -A
     A_sys[1, 0] = D
     A_sys[1, 1] = (0.5*(1.0 + (1.0/ep))*dph_id) - C
