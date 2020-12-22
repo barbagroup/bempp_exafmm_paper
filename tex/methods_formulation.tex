@@ -1,11 +1,11 @@
 \subsection{A boundary integral formulation of electrostatics in molecular solvation}
 
 We showcase our development by modeling molecular solvation with the so-called implicit-solvent model \cite{RouxSimonson1999,DescherchiETal2015}. 
-As sketched in Figure XX, this model represents a dissolved molecule as a solute-shaped cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), where we can apply continuum electrostatic theory.
+As sketched in Figure XX, this model represents a dissolved molecule as a solute-shaped cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), where we apply continuum electrostatic theory.
 Then, we can compute the change in electrostatic potential as we charge up the cavity with the solute's partial charges, represented as a collection of Direc-delta functions.
-The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx$80) with salt, which is pushed around by the electric field. 
+The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx$80) with salt, which is free to move around, forced by the electric field. 
 At equilibrium, the salt ions arrange according to a Boltzmann distribution, and if we consider them as point charges, this is well modeled by the linearized Poisson-Boltzmann equation. 
-On the other hand, the electrostatics in the solute cavity behaves according to the Poisson equation in a low dielectric medium ($\epsilon_1\approx$2---4), forced by the solute's point charges.
+On the other hand, the electrostatics in the solute cavity behaves in agreement with the Poisson equation in a low dielectric medium ($\epsilon_1\approx$2---4), with the solute's point charges as sources.
 These two equations are interfaced on the molecular surface ($\Gamma$), where the potential and electric displacement must be continuous.
 The resulting system of partial differential equations is
 %
@@ -25,8 +25,16 @@ Equation \eqref{eq:pde} can be represented as an integral equation running over 
 \phi_{2} - K_{Y}^{\Omega_2}(\phi_{2,\Gamma}) + V_{Y}^{\Omega_2} \left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right) & = 0 \quad \text{on $\Omega_2$,}
 \end{align}
 %
-where $\phi_{1,\Gamma} = \phi_1(\mathbf{r}_\Gamma)$ and $\phi_{2,\Gamma} = \phi_2(\mathbf{r}_\Gamma)$ evaluated at $\Gamma$ approaching from $\Omega_1$ and $\Omega_2$, respectively. $K$ and $V$ are the double- and single-layer potentials from Equation XX, for the Laplace and modified Helmholtz (Yukawa) kernel. 
-We can use Equation \eqref{eq:volume_potential} to compute $\phi_\Gamma$ and $\partial\phi_\Gamma/\partial\mathbf{n}$ with either the \emph{direct} or \emph{Juffer} formulations.
+where $\phi_{1,\Gamma} = \phi_1(\mathbf{r}_\Gamma)$ and $\phi_{2,\Gamma} = \phi_2(\mathbf{r}_\Gamma)$ evaluated at $\Gamma$ approaching from $\Omega_1$ and $\Omega_2$, respectively. $K$ and $V$ are the double- and single-layer potentials for the Laplace (subscript $L$) and modified Helmholtz (Yukawa, subscript $Y$) kernels, which are defined as
+%
+\begin{align}
+V^\Omega_{L,Y}(\varphi) = \oint_\Gamma G_{L,Y}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+K^\Omega_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial G_{L,Y}}{\partial\mathbf{n}'}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+\end{align}
+%
+where $\varphi(\mathbf{r})$ is a distribution over $\Gamma$, and $G_L(\mathbf{r},\mathbf{r}')=\frac{1}{4\pi|\mathbf{r}-\mathbf{r}'|}$ and $G_Y(\mathbf{r},\mathbf{r}')=\frac{e^{-\kappa|\mathbf{r}-\mathbf{r}'|}}{4\pi|\mathbf{r}-\mathbf{r}'|}$ are the free space Green's function of the Laplace and linearized Poisson-Boltzmann equations, respectively. 
+
+We can use Equation \eqref{eq:volume_potential} to compute $\phi_\Gamma$ and $\partial\phi_\Gamma/\partial\mathbf{n}$ with either the \emph{direct}~\cite{YoonLenhoff1990} or \emph{derivative}~\cite{JufferETal1991} (also known as \emph{Juffer}) formulations.
 The simpler direct formulation is a result of evaluating $\phi_1$ and $\phi_2$ in the limit as $\mathbf{r}$ approaches $\Gamma$, and applying the interface conditions from Equation \eqref{eq:pde}, giving
 %
 \begin{align} \label{eq:direct}
@@ -37,8 +45,12 @@ The simpler direct formulation is a result of evaluating $\phi_1$ and $\phi_2$ i
 Unfortunately, this formulation is ill-conditioned, as the condition number of the resulting matrix grows with the number of discretization elements. 
 A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1992}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
 %
-\begin{equation}\label{eq:juffer}
-\end{equation}
+\begin{align}\label{eq:juffer}
+\frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) - \left(\frac{\epsilon_1}{\epsilon_2}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
+&= \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|} \nonumber \\
+- \left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{1,\Gamma}) +  \frac{1}{2}\frac{\phi_{1,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) &+ \left(\frac{\epsilon_2}{\epsilon_1}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
+&= \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right) \nonumber \\
+\end{align}
 
 As we charge up the cavity, the solvent will react due to polarization and rearrangement of the salt ions. 
 We call the electrostatic potential resulting from this solvent effect a \emph{reaction} potential ($\phi_{reac}$), and we can write the following decomposition in $\Omega_1$ 
@@ -55,8 +67,8 @@ Having $\phi_{1,\Gamma}$ and $\partial\phi_{1,\Gamma}/\partial\mathbf{n}$ from E
 \end{equation}
 
 The work required to dissolve a molecule, known as solvation free energy, is usually divided into nonpolar and polar components.
-The nonpolar part generates the empty solute-shaped cavity in the solvent, which is later charged by placing the partial charges inside the cavity, giving rise to a polar term in the energy. 
-The work in placing the partial charges is performed under $\phi_{reac}$, and it can be computed as
+The nonpolar part generates the empty solute-shaped cavity in the solvent, which is then charged by placing the partial charges inside the cavity, giving rise to a polar term in the energy. 
+The work in charging is performed under $\phi_{reac}$, and it can be computed as
 %
 \begin{equation} \label{eq:energy}
 \Delta G^{polar}_{solv} = \frac{1}{2}\int_{\Omega_1} \rho\phi_{reac}d\mathbf{r} = \frac{1}{2}\sum_{k=1}^{N_q}q_k\phi_{reac}(\mathbf{r}_k)
