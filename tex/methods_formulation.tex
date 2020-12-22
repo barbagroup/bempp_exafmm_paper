@@ -27,7 +27,7 @@ Equation \eqref{eq:pde} can be represented as an integral equation running over 
 %
 where $\phi_{1,\Gamma} = \phi_1(\mathbf{r}_\Gamma)$ and $\phi_{2,\Gamma} = \phi_2(\mathbf{r}_\Gamma)$ evaluated at $\Gamma$ approaching from $\Omega_1$ and $\Omega_2$, respectively. $K$ and $V$ are the double- and single-layer potentials for the Laplace (subscript $L$) and modified Helmholtz (Yukawa, subscript $Y$) kernels, which are defined as
 %
-\begin{align}
+\begin{align}\label{eq:single_double}
 V^\Omega_{L,Y}(\varphi) = \oint_\Gamma G_{L,Y}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
 K^\Omega_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial G_{L,Y}}{\partial\mathbf{n}'}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
 \end{align}
@@ -46,10 +46,26 @@ Unfortunately, this formulation is ill-conditioned, as the condition number of t
 A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1992}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
 %
 \begin{align}\label{eq:juffer}
-\frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) - \left(\frac{\epsilon_1}{\epsilon_2}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
+\frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) - \left(\frac{\epsilon_2}{\epsilon_1}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
 &= \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|} \nonumber \\
-- \left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{1,\Gamma}) +  \frac{1}{2}\frac{\phi_{1,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) &+ \left(\frac{\epsilon_2}{\epsilon_1}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
+- \left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{1,\Gamma}) +  \frac{1}{2}\frac{\phi_{1,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) &+ \left(\frac{\epsilon_1}{\epsilon_2}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
 &= \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right) \nonumber \\
+\end{align}
+%
+Here we use the adjoint double layer ($K'$) and hypersingular ($W$) operators, which are defined as
+%
+\begin{align}\label{eq:adj_hyp}
+K^{\prime\Gamma}_{L,Y}(\varphi) = \oint_\Gamma \frac{G_{L,Y}}{\partial\mathbf{n}}(\mathbf{r}_\Gamma,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+W^\Gamma_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial^2 G_{L,Y}}{\partial\mathbf{n}'\partial\mathbf{n}}(\mathbf{r}_\Gamma,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+\end{align}
+%
+A slightly modified version of Equation \eqref{eq:juffer} is used in the work from Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019}, where they scale the expressions by $\epsilon_1/\epsilon_2$, and solve for the exterior field. This leaves
+%
+\begin{align}\label{eq:lu}
+\frac{\phi_{2,\Gamma}}{2}\left(\frac{\epsilon_1}{\epsilon_2}+1\right) - \left(K_Y^\Gamma - \frac{\epsilon_1}{\epsilon_2}K_L^\Gamma\right)(\phi_{2,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right)\nonumber\\ 
+&= \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_2|\mathbf{r}_{\Gamma} - \mathbf{r}_k|} \nonumber \\
+- \frac{\epsilon_1}{\epsilon_2}\left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{2,\Gamma}) +  \frac{1}{2}\frac{\phi_{2,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) &+ \left(\frac{\epsilon_1}{\epsilon_2}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right)\nonumber\\ 
+&= \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_2|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right) \nonumber \\
 \end{align}
 
 As we charge up the cavity, the solvent will react due to polarization and rearrangement of the salt ions. 
