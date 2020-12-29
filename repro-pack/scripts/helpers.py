@@ -3,6 +3,20 @@ import os
 import bempp.api
 import yaml
 
+class DefaultParameters():
+    def __init__(self):
+        self.ep_in = 4.
+        self.ep_ex = 80.
+        self.kappa = 0.125
+        self.tol = 1e-4
+        self.restart = 400
+        self.save_solution = 0
+        self.regular = 4
+        self.expansion_order = 4
+        self.ncrit = 400
+
+PARAMS = DefaultParameters()
+
 def parse_pqr(pqr_file):
     """
     Parse pqr file and return charges and their coordinates.
@@ -42,16 +56,17 @@ def parse_config(config_file):
     pqr_dir = os.path.join(parent_dir, "pqr")
 
     with open(config_file) as f:
-        global params
+        global PARAMS
         params = yaml.load(f, Loader=yaml.FullLoader)
-        ep_in = params['ep_in']
-        ep_ex = params['ep_ex']
-        kappa = params['kappa']
-        bempp.api.GLOBAL_PARAMETERS.quadrature.regular = params['regular']
-        bempp.api.GLOBAL_PARAMETERS.fmm.expansion_order = params['expansion_order']
-        bempp.api.GLOBAL_PARAMETERS.fmm.ncrit = params['ncrit']
-        restart = params['restart']
-        tol = params['tol']
+        PARAMS.ep_in = params['ep_in']
+        PARAMS.ep_ex = params['ep_ex']
+        PARAMS.kappa = params['kappa']
+        PARAMS.tol = params['tol']
+        PARAMS.restart = params['restart']
+        PARAMS.save_solution = params['save_solution']
+        PARAMS.regular = params['regular']
+        PARAMS.expansion_order = params['expansion_order']
+        PARAMS.ncrit = params['ncrit']
 
         if 'refine_level' in params.keys():
             refine_level = int(params['refine_level'])

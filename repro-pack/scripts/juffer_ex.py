@@ -11,9 +11,9 @@ assembler = "fmm"
 
 # parse configurations and generate grid
 grid, q, x_q = helpers.parse_config(sys.argv[1])
-bempp.api.GLOBAL_PARAMETERS.quadrature.regular = helpers.params['regular']
-bempp.api.GLOBAL_PARAMETERS.fmm.expansion_order = helpers.params['expansion_order']
-bempp.api.GLOBAL_PARAMETERS.fmm.ncrit = helpers.params['ncrit']
+bempp.api.GLOBAL_PARAMETERS.quadrature.regular = helpers.PARAMS.regular
+bempp.api.GLOBAL_PARAMETERS.fmm.expansion_order = helpers.PARAMS.expansion_order
+bempp.api.GLOBAL_PARAMETERS.fmm.ncrit = helpers.PARAMS.ncrit
 print(f"number of elements: {grid.number_of_elements}")
 
 # define function space
@@ -39,22 +39,21 @@ from bempp.api.linalg.iterative_solvers import IterationCounter
 callback = IterationCounter(True)
 
 start = time.time()
-sol_vec, info = gmres(A_op, rhs_vec, callback=callback, tol=helpers.params['tol'], restart=helpers.params['restart'])
+sol_vec, info = gmres(A_op, rhs_vec, callback=callback, tol=helpers.PARAMS.tol, restart=helpers.PARAMS.restart)
 stop = time.time()
 
-if 'save_solution' in helpers.params.keys():
-    if helpers.params['save_solution']:
-        np.save('solution', sol_vec)
+if helpers.PARAMS.save_solution:
+    np.save('solution', sol_vec)
 print(f"gmres wall time: {stop-start}")
 print(f"The linear system was solved in {callback.count} iterations")
 
 # compute solvation energy
-ep = helpers.params['ep_ex'] / helpers.params['ep_in']
+ep = helpers.PARAMS.ep_ex / helpers.PARAMS.ep_in
 from bempp.api.assembly.blocked_operator import grid_function_list_from_coefficients
 sol = grid_function_list_from_coefficients(sol_vec.ravel(), A.domain_spaces)
 solution_dirichl, solution_neumann = sol
-slp_q = bempp.api.operators.potential.laplace.single_layer(neumann_space, x_q.transpose(), assembler='fmm')
-dlp_q = bempp.api.operators.potential.laplace.double_layer(dirichl_space, x_q.transpose(), assembler='fmm')
+slp_q = bempp.api.operators.potential.laplace.single_layer(neumann_space, x_q.transpose(), assembler=assembler)
+dlp_q = bempp.api.operators.potential.laplace.double_layer(dirichl_space, x_q.transpose(), assembler=assembler)
 phi_q = slp_q * solution_neumann * ep - dlp_q * solution_dirichl
 
 # total dissolution energy applying constant to get units [kcal/mol]

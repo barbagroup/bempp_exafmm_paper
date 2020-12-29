@@ -5,9 +5,9 @@ from bempp.api.operators.boundary import sparse, laplace, modified_helmholtz
 import os
 
 def direct(dirichl_space, neumann_space, assembler, q, x_q):
-    ep_in = helpers.params['ep_in']
-    ep_ex = helpers.params['ep_ex']
-    kappa = helpers.params['kappa']
+    ep_in = helpers.PARAMS.ep_in
+    ep_ex = helpers.PARAMS.ep_ex
+    kappa = helpers.PARAMS.kappa
 
     identity = sparse.identity(dirichl_space, dirichl_space, dirichl_space)
     slp_in   = laplace.single_layer(neumann_space, dirichl_space, dirichl_space, assembler=assembler)
@@ -42,9 +42,9 @@ def direct(dirichl_space, neumann_space, assembler, q, x_q):
     return A_sys, rhs1, rhs2
 
 def juffer_in(dirichl_space, neumann_space, assembler, q, x_q):
-    ep_in = helpers.params['ep_in']
-    ep_ex = helpers.params['ep_ex']
-    kappa = helpers.params['kappa']
+    ep_in = helpers.PARAMS.ep_in
+    ep_ex = helpers.PARAMS.ep_ex
+    kappa = helpers.PARAMS.kappa
 
     phi_id = sparse.identity(dirichl_space, dirichl_space, dirichl_space)
     dph_id = sparse.identity(neumann_space, neumann_space, neumann_space)
@@ -100,9 +100,9 @@ def juffer_in(dirichl_space, neumann_space, assembler, q, x_q):
     return A_sys, rhs1, rhs2
 
 def juffer_ex(dirichl_space, neumann_space, assembler, q, x_q):
-    ep_in = helpers.params['ep_in']
-    ep_ex = helpers.params['ep_ex']
-    kappa = helpers.params['kappa']
+    ep_in = helpers.PARAMS.ep_in
+    ep_ex = helpers.PARAMS.ep_ex
+    kappa = helpers.PARAMS.kappa
 
     phi_id = sparse.identity(dirichl_space, dirichl_space, dirichl_space)
     dph_id = sparse.identity(neumann_space, neumann_space, neumann_space)

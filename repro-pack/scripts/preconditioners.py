@@ -5,9 +5,9 @@ from scipy.sparse import diags, bmat
 from scipy.sparse.linalg import aslinearoperator
 
 def block_diagonal(dirichl_space, neumann_space, A):
-    ep_in = helpers.params['ep_in']
-    ep_ex = helpers.params['ep_ex']
-    kappa = helpers.params['kappa']
+    ep_in = helpers.PARAMS.ep_in
+    ep_ex = helpers.PARAMS.ep_ex
+    kappa = helpers.PARAMS.kappa
 
     identity = sparse.identity(dirichl_space, dirichl_space, dirichl_space)
     identity_diag = identity.weak_form().A.diagonal()
