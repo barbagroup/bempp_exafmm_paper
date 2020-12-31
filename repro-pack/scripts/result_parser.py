@@ -1,3 +1,23 @@
+PLOT_PARAMS = {'font.family': 'serif',
+			   'legend.fontsize': 6,
+			   'legend.handlelength': 2,
+			   'figure.dpi': 300,
+			   'lines.markersize': 4,
+			   'lines.markeredgewidth': 0.5,
+			   'lines.linewidth': 0.4,
+			   'axes.titlesize': 8,
+			   'axes.labelsize': 8,
+			   'xtick.labelsize': 8,
+			   'ytick.labelsize': 8,
+			   'xtick.major.width': 0.6,
+			   'xtick.minor.width': 0.4,
+			   'ytick.major.width': 0.6,
+			   'ytick.minor.width': 0.4,
+			   'xtick.direction': 'in',
+			   'ytick.direction': 'in',
+			   'grid.linewidth': 0.2}
+
+
 def _bempp_parser(res_file, formulation='direct', skip4=False, debug=False):
     import numpy as np
     result = dict()
@@ -9,11 +29,11 @@ def _bempp_parser(res_file, formulation='direct', skip4=False, debug=False):
     t_solver_init = list()
     t_solver_solve = list()
     if formulation == 'juffer':
-        laplace_indices = [*range(3,7)] + [*range(14,18)]
-        helmholtz_indices = [*range(0,3)] + [*range(7,14)] + [18]
+        num_laplace_fmm = 8
+        num_helmholtz_fmm = 11
     elif formulation == 'direct':   
-        laplace_indices = [0, 1, 2, 3]
-        helmholtz_indices = [4, 5, 6, 7]
+        num_laplace_fmm = 4
+        num_helmholtz_fmm = 4
     else:
         print('formulation is not correct!')
         return
@@ -66,9 +86,10 @@ def _bempp_parser(res_file, formulation='direct', skip4=False, debug=False):
     if skip4:
         t_fmm_eval = t_fmm_eval[:-4]
         t_fmm_init = t_fmm_init[:-1]
-    t_fmm_eval = np.array(t_fmm_eval).reshape(-1,len(helmholtz_indices)+len(laplace_indices))
-    t_laplace = t_fmm_eval[:, laplace_indices]
-    t_helmholtz = t_fmm_eval[:, helmholtz_indices]
+    t_fmm_eval = np.array(t_fmm_eval).reshape(-1,num_laplace_fmm+num_helmholtz_fmm)
+    t_fmm_eval.sort(axis=1)  # sort each row
+    t_laplace = t_fmm_eval[:, :num_laplace_fmm]
+    t_helmholtz = t_fmm_eval[:, num_laplace_fmm:]
     # print(t_laplace.shape, t_helmholtz.shape)
     t_avg_laplace = t_laplace.mean()
     t_avg_helmholtz = t_helmholtz.mean()

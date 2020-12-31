@@ -15,6 +15,6 @@ SIZE=${SIZE_ARR[${SLURM_ARRAY_TASK_ID}]}
 
 mkdir -p $SIZE
 cd $SIZE
-/usr/bin/time -v python ${REPRO_PATH}/scripts/juffer.py ${REPRO_PATH}/runs/sphere_convergence/config/sphere${SIZE}_r4.yml
+/usr/bin/time -v python ${REPRO_PATH}/scripts/juffer_ex.py ${REPRO_PATH}/runs/sphere_convergence/config/sphere${SIZE}_r4.yml
 cd ..
 rm -rf $SIZE

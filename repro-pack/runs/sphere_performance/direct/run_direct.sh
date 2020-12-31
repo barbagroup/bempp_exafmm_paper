@@ -15,6 +15,6 @@ REFINE=${REFINE_ARR[${SLURM_ARRAY_TASK_ID}]}
 
 mkdir -p $REFINE
 cd $REFINE
-/usr/bin/time -v python ${REPRO_PATH}/scripts/direct_sphere.py ${REPRO_PATH}/runs/sphere_performance/config/sphere_refine${REFINE}.yml
+/usr/bin/time -v python ${REPRO_PATH}/scripts/direct.py ${REPRO_PATH}/runs/sphere_performance/config/sphere_refine${REFINE}.yml
 cd ..
 rm -rf $REFINE
