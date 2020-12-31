@@ -1,5 +1,7 @@
-Add introduction here.
-
+The solvent plays a key role in biomolecular structure and function, and it needs to be carefully modeled for accurate simulations. 
+One popular approach is the so-called implicit-solvent model, where the solvent degrees of freedom are averaged out in a continuum description.
+Starting from electrostatic theory, this leads to a PDE model based on the Poisson-Boltzmann equation, which is widely used to compute mean-field electrostatic potentials and solvation free energies.
+PB solvers have been numerically implemented using finite difference \cite{delphi, apbs}, finite element \cite{apbs}, boundary element \cite{afmpb, tabi, pygbe}, and (semi) analytical \cite{thg} methods, scaling up to problems as large as virus capsids, on HPC infrastructure \cite{lu}.
 
 The vision behind this paper is to build up an electrostatic simulation platform based on the Python/Jupyter ecosystem. This allows a high-degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation processes.
 
@@ -17,8 +19,3 @@ A high-level productive approach does not fully come without costs. A dedicated 
 
 
 
-The motivation of our test case is modeling molecular solvation using an implicit-solvent model, where the solvent degrees of freedom are averaged out in a continuum description.
-Using electrostatic theory, we can describe it with a PDE-based model, where the Poisson-Boltzmann equation governs in the solvent, and the Poisson equation in the solute molecule.
-Poisson-Boltzmann solvers are widely used in the biophysics and biochemistry communities to compute mean-field electrostatic potentials and solvation free energies, and they have been implemented using finite difference \cite{delphi, apbs}, finite element \cite{apbs}, boundary element \cite{afmpb, tabi, pygbe}, and (semi) analytical \cite{thg} models. 
-In particular, using a boundary element method has proven to be very effective to tackle large-scale problems, such as virus capsids, on HPC infrastructure \cite{lu}.
-In our case, however, our main focus is to keep an efficient, yet simple, code, that can be accessed from a Jupyter notebook.
