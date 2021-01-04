@@ -114,11 +114,11 @@ The convergence results show that the condition number grows as the problem size
     \begin{tabular}{c|cccc|cccc}
                                                                  & \multicolumn{4}{c|}{direct}                                                                                                                                                                       & \multicolumn{4}{c}{Juffer}                                                                                                                                                                        \\ \hline
     \begin{tabular}[c]{@{}c@{}}number of\\ elements\end{tabular} & \begin{tabular}[c]{@{}c@{}}total\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES\\ time (s)\end{tabular} & \# iterations & \begin{tabular}[c]{@{}c@{}}total\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES\\ time (s)\end{tabular} & \# iterations \\ \hline
-    8192                                                         & 15.7                                                     & 7.1                                                         & 8.6                                                      & 20            & 22.4                                                     & 10.7                                                        & 11.7                                                     & 10            \\
-    32768                                                        & 37.4                                                     & 13.4                                                        & 24.0                                                     & 24            & 50.7                                                     & 23.5                                                        & 27.2                                                     & 10            \\
-    131072                                                       & 145.9                                                    & 33.9                                                        & 112.0                                                    & 34            & 162.7                                                    & 70.9                                                        & 91.8                                                     & 10            \\
-    524288                                                       & 668.8                                                    & 124.0                                                       & 544.8                                                    & 51            & 590.9                                                    & 277.8                                                       & 313.1                                                    & 10            \\
-    2097152                                                      & 3190.0                                                   & 488.3                                                       & 2701.7                                                   & 70            & 2360.8                                                   & 1230.3                                                      & 1130.5                                                   & 10           
+    8192                                                         & 14.0                                                     & 5.4                                                         & 8.6                                                      & 20            & 15.2                                                     & 9.4                                                         & 5.8                                                      & 4            \\
+    32768                                                        & 35.1                                                     & 11.7                                                        & 23.4                                                     & 24            & 36.8                                                     & 22.5                                                        & 14.3                                                     & 4            \\
+    131072                                                       & 144.2                                                    & 32.8                                                        & 111.4                                                    & 34            & 116.9                                                    & 68.6                                                        & 48.3                                                     & 4            \\
+    524288                                                       & 675.8                                                    & 121.6                                                       & 554.2                                                    & 51            & 437.9                                                    & 276.0                                                       & 161.9                                                    & 4            \\
+    2097152                                                      & 3159.8                                                   & 483.3                                                       & 2676.5                                                   & 70            & 1809.8                                                   & 1237.0                                                      & 572.8                                                    & 4           
     \end{tabular}
     \caption{Assembly and solution times of calculating the solvation energy of a spherical molecule with 100 random charges inside.
     Assembly time include time spent on preparing preconditioners.}
@@ -127,7 +127,7 @@ The convergence results show that the condition number grows as the problem size
 
 In our implementation, each iteration in direct formulation requires $8$ \fmm evaluations, whereas each iteration in Juffer's formulation requires 19, making it more than twice as expensive.
 That explains why the direct formulation leads to a shorter solution time (\gmres time), despite a slower convergence, in the two smaller cases.
-For larger problem sizes, a faster convergence in Juffer's formulation offsets the larger cost per iteration.
+For larger problem sizes, faster convergence in Juffer's formulation offsets the larger cost per iteration.
 
 Juffer's formulation always takes more time in matrix assembly.
 With $2,097,152$ panels, it is $2.5$x slower than using direct formulation.
@@ -180,9 +180,9 @@ As problem size increases, \fmm evaluations dominate solution time.
     \label{fig:sphere_gmres}
 \end{figure}
 
-Finally, we measured the amount of memory taken by the simulations, using the Linux command \texttt{/usr/bin/time -v}.
+We also measured the amount of memory taken by the simulations, using the Linux command \texttt{/usr/bin/time -v}.
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
-The largest case, with more than $2$ million panels, requires $45$GB for direct formulation and $65$GB for Juffer's formulation.
+The largest case, with more than $2$ million elements, requires $36$GB for direct formulation and $46$GB for Juffer's formulation.
 
 \begin{figure}[htbp]
     \centering
@@ -193,28 +193,44 @@ The largest case, with more than $2$ million panels, requires $45$GB for direct 
 
 \subsection{Free energy of Zika virus}
 
-Finally, we present a more challenging problem that studies the free energy of the Zika virus (PDB code 6CO8).
-We acquired the molecular structure from ?, parameterized it with \texttt{pdb2pqr} and generated mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
-The prepared structure contains about 1.6 million atoms (charges) and our mesh has around 10 million boundary elements, which corresponds to an element density of ?.
+Finally, we present a more challenging problem that studies the free energy of the Zika virus (PDB code 6CO8), whose structure is shown in Figure \ref{fig:6CO8_assembly}.
+We acquired the molecular structure from Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
+The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{6CO8_assembly.png} 
+    \caption{Structure of Zika virus (PDB code 6CO8) in assembly view. Each color indicates a polymer chain.}
+    \label{fig:6CO8_assembly}
+\end{figure}
+
 \begin{table*}[]
     \centering
-    \begin{tabular}{c|c|ccclc}
+    \begin{tabular}{c|c|ccccc}
                  & \begin{tabular}[c]{@{}c@{}}$\Delta G_{\mathrm{solv}}$\\ (kcal/mol)\end{tabular} & \begin{tabular}[c]{@{}c@{}}total \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}l@{}}memory\\ (GB)\end{tabular} & \# iterations \\ \hline
-    Bempp direct & -116587.5                                                   & 10864.9                                                   & 1505.5                                                       & 9359.4                                                    & 111.8                                                 & 105           \\
-    Bempp Juffer & -116190.9                                                   & 16691.6                                                   & 7180.6                                                       & 9511.0                                                    & 172.8                                                 & 37            \\
-    \pygbe        & -117261.1                                                   & -                                                         & -                                                            & -                                                         & \multicolumn{1}{c}{-}                                 & -            
+    Bempp direct & -116587.5                                                   & 11005.4                                                   & 1534.5                                                       & 9470.9                                                    & 111.8                                                 & 105           \\
+    Bempp Juffer & -116255.4                                                   & 12776.2                                                   & 7766.8                                                       & 5009.4                                                    & 172.8                                                 & 17            \\
+    \pygbe       & -117261.1                                                   & -                                                         & -                                                            & -                                                         & -                                                     & -            
     \end{tabular}
-    \caption{Bempp and \pygbe results for the solvation energy of Zika virus.}
+    \caption{Bempp and \pygbe results of computing the solvation energy of Zika virus.}
+    \label{tab:6CO8_result}
 \end{table*}
 
 \begin{figure*}[htbp]
     \centering
-    \includegraphics[width=\linewidth]{6CO8_potential.pdf} 
-    \caption{Surface electrostatic potential of Zika virus.}
+    \includegraphics[width=\linewidth]{6CO8_potential.png} 
+    \caption{Surface electrostatic potential of Zika virus. Visualization generated using ParaView.}
     \label{fig:6CO8_potential}
 \end{figure*}
 
-Table ? shows the result and performance using both formulations.
+Table \ref{tab:6CO8_result} summarizes the results and performance.
+Again, we confirmed that Juffer's formulation yields a well-conditioned system, which converged in 17 iterations and took less than 1.5 hours to solve.
+By constrast, direct formulation took almost twice as long to converge.
+As for assembly time, the gap between the two formulations becomes much bigger than all the previous cases.
+As we explained before, it is because the sparse LU-decomposition in Juffer's formulation does not scale linearly with $N$, thus dominated the assembly time.
+
+In this case, we also verified against \pygbe, a Python \bem library for biomolecular electrostatics.
+Based on the solvation energy computed from \pygbe: $-117261.1$ [kcal/mol], the relative difference of our result is 0.6\% for direct formulation and 0.9\% for Juffer's formulation.
+Figure \ref{fig:6CO8_potential} shows the calculated electrostatic potential.
