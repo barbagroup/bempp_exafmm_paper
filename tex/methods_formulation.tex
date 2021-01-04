@@ -1,10 +1,9 @@
 \subsection{A boundary integral formulation of electrostatics in molecular solvation}
 
-Figure XX sketches the continuum representation from the implicit-solvent model. 
-This represents a dissolved molecule as a solute-shaped cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), where we apply continuum electrostatic theory.
-Then, we can compute the change in electrostatic potential as we charge up the cavity with the solute's partial charges, represented as a collection of Direc-delta functions.
-The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx$80) with salt, which is free to move around, forced by the electric field. 
-At equilibrium, the salt ions arrange according to a Boltzmann distribution, and if we consider them as point charges, this is well modeled by the linearized Poisson-Boltzmann equation. 
+Figure \ref{fig:implicit_solvent} sketches the continuum representation of a dissolved molecule from the implicit-solvent model. 
+In it, the solute is considered as a cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), and we can compute the change in electrostatic potential as the interior region is charged up with the solute's partial charges, represented as a collection of Direc-delta functions.
+The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx$80) with salt ions, which are free to move around, forced by the electric field. 
+At equilibrium, the salt ions arrange according to a Boltzmann distribution, and if we consider them as point charges, this is well modeled by the linearized Poisson-Boltzmann equation, which considers a screening factor known as the Debye length ($\kappa$.) 
 On the other hand, the electrostatics in the solute cavity behaves in agreement with the Poisson equation in a low dielectric medium ($\epsilon_1\approx$2---4), with the solute's point charges as sources.
 These two equations are interfaced on the molecular surface ($\Gamma$), where the potential and electric displacement must be continuous.
 The resulting system of partial differential equations is
@@ -17,6 +16,14 @@ The resulting system of partial differential equations is
 %
 where $\Omega_1$ and $\Omega_2$ are the solute and solvent regions, respectively, interfaced by the molecular surface $\Gamma$.
 There are several available definitions for $\Gamma$, such as van der Waals, solvent accessible (SAS), solvent excluded (SES), and Gaussian surfaces \cite{HarrisFenley2013}, however, in this work we use the SES.
+The SES is built by tracking the contact points of a spherical probe of the size of a water molecule ($\sim$ 1.4\AA) as it rolls around the solute atoms (with their corresponding van der Waals radii). 
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.25\textwidth]{implicit_solvent.pdf}
+\caption{Representation of a dissolved molecule with the implicit-solvent model. The solute ($\Omega_1$) and solvent ($\Omega_2$) regions are interfaced by the solvent-excluded surface ($\Gamma$), and $q_k$ and $r_{vdW}$ are the atomic charge and radii, repectively.}
+\label{fig:implicit_solvent}
+\end{figure}
 
 Equation \eqref{eq:pde} can be represented as an integral equation running over $\Gamma$ by using Green's second identity, yielding
 %
@@ -42,7 +49,7 @@ The simpler direct formulation is a result of evaluating $\phi_1$ and $\phi_2$ i
 \frac{\phi_{1,\Gamma}}{2} - K_{Y}^{\Gamma}(\phi_{1,\Gamma}) + \frac{\epsilon_1}{\epsilon_2}V_{Y}^{\Gamma} \left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right) & = 0
 \end{align}
 %
-Unfortunately, this formulation is ill-conditioned, as the condition number of the resulting matrix grows with the number of discretization elements. 
+Unfortunately, this formulation is ill-conditioned, as the condition number of the resulting matrix grows unbounded with the number of discretization elements. 
 A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1992}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
 %
 \begin{align}\label{eq:juffer}
