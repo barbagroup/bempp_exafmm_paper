@@ -1,15 +1,15 @@
 The solvent plays a key role in biomolecular structure and function, and it needs to be carefully modeled for accurate simulations. 
-One popular approach is the so-called implicit-solvent model, where the solvent degrees of freedom are averaged out in a continuum description.
+One popular approach is the so-called implicit-solvent model~\cite{RouxSimonson1999,DescherchiETal2015}, where the solvent degrees of freedom are averaged out in a continuum description.
 Starting from electrostatic theory, this leads to a PDE model based on the Poisson-Boltzmann equation, which is widely used to compute mean-field electrostatic potentials and solvation free energies.
-PB solvers have been numerically implemented using finite difference \cite{delphi, apbs}, finite element \cite{apbs}, boundary element \cite{afmpb, tabi, pygbe}, and (semi) analytical \cite{thg} methods, scaling up to problems as large as virus capsids, on HPC infrastructure \cite{lu}.
+PB solvers have been numerically implemented using finite difference \cite{delphi, apbs}, finite element \cite{apbs}, boundary element \cite{afmpb, tabi, pygbe}, and (semi) analytical \cite{thg} methods, scaling up to problems as large as virus capsids \cite{lu,MartinezETal2019}, on HPC infrastructure.
 
-The vision behind this paper is to build up an electrostatic simulation platform based on the Python/Jupyter ecosystem. This allows a high-degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation processes.
+The vision behind this paper is to build up an electrostatic simulation platform based on the Python/Jupyter ecosystem for biomolecular applications. This allows a high-degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation processes.
 
 To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance Fast Multipole (FMM) library Exafmm. 
 
 Boundary integral problems are described in Bempp using a high-level approach that allows to build up even complex block-operator systems in just a few lines of code. Bempp then executes the discretisation, depending on the chosen parameters and machine environment. In the case of FMM acceleration, Exafmm is called essentially as a matrix-vector black-box below the user level, hiding any technicalities associated with the discretisation.
 
-This approach has the following advantages as compared to an integrated C++ code that performs the compplete solvation energy computation.
+This approach has the following advantages as compared to an integrated PB solver in, for example, C++:
 \begin{itemize}
 	\item \textbf{Strict Separation of Concerns}. The user-level description of the electrostatic problem is completely separated from the underlying discretisation routines and the FMM coupling. One can easily move between different types of implementations (e.g. dense discretisation, FMM) with a single parameter change, change input file handling or postprocessing.
 	\item \textbf{Fast Prototyping of different formulations}. We present in this paper results produced with a direct formulation and a derivative Juffer type formulations. To implement these different formulations is just a small changes in a few lines of high-level code. The user can easily experiment with other models, such as piecewise solvation models with different solvation parameters in each layer.
