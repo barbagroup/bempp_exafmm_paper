@@ -234,3 +234,10 @@ As we explained before, it is because the sparse LU-decomposition in Juffer's fo
 In this case, we also verified against \pygbe, a Python \bem library for biomolecular electrostatics.
 Based on the solvation energy computed from \pygbe: $-117261.1$ [kcal/mol], the relative difference of our result is 0.6\% for direct formulation and 0.9\% for Juffer's formulation.
 Figure \ref{fig:6CO8_potential} shows the calculated electrostatic potential.
+
+\subsection{Reproducibility package}
+
+Besides releasing our code with an open-source license, we spared no effort to maximize the reproducibility of this work via a ``repro-pack" in a version-control repository.
+It contains all raw data from the experiments and post-processing scripts, which are sufficient to produce every result presented in this section.
+The ``repro-pack" also provides driver and utility scripts should readers be interested in running these cases on their own hardware.
+The meshes and pqr files are available on Zenodo...
