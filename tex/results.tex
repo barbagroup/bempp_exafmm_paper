@@ -3,6 +3,22 @@ We ran all experiments on a single CPU node of Pegasus, equipped with two 20-cor
 All runs are based on Bempp-cl version 0.2.2.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 
+\subsection{Matrix conditioning of two derivative formulations}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{juffer_interior_eig.pdf}
+    \caption{Eigenvalues of the system matrix of the derivative formulation for interior field.}
+    \label{fig:juffer_interior_eig}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{juffer_exterior_eig.pdf}
+    \caption{Eigenvalues of the system matrix of the derivative formulation for exterior field.}
+    \label{fig:juffer_exterior_eig}
+\end{figure}
+
 \subsection{Mesh refinement study using a spherical molecule}
 
 To verify our \bem-\fmm integration, we first performed a mesh refinement study for a spherical molecule with an off-center charge.
