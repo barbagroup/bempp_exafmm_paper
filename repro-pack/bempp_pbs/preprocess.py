@@ -1,9 +1,16 @@
+"""
+Utilities for pre-processing.
+"""
+
 import numpy as np
 import os
 import bempp.api
 import yaml
 
 class DefaultParameters():
+    """
+    Class for setting default values to PARAMS.
+    """
     def __init__(self):
         self.ep_in = 4.
         self.ep_ex = 80.

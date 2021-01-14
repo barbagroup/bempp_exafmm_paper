@@ -1,3 +1,8 @@
+"""
+Utilities for post-processing including parsing results and plotting.
+"""
+
+# preferred plot style for publication
 PLOT_PARAMS = {'font.family': 'serif',
 			   'legend.fontsize': 6,
 			   'legend.handlelength': 2,
@@ -19,6 +24,9 @@ PLOT_PARAMS = {'font.family': 'serif',
 
 
 def _bempp_parser(res_file, formulation='direct', skip4=False, debug=False):
+    """
+    A helper to that parse the log from Bempp-cl.
+    """
     import numpy as np
     result = dict()
     t_fmm_eval = list()
@@ -120,6 +128,9 @@ def _bempp_parser(res_file, formulation='direct', skip4=False, debug=False):
     return result
 
 def get_df(directory, formulation='direct', skip4=False):
+    """
+    Gather raw result files from a directory to produce a pandas DataFrame.
+    """
     from os.path import join, isfile
     import os
     import glob

@@ -1,19 +1,25 @@
-# Usage: python juffer_ex.py [config.yml]
+"""
+Driver code to compute solvation energy of a structure using derivative formulation
+with exterior values with piecewise linear element and mass-matrix preconditioner.
+
+# Usage: python derivative_ex.py [config.yml]
+"""
+
 import bempp.api
 import numpy as np
 import sys
 import time
-import helpers
-import formulations
+from bempp_pbs.preprocess import PARAMS, parse_config
+from bempp_pbs import formulations
 
 bempp.api.enable_console_logging('debug')
 assembler = "fmm"
 
 # parse configurations and generate grid
-grid, q, x_q = helpers.parse_config(sys.argv[1])
-bempp.api.GLOBAL_PARAMETERS.quadrature.regular = helpers.PARAMS.regular
-bempp.api.GLOBAL_PARAMETERS.fmm.expansion_order = helpers.PARAMS.expansion_order
-bempp.api.GLOBAL_PARAMETERS.fmm.ncrit = helpers.PARAMS.ncrit
+grid, q, x_q = parse_config(sys.argv[1])
+bempp.api.GLOBAL_PARAMETERS.quadrature.regular = PARAMS.regular
+bempp.api.GLOBAL_PARAMETERS.fmm.expansion_order = PARAMS.expansion_order
+bempp.api.GLOBAL_PARAMETERS.fmm.ncrit = PARAMS.ncrit
 print(f"number of elements: {grid.number_of_elements}")
 
 # define function space
@@ -21,7 +27,7 @@ dirichl_space = bempp.api.function_space(grid, "P", 1)
 neumann_space = dirichl_space
 
 # define system matrix and RHS
-A, rhs1, rhs2 = formulations.juffer_ex(dirichl_space, neumann_space, assembler, q, x_q)
+A, rhs1, rhs2 = formulations.derivative_ex(dirichl_space, neumann_space, assembler, q, x_q)
 
 # assembly system matrix (including preparing preconditioner)
 start = time.time()
@@ -39,16 +45,16 @@ from bempp.api.linalg.iterative_solvers import IterationCounter
 callback = IterationCounter(True)
 
 start = time.time()
-sol_vec, info = gmres(A_op, rhs_vec, callback=callback, tol=helpers.PARAMS.tol, restart=helpers.PARAMS.restart)
+sol_vec, info = gmres(A_op, rhs_vec, callback=callback, tol=PARAMS.tol, restart=PARAMS.restart)
 stop = time.time()
 
-if helpers.PARAMS.save_solution:
+if PARAMS.save_solution:
     np.save('solution', sol_vec)
 print(f"gmres wall time: {stop-start}")
 print(f"The linear system was solved in {callback.count} iterations")
 
 # compute solvation energy
-ep = helpers.PARAMS.ep_ex / helpers.PARAMS.ep_in
+ep = PARAMS.ep_ex / PARAMS.ep_in
 from bempp.api.assembly.blocked_operator import grid_function_list_from_coefficients
 sol = grid_function_list_from_coefficients(sol_vec.ravel(), A.domain_spaces)
 solution_dirichl, solution_neumann = sol

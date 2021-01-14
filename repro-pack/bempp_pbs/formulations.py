@@ -1,10 +1,17 @@
+"""
+Implementation of different boundary integral formulations for solving Poisson-Boltzmann problems.
+"""
+
+from .preprocess import PARAMS
 import bempp.api
 import numpy as np
 from bempp.api.operators.boundary import sparse, laplace, modified_helmholtz
 import os
 
 def direct(dirichl_space, neumann_space, assembler, q, x_q):
-    from .helpers import PARAMS
+    """
+    Construct the system matrix and RHS grid functions using direct formulation.
+    """
     ep_in = PARAMS.ep_in
     ep_ex = PARAMS.ep_ex
     kappa = PARAMS.kappa
@@ -41,8 +48,10 @@ def direct(dirichl_space, neumann_space, assembler, q, x_q):
 
     return A_sys, rhs1, rhs2
 
-def juffer_in(dirichl_space, neumann_space, assembler, q, x_q):
-    from .helpers import PARAMS
+def derivative_in(dirichl_space, neumann_space, assembler, q, x_q):
+    """
+    Construct the system matrix and RHS grid functions using derivative formulation with interior values.
+    """
     ep_in = PARAMS.ep_in
     ep_ex = PARAMS.ep_ex
     kappa = PARAMS.kappa
@@ -100,8 +109,10 @@ def juffer_in(dirichl_space, neumann_space, assembler, q, x_q):
 
     return A_sys, rhs1, rhs2
 
-def juffer_ex(dirichl_space, neumann_space, assembler, q, x_q):
-    from .helpers import PARAMS
+def derivative_ex(dirichl_space, neumann_space, assembler, q, x_q):
+    """
+    Construct the system matrix and RHS grid functions using derivative formulation with interior values.
+    """
     ep_in = PARAMS.ep_in
     ep_ex = PARAMS.ep_ex
     kappa = PARAMS.kappa
