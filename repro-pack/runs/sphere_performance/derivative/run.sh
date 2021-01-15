@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=sphere_performance_juffer
+#SBATCH --job-name=sphere_performance_derivative
 #SBATCH --output=sphere_%A_%a.out
 #SBATCH --error=sphere_%A_%a.err
 #SBATCH --nodes=1
@@ -15,6 +15,6 @@ REFINE=${REFINE_ARR[${SLURM_ARRAY_TASK_ID}]}
 
 mkdir -p $REFINE
 cd $REFINE
-/usr/bin/time -v python ${REPRO_PATH}/scripts/juffer_ex.py ${REPRO_PATH}/runs/sphere_performance/config/sphere_refine${REFINE}.yml
+/usr/bin/time -v python ${REPRO_PATH}/bempp_pbs/scripts/derivative_ex.py ${REPRO_PATH}/runs/sphere_performance/config/sphere_refine${REFINE}.yml
 cd ..
 rm -rf $REFINE

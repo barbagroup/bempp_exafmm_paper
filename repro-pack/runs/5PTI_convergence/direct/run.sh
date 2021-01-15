@@ -15,6 +15,6 @@ DENSITY=${DENSITY_ARR[${SLURM_ARRAY_TASK_ID}]}
 
 mkdir -p $DENSITY
 cd $DENSITY
-/usr/bin/time -v python ${REPRO_PATH}/scripts/direct.py ${REPRO_PATH}/runs/5PTI_convergence/config/5PTI_ed${DENSITY}.yml
+/usr/bin/time -v python ${REPRO_PATH}/bempp_pbs/scripts/direct.py ${REPRO_PATH}/runs/5PTI_convergence/config/5PTI_ed${DENSITY}.yml
 cd ..
 rm -rf $DENSITY
