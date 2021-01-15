@@ -36,7 +36,7 @@ def _bempp_parser(res_file, formulation='direct', skip4=False, debug=False):
     t_singular_correction = list()
     t_solver_init = list()
     t_solver_solve = list()
-    if formulation == 'juffer':
+    if formulation == 'derivative':
         num_laplace_fmm = 8
         num_helmholtz_fmm = 11
     elif formulation == 'direct':   
