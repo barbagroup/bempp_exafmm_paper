@@ -1,6 +1,6 @@
 """
 Driver code to compute solvation energy of a structure using derivative formulation
-with exterior values with piecewise linear element and mass-matrix preconditioner.
+with exterior values with piecewise linear element and mass-lumping preconditioner.
 
 # Usage: python derivative_ex.py [config.yml]
 """
@@ -10,7 +10,7 @@ import numpy as np
 import sys
 import time
 from bempp_pbs.preprocess import PARAMS, parse_config
-from bempp_pbs import formulations
+from bempp_pbs import formulations, preconditioners
 
 bempp.api.enable_console_logging('debug')
 assembler = "fmm"
@@ -31,13 +31,14 @@ A, rhs1, rhs2 = formulations.derivative_ex(dirichl_space, neumann_space, assembl
 
 # assembly system matrix (including preparing preconditioner)
 start = time.time()
-A_op = A.strong_form()
+A_weak_form = A.weak_form()
+precond = preconditioners.mass_lumping(dirichl_space)
 stop = time.time()
 print(f"assembly system matrix wall time: {stop-start}")
 
 # generate RHS vector as numpy array
-from bempp.api.assembly.blocked_operator import coefficients_from_grid_functions_list
-rhs_vec = coefficients_from_grid_functions_list([rhs1, rhs2])
+from bempp.api.assembly.blocked_operator import projections_from_grid_functions_list
+rhs_vec = projections_from_grid_functions_list([rhs1, rhs2], A.dual_to_range_spaces)
 
 # solve the linear system
 from scipy.sparse.linalg import gmres
@@ -45,7 +46,7 @@ from bempp.api.linalg.iterative_solvers import IterationCounter
 callback = IterationCounter(True)
 
 start = time.time()
-sol_vec, info = gmres(A_op, rhs_vec, callback=callback, tol=PARAMS.tol, restart=PARAMS.restart)
+sol_vec, info = gmres(A_weak_form, rhs_vec, M=precond, callback=callback, tol=PARAMS.tol, restart=PARAMS.restart)
 stop = time.time()
 
 if PARAMS.save_solution:

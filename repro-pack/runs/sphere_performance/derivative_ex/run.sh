@@ -4,7 +4,7 @@
 #SBATCH --error=sphere_%A_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --partition defq
+#SBATCH --partition debug-cpu
 #SBATCH --array=0,1,2,3,4
 
 module load openblas

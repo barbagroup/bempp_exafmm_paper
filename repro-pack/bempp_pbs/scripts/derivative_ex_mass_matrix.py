@@ -1,8 +1,8 @@
 """
 Driver code to compute solvation energy of a structure using derivative formulation
-with interior values with piecewise linear element and mass-matrix preconditioner.
+with exterior values with piecewise linear element and mass-matrix preconditioner.
 
-# Usage: python derivative_in.py [config.yml]
+# Usage: python derivative_ex_mass_matrix.py [config.yml]
 """
 
 import bempp.api
@@ -27,7 +27,7 @@ dirichl_space = bempp.api.function_space(grid, "P", 1)
 neumann_space = dirichl_space
 
 # define system matrix and RHS
-A, rhs1, rhs2 = formulations.derivative_in(dirichl_space, neumann_space, assembler, q, x_q)
+A, rhs1, rhs2 = formulations.derivative_ex(dirichl_space, neumann_space, assembler, q, x_q)
 
 # assembly system matrix (including preparing preconditioner)
 start = time.time()
@@ -54,12 +54,13 @@ print(f"gmres wall time: {stop-start}")
 print(f"The linear system was solved in {callback.count} iterations")
 
 # compute solvation energy
+ep = PARAMS.ep_ex / PARAMS.ep_in
 from bempp.api.assembly.blocked_operator import grid_function_list_from_coefficients
 sol = grid_function_list_from_coefficients(sol_vec.ravel(), A.domain_spaces)
 solution_dirichl, solution_neumann = sol
 slp_q = bempp.api.operators.potential.laplace.single_layer(neumann_space, x_q.transpose(), assembler=assembler)
 dlp_q = bempp.api.operators.potential.laplace.double_layer(dirichl_space, x_q.transpose(), assembler=assembler)
-phi_q = slp_q * solution_neumann - dlp_q * solution_dirichl
+phi_q = slp_q * solution_neumann * ep - dlp_q * solution_dirichl
 
 # total dissolution energy applying constant to get units [kcal/mol]
 total_energy = 2 * np.pi * 332.064 * np.sum(q * phi_q).real
