@@ -4,7 +4,7 @@ The fast multipole method (\fmm) is an algorithm that can reduce the quadratic t
 In the context of \fmm, $\{\mathbf{x}_i\}$ and $\{\mathbf{y}_j\}$ in equation ? are often referred to as the set of targets and sources respectively, with $\{q_j\}$ representing the source densities (charges).
 The goal of \fmm is to efficiently compute the potential at $N$ targets $\{s_i\}$ induced by all $N$ sources and the kernel function $g$.
 
-\fmm relies on two fundamental ideas: (1) approximating the far-range interactions between distant clusters of sources and targets using low-rank methods, while computing the near-range interactions exactly, and (2) partitioning the domain using a tree structure to maximize the far-range portion in the computation.
+\fmm builds upon two fundamental ideas: (1) approximating the far-range interactions between distant clusters of sources and targets using low-rank methods, while computing the near-range interactions exactly, and (2) partitioning the domain using a tree structure to maximize the far-range portion in the computation.
 
 \begin{figure}
     \centering
@@ -21,15 +21,15 @@ The remaining domain is in $\mathcal{F}(B)$, $B$'s far-field.
 In $\mathcal{F}(B)$, the nodes that are the children of $B$'s parent's neighbors but are not adjacent to $B$ compose $\mathcal{I}(B)$, the interaction list of $B$, whose contributions to $B$ are approximated by low-rank methods.
 The contributions from the rest of the far-field are approximated at coarser levels via $B$'s ancesters.
 
-The classic \fmm uses a truncated analytical expansion to approximate far-field interactions, whereas its kernel-independent variant KIFMM uses equivalent charges.
-In KIFMM, each node is associated with upward and downward equivalent densities, as shown in Figure \ref{fig:multipole_local}, the analog of multipole and local expansion in analytical \fmm.
+The classic \fmm \cite{greengard1987fast, cheng1999fast} relies on truncated analytical expansions to approximate far-field interactions, whereas its kernel-independent variant \cite{ying2004kernel} uses equivalent densities (charges) instead.
+In KIFMM, each node is associated with upward and downward equivalent densities (see Figure \ref{fig:multipole_local}), the analog of multipole and local expansion in analytical \fmm.
 The upward equivalent densities $q^{B,u}$ are used to approximate the influence of sources in $B$ on targets in $\mathcal{F}(B)$;
 the downward equivalent densities $q^{B,d}$ are used to approximate the influence of sources in $\mathcal{F}(B)$ on sources in $B$.
 To find these densities, we match the potential of equivalent densities to the potential of actual sources at the check surfaces:
 %
 \begin{align}
-    \sum_{\mathbf{y}_{j} \in B} G\left(\mathbf{x}_{i}^{B,u}, \mathbf{y}_{j}\right) q_{j} &= \sum_{j} G\left(\mathbf{x}_{i}^{B,u}, \mathbf{y}^{B,u}_{j}\right) q^{B,u}_{j}, \quad \forall i  \\
-    \sum_{\mathbf{y}_{j} \in \mathcal{F}(B)} G\left(\mathbf{x}_{i}^{B,d}, \mathbf{y}_{j}\right) q_{j} &= \sum_{j} G\left(\mathbf{x}_{i}^{B,d}, \mathbf{y}^{B,d}_{j}\right) q^{B,d}_{j}, \quad \forall i
+    \sum_{\mathbf{y}_{j} \in B} g\left(\mathbf{x}_{i}^{B,u}, \mathbf{y}_{j}\right) q_{j} &= \sum_{j} g\left(\mathbf{x}_{i}^{B,u}, \mathbf{y}^{B,u}_{j}\right) q^{B,u}_{j}, \quad \forall i  \\
+    \sum_{\mathbf{y}_{j} \in \mathcal{F}(B)} g\left(\mathbf{x}_{i}^{B,d}, \mathbf{y}_{j}\right) q_{j} &= \sum_{j} g\left(\mathbf{x}_{i}^{B,d}, \mathbf{y}^{B,d}_{j}\right) q^{B,d}_{j}, \quad \forall i
     \label{eq:multipole_local}
 \end{align}
 %
