@@ -50,7 +50,7 @@ We compute the solvation energy of this molecule using $5$ meshes with a constan
     \label{tab:sim_params_convergence}
 \end{table}
 
-Kirkwood's derivation allows us to compute the analytical solution of the solvation energy for this spherical molecule: $-12.258363$ [kcal/mol],
+Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution of the solvation energy for this spherical molecule: $-12.258363$ [kcal/mol],
 with which we can compare our results. Figure \ref{fig:sphere_convergence} shows the error of the solvation energy converges at the expected rate of $1/N$ for both formulations.
 
 \begin{figure}[htbp]
@@ -239,7 +239,7 @@ The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
 
 Table \ref{tab:6CO8_result} summarizes the results and performance.
 Again, we confirmed that the derivative formulation yields a well-conditioned system, which converged in 18 iterations and took less than 1.5 hours to solve.
-By constrast, direct formulation took almost twice as long to converge.
+By contrast, direct formulation took almost twice as long to converge.
 
 In this case, we also verified against \pygbe \cite{cooper2016pygbe}, a Python \bem library for biomolecular electrostatics.
 Based on the solvation energy computed from \pygbe: $-117261.1$ [kcal/mol], the relative difference of our result is 0.6\% for direct formulation and 0.9\% for derivative formulation.
@@ -250,4 +250,4 @@ Figure \ref{fig:6CO8_potential} shows the computed electrostatic potential on th
 Besides releasing our code with an open-source license, we spared no effort to maximize the reproducibility of this work via a ``repro-pack" in a version-control repository.
 It contains all raw data from the experiments and post-processing scripts, which are sufficient to produce every result presented in this section.
 The ``repro-pack" also provides driver and utility scripts should readers be interested in running these cases on their own hardware.
-The meshes and pqr files are available on Zenodo...
+The meshes and pqr files are available on Zenodo.

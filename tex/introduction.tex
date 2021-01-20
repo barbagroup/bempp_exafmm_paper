@@ -5,7 +5,7 @@ PB solvers have been numerically implemented using finite difference \cite{delph
 
 The vision behind this paper is to build up an electrostatic simulation platform based on the Python/Jupyter ecosystem for biomolecular applications. This allows a high-degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation processes.
 
-To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance Fast Multipole (FMM) library Exafmm. 
+To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance fast multipole method (FMM) library Exafmm. 
 
 Boundary integral problems are described in Bempp using a high-level approach that allows to build up even complex block-operator systems in just a few lines of code. Bempp then executes the discretisation, depending on the chosen parameters and machine environment. In the case of FMM acceleration, Exafmm is called essentially as a matrix-vector black-box below the user level, hiding any technicalities associated with the discretisation.
 
@@ -15,7 +15,7 @@ This approach has the following advantages as compared to an integrated PB solve
 	\item \textbf{Fast Prototyping of different formulations}. We present in this paper results produced with a direct formulation and a derivative Juffer type formulations. To implement these different formulations is just a small changes in a few lines of high-level code. The user can easily experiment with other models, such as piecewise solvation models with different solvation parameters in each layer.
 	\item \textbf{Portability}. Bempp and Exafmm can easily be installed as a joint Docker image that is automatically tracking the current development of these libraries. The whole solver code can be implemented in a small Jupyter notebook.
 \end{itemize}
-A high-level productive approach does not fully come without costs. A dedicated highly specialised C++ code that integrates all steps tends to be faster than our solution. Nevertheless, in this paper we demonstrate that our code is highly competitive for real-word solvation energy computations (and many other electrostatic computations), while preserving full flexiblity through the use of a very high-level Python environment.
+A high-level productive approach does not fully come without costs. A dedicated highly specialised C++ code that integrates all steps tends to be faster than our solution. Nevertheless, in this paper we demonstrate that our code is highly competitive for real-world solvation energy computations (and many other electrostatic computations), while preserving full flexibility through the use of a very high-level Python environment.
 
 
 
