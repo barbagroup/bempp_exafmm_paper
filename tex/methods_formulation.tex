@@ -15,8 +15,8 @@ The resulting system of partial differential equations is
 \end{align}
 %
 where $\Omega_1$ and $\Omega_2$ are the solute and solvent regions, respectively, interfaced by the molecular surface $\Gamma$.
-There are several available definitions for $\Gamma$, such as van der Waals, solvent accessible (SAS), solvent excluded (SES), and Gaussian surfaces \cite{HarrisFenley2013}, however, in this work we use the SES.
-The SES is built by tracking the contact points of a spherical probe of the size of a water molecule ($\sim$ 1.4\AA) as it rolls around the solute atoms (with their corresponding van der Waals radii). 
+There are several available definitions for $\Gamma$, such as van der Waals, solvent accessible (SAS), solvent excluded (SES), and Gaussian surfaces \cite{HarrisBoschitcshFenley2013}, however, in this work we use the SES.
+The SES is built by tracking the contact points of a spherical probe of the size of a water molecule ($\sim$ 1.4 \AA) as it rolls around the solute atoms (with their corresponding van der Waals radii). 
 %
 \begin{figure}
 \centering
@@ -50,7 +50,7 @@ The simpler direct formulation is a result of evaluating $\phi_1$ and $\phi_2$ i
 \end{align}
 %
 Unfortunately, this formulation is ill-conditioned, as the condition number of the resulting matrix grows unbounded with the number of discretization elements. 
-A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1992}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
+A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1991}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
 %
 \begin{align}\label{eq:juffer}
 \frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) - \left(\frac{\epsilon_2}{\epsilon_1}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 

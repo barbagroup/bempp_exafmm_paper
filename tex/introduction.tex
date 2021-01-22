@@ -1,7 +1,7 @@
 The solvent plays a key role in biomolecular structure and function, and it needs to be carefully modeled for accurate simulations. 
-One popular approach is the so-called implicit-solvent model~\cite{RouxSimonson1999,DescherchiETal2015}, where the solvent degrees of freedom are averaged out in a continuum description.
+One popular approach is the so-called implicit-solvent model~\cite{RouxSimonson1999,DecherchiETal2015}, where the solvent degrees of freedom are averaged out in a continuum description.
 Starting from electrostatic theory, this leads to a PDE model based on the Poisson-Boltzmann equation, which is widely used to compute mean-field electrostatic potentials and solvation free energies.
-PB solvers have been numerically implemented using finite difference \cite{delphi, apbs}, finite element \cite{apbs}, boundary element \cite{afmpb, tabi, pygbe}, and (semi) analytical \cite{thg} methods, scaling up to problems as large as virus capsids \cite{lu,MartinezETal2019}, on HPC infrastructure.
+PB solvers have been numerically implemented using finite difference \cite{RocchiaAlexovHonig2001, BakerETal2001}, finite element \cite{BakerETal2001,BondETal2010,HolstETal2012}, boundary element \cite{AltmanBardhanWhiteTidor2009, GengKrasny2013, ZhangPengHuangPitsianisSunLu2015, CooperBardhanBarba2014}, and (semi) analytical \cite{LotanHead-Gordon2006,FelbergETal2017} methods, scaling up to problems as large as virus capsids \cite{ZhangETal2019,MartinezETal2019}, on HPC infrastructure.
 
 The vision behind this paper is to build up an electrostatic simulation platform based on the Python/Jupyter ecosystem for biomolecular applications. This allows a high-degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation processes.
 
