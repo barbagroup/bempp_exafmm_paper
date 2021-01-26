@@ -192,7 +192,7 @@ As problem size increases, \fmm evaluations dominate solution time.
     \label{fig:sphere_gmres}
 \end{figure}
 
-We also measured the amount of memory taken by the simulations, using the Linux command \texttt{/usr/bin/time -v}.
+We also measured the peak memory usage using the Linux command \texttt{/usr/bin/time -v}.
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
 The largest case, with more than $2$ million elements, requires $36$GB for direct formulation and $43$GB for derivative formulation.
 
