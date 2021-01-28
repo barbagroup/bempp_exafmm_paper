@@ -2,9 +2,9 @@
 
 Figure \ref{fig:implicit_solvent} sketches the continuum representation of a dissolved molecule from the implicit-solvent model. 
 In it, the solute is considered as a cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), and we can compute the change in electrostatic potential as the interior region is charged up with the solute's partial charges, represented as a collection of Direc-delta functions.
-The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx$80) with salt ions, which are free to move around, forced by the electric field. 
+The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx80$) with salt ions, which are free to move around, forced by the electric field. 
 At equilibrium, the salt ions arrange according to a Boltzmann distribution, and if we consider them as point charges, this is well modeled by the linearized Poisson-Boltzmann equation, which considers a screening factor known as the Debye length ($\kappa$.) 
-On the other hand, the electrostatics in the solute cavity behaves in agreement with the Poisson equation in a low dielectric medium ($\epsilon_1\approx$2---4), with the solute's point charges as sources.
+On the other hand, the electrostatics in the solute cavity behaves in agreement with the Poisson equation in a low dielectric medium ($\epsilon_1\approx2\textrm{--}4$), with the solute's point charges as sources.
 These two equations are interfaced on the molecular surface ($\Gamma$), where the potential and electric displacement must be continuous.
 The resulting system of partial differential equations is
 %
@@ -50,7 +50,7 @@ The simpler direct formulation is a result of evaluating $\phi_1$ and $\phi_2$ i
 \end{align}
 %
 Unfortunately, this formulation is ill-conditioned, as the condition number of the resulting matrix grows unbounded with the number of discretization elements. 
-A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1991}, where they took the normal derivative of Equation \eqref{eq:potential_volume}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
+A better conditioned formulation was derived by Juffer \emph{et al.} \cite{JufferETal1991}, where they took the normal derivative of Equation \eqref{eq:volume_potential}, and couple both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows
 %
 \begin{align}\label{eq:juffer}
 \frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) - \left(\frac{\epsilon_2}{\epsilon_1}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
@@ -83,7 +83,7 @@ We call the electrostatic potential resulting from this solvent effect a \emph{r
 \end{equation}
 %
 where $\phi_{coul}$ is the Coulombic potential from the solute point charges only.
-Having $\phi_{1,\Gamma}$ and $\partial\phi_{1,\Gamma}/\partial\mathbf{n}$ from Equation \eqref{eq:direct} or Equation \eqref{eq:juffer}, we can compute $\phi_{reac}$ by subtracting out the Coulombic contribution in the right-hand side of Equation \eqref{eq:potential_volume}
+Having $\phi_{1,\Gamma}$ and $\partial\phi_{1,\Gamma}/\partial\mathbf{n}$ from Equation \eqref{eq:direct} or Equation \eqref{eq:juffer}, we can compute $\phi_{reac}$ by subtracting out the Coulombic contribution in the right-hand side of Equation \eqref{eq:volume_potential}
 %
 \begin{equation}\label{eq:phi_reac}
 \phi_{reac} = -K_{L}^{\Omega_1}(\phi_{1,\Gamma}) +  V_{L}^{\Omega_1} \left(\frac{\partial}{\partial \mathbf{n}}  \phi_{1,\Gamma}  \right) 

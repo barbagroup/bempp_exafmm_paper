@@ -6,22 +6,31 @@ We used the full GMRES from SciPy package as our linear solver.
 
 \subsection{Matrix conditioning of two derivative formulations}
 
-In our experiments using GMRES to solve the interior derivative formulation \ref{eq:juffer} typically takes twice as many iterations than the exterior derivative formulation \ref{eq:lu}.
-In the following we want to give a simple explanation for the different numerical behaviour of the two formulations.
+In our experiments using GMRES to solve the interior derivative formulation \eqref{eq:juffer} typically takes twice as many iterations than the exterior derivative formulation \eqref{eq:lu}.
+In the following we want to give a simple explanation for the different numerical behavior of the two formulations.
 
-GMRES has an intricate convergence behaviour \cite{mark1999a}. Heuristically, the better clustered the eigenvalues are, the faster the convergence of GMRES. In Figures \eqref{fig:derivative_interior_eig} and \eqref{fig:derivative_exterior_eig} we show the eigenvalues of the interior and exterior derivative formulations. The eigenvalues in the interior formulation are clustered around two points, while the eigenvalues in the exterior formulation are clustered around only one point.
+GMRES has an intricate convergence behavior \cite{mark1999a}.
+Heuristically, the better clustered the eigenvalues are, the faster the convergence of GMRES.
+In Figures \ref{fig:derivative_interior_eig} and \ref{fig:derivative_exterior_eig} we show the eigenvalues of the interior and exterior derivative formulations.
+The eigenvalues in the interior formulation are clustered around two points, while the eigenvalues in the exterior formulation are clustered around only one point.
 
-The difference is due to the diagonal of the corresponding system of integral equations. In the case of the interior formulation the associated left-hand side operator takes the form
+The difference is due to the diagonal of the corresponding system of integral equations.
+In the case of the interior formulation the associated left-hand side operator takes the form
 $$
 \begin{bmatrix}\frac{1}{2}(1 + \frac{\epsilon_2}{\epsilon_1})I & 0 \\ 0 & \frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})I
 \end{bmatrix} + \mathcal{C}_{int},
 $$
-where $\mathcal{C}_{int}$ is a compact operator on sufficiently smooth domains\footnote{On smooth domains the single-layer, double-layer and adjoint double-layer operators are compact operators. Furthermore, the difference of the hypersingular operators is compact \cite{Hiptmair2006-om}.}. The eigenvalues of the interior derivative operator hence accumulate at the points $\frac{1}{2}(1 + \frac{\epsilon_2}{\epsilon_1})$ and $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$. In contrast, the exterior derivative operator has the form
+where $\mathcal{C}_{int}$ is a compact operator on sufficiently smooth domains\footnote{On smooth domains the single-layer, double-layer and adjoint double-layer operators are compact operators.
+Furthermore, the difference of the hypersingular operators is compact \cite{Hiptmair2006-om}.}.
+The eigenvalues of the interior derivative operator hence accumulate at the points $\frac{1}{2}(1 + \frac{\epsilon_2}{\epsilon_1})$ and $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$.
+In contrast, the exterior derivative operator has the form
 $$
 \begin{bmatrix}\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})I & 0 \\ 0 & \frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})I
 \end{bmatrix} + \mathcal{C}_{ext},
 $$
-where $\mathcal{C}_{ext}$ is again a compact operator. We now only have one accumulation point, namely $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$. Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be much closer together than in the interior derivative case and therefore the GMRES convergence to be faster for the exterior derivative formulation.
+where $\mathcal{C}_{ext}$ is again a compact operator.
+We now only have one accumulation point, namely $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$.
+Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be much closer together than in the interior derivative case and therefore the GMRES convergence to be faster for the exterior derivative formulation.
 
 \begin{figure}[htbp]
     \centering

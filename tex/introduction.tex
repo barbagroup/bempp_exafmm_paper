@@ -7,15 +7,15 @@ The vision behind this paper is to build up an electrostatic simulation platform
 
 To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance fast multipole method (FMM) library Exafmm. 
 
-Boundary integral problems are described in Bempp using a high-level approach that allows to build up even complex block-operator systems in just a few lines of code. Bempp then executes the discretisation, depending on the chosen parameters and machine environment. In the case of FMM acceleration, Exafmm is called essentially as a matrix-vector black-box below the user level, hiding any technicalities associated with the discretisation.
+Boundary integral problems are described in Bempp using a high-level approach that allows to build up even complex block-operator systems in just a few lines of code. Bempp then executes the discretization, depending on the chosen parameters and machine environment. In the case of FMM acceleration, Exafmm is called essentially as a matrix-vector black-box below the user level, hiding any technicalities associated with the discretization.
 
 This approach has the following advantages as compared to an integrated PB solver in, for example, C++:
 \begin{itemize}
-	\item \textbf{Strict Separation of Concerns}. The user-level description of the electrostatic problem is completely separated from the underlying discretisation routines and the FMM coupling. One can easily move between different types of implementations (e.g. dense discretisation, FMM) with a single parameter change, change input file handling or postprocessing.
+	\item \textbf{Strict Separation of Concerns}. The user-level description of the electrostatic problem is completely separated from the underlying discretization routines and the FMM coupling. One can easily move between different types of implementations (e.g. dense discretization, FMM) with a single parameter change, change input file handling or postprocessing.
 	\item \textbf{Fast Prototyping of different formulations}. We present in this paper results produced with a direct formulation and a derivative Juffer type formulations. To implement these different formulations is just a small changes in a few lines of high-level code. The user can easily experiment with other models, such as piecewise solvation models with different solvation parameters in each layer.
 	\item \textbf{Portability}. Bempp and Exafmm can easily be installed as a joint Docker image that is automatically tracking the current development of these libraries. The whole solver code can be implemented in a small Jupyter notebook.
 \end{itemize}
-A high-level productive approach does not fully come without costs. A dedicated highly specialised C++ code that integrates all steps tends to be faster than our solution. Nevertheless, in this paper we demonstrate that our code is highly competitive for real-world solvation energy computations (and many other electrostatic computations), while preserving full flexibility through the use of a very high-level Python environment.
+A high-level productive approach does not fully come without costs. A dedicated highly specialized C++ code that integrates all steps tends to be faster than our solution. Nevertheless, in this paper we demonstrate that our code is highly competitive for real-world solvation energy computations (and many other electrostatic computations), while preserving full flexibility through the use of a very high-level Python environment.
 
 
 
