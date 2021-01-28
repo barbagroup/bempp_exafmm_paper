@@ -43,7 +43,13 @@
 
 %% abstract
 \begin{abstract}
-    Add abstract here.
+    % Maybe add a sentence to describe the importance of molecular electrostatics simulations.
+    We present a high-productivity and high-performance Poisson-Boltzmann (PB) solver based on Exafmm, a fast multipole method (FMM) library and Bempp, a Galerkin boundary element method (BEM) package.
+    Bempp-Exafmm tightly incorporates an easy-to-use Python interface into the well optimized computation kernels that are written in compiled languages.
+    Thanks to Python's rich ecosystem in scientific computing, users can perform PB simulations interactively via Jupyter notebooks, and thus it opens up the possibility for faster prototyping and analyzing.
+    To showcase the capability of our software, we computed the solvation free energies of various biomolecular structures, including Zika virus.
+    We were able to compute the solvation energy of Zika virus with 10 million boundary elements in 80 minutes on a single node.
+    In addition, we present the verification results of Bempp-Exafmm in a grid convergence study, and demonstrate how its flexibility and ease of use facilitate the comparison of different boundary integral formulations in terms of conditioning, convergence and solution time.
 \end{abstract}
 
 %% keyword
