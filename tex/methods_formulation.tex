@@ -1,12 +1,17 @@
-\subsection{A boundary integral formulation of electrostatics in molecular solvation}
+%!TEX root = main.tex
+\subsection{Boundary integral formulation of electrostatics in molecular solvation}
 
-Figure \ref{fig:implicit_solvent} sketches the continuum representation of a dissolved molecule from the implicit-solvent model. 
-In it, the solute is considered as a cavity ($\Omega_1$) inside an infinite medium ($\Omega_2$), and we can compute the change in electrostatic potential as the interior region is charged up with the solute's partial charges, represented as a collection of Direc-delta functions.
-The solvent ($\Omega_2$) usually consists of water ($\epsilon_2\approx80$) with salt ions, which are free to move around, forced by the electric field. 
-At equilibrium, the salt ions arrange according to a Boltzmann distribution, and if we consider them as point charges, this is well modeled by the linearized Poisson-Boltzmann equation, which considers a screening factor known as the Debye length ($\kappa$.) 
-On the other hand, the electrostatics in the solute cavity behaves in agreement with the Poisson equation in a low dielectric medium ($\epsilon_1\approx2\textrm{--}4$), with the solute's point charges as sources.
-These two equations are interfaced on the molecular surface ($\Gamma$), where the potential and electric displacement must be continuous.
-The resulting system of partial differential equations is
+Biomolecules in an ionic solvent or water can be represented with a model where the solvent is a continuous dielectric: the so-called implicit-solvent model.
+The molecule (solute) is a dielectric cavity with partial charges at the atomic locations,  represented as a collection of Dirac delta functions.
+In  the sketch of Figure \ref{fig:implicit_solvent}, the molecular cavity is region $\Omega_1$, the infinite medium  is $\Omega_2$, and the point charges are $q_k$.
+The interface $\Gamma$ represents the molecular surface and can be determined through several approaches: van der Waals radii, Gaussian surface, solvent-accessible surface, and solvent-excluded surface. 
+We use the latter.
+A solvent-excluded surface is built by tracking the contact points of a (virtual) spherical probe of  $\sim$ 1.4 \AA\ in radius, the size of a water molecule, as it rolls around the solute's atoms (with their corresponding van der Waals radii). 
+In this setup, we can compute the change in electrostatic potential as the interior region is charged up with the solute's partial charges.
+The solvent usually consists of water (dielectric constant $\epsilon_2\approx80$) with salt ions that are free to move around, forced by the electric field. 
+At equilibrium, the salt ions are in a Boltzmann distribution, leading to the linearized Poisson-Boltzmann equation for the potential in $\Omega_2$, considering a screening factor known as the Debye length ($\kappa$.) 
+The electrostatic potential in the solute cavity follows Poisson's equation in a low dielectric medium ($\epsilon_1\approx2\textrm{--}4$), with the solute's point charges as sources.
+With interface conditions on the molecular surface $\Gamma$, where the potential and electric displacement must be continuous, this results in the following system of equations:
 %
 \begin{align} \label{eq:pde}
 \nabla^2\phi_1 &= \frac{1}{\epsilon_1}\sum_k q_k\delta(\mathbf{r},\mathbf{r}_k) \text{ in the solute ($\Omega_1$),}\nonumber\\
@@ -15,8 +20,7 @@ The resulting system of partial differential equations is
 \end{align}
 %
 where $\Omega_1$ and $\Omega_2$ are the solute and solvent regions, respectively, interfaced by the molecular surface $\Gamma$.
-There are several available definitions for $\Gamma$, such as van der Waals, solvent accessible (SAS), solvent excluded (SES), and Gaussian surfaces \cite{HarrisBoschitcshFenley2013}, however, in this work we use the SES.
-The SES is built by tracking the contact points of a spherical probe of the size of a water molecule ($\sim$ 1.4 \AA) as it rolls around the solute atoms (with their corresponding van der Waals radii). 
+
 %
 \begin{figure}
 \centering
