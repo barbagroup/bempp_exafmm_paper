@@ -1,3 +1,4 @@
+%!TEX root = main.tex
 In this section, we demonstrate the performance and capability of Bempp-Exafmm via electrostatic simulations, including computing the solvation energy of Zika virus.
 We ran all experiments on a single CPU node of \textit{Pegasus} \footnote{Pegasus is a Linux cluster at the George Washington University.}, equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
 All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
@@ -6,22 +7,28 @@ We used the full GMRES from SciPy package as our linear solver.
 
 \subsection{Matrix conditioning of two derivative formulations}
 
-In our experiments using GMRES to solve the interior derivative formulation \eqref{eq:juffer} typically takes twice as many iterations than the exterior derivative formulation \eqref{eq:lu}.
-In the following we want to give a simple explanation for the different numerical behavior of the two formulations.
+We presented in section \ref{s:formulation} the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
+the \emph{direct}~\cite{YoonLenhoff1990}  and \emph{derivative}~\cite{JufferETal1991} formulations.
+The latter is well-known to lead to a better-conditioned matrix.
+Its most common solution method finds the potential and its derivative in the interior of the boundary via Equations \eqref{eq:juffer}, but an alternative is to solve for the exterior fields via \eqref{eq:lu}.
+We conducted experiments with both the interior and exterior versions of the derivative formulation, solving the linear system using GMRES.
+Observing that the exterior version used by Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019} typically takes about half as many iterations to converge than the interior version, we studied the properties of these two methods in more detail.
+The results in this section aim to give a simple explanation for the different numerical behavior of the two versions of the derivative formulation.
+Our ability to explore and explain this issue showcases the power of interactive computing with a high-productivity software platform, like that provided by Bempp-Exafmm.
 
-GMRES has an intricate convergence behavior \cite{mark1999a}.
-Heuristically, the better clustered the eigenvalues are, the faster the convergence of GMRES.
-In Figures \ref{fig:derivative_interior_eig} and \ref{fig:derivative_exterior_eig} we show the eigenvalues of the interior and exterior derivative formulations.
-The eigenvalues in the interior formulation are clustered around two points, while the eigenvalues in the exterior formulation are clustered around only one point.
+GMRES methods have an intricate convergence behavior \cite{mark1999a}.
+Heuristically, the more clustered the eigenvalues are, the faster the convergence of the solution using GMRES.
+Figures \ref{fig:derivative_interior_eig} and \ref{fig:derivative_exterior_eig} show the eigenvalues of the interior and exterior derivative formulations, respectively, on the complex plane.
+With the interior formulation, eigenvalues cluster around two points, while eigenvalues cluster around only one point with the exterior formulation.
 
 The difference is due to the diagonal of the corresponding system of integral equations.
-In the case of the interior formulation the associated left-hand side operator takes the form
+In the case of the interior formulation, the associated left-hand side operator takes the form
 $$
 \begin{bmatrix}\frac{1}{2}(1 + \frac{\epsilon_2}{\epsilon_1})I & 0 \\ 0 & \frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})I
 \end{bmatrix} + \mathcal{C}_{int},
 $$
-where $\mathcal{C}_{int}$ is a compact operator on sufficiently smooth domains\footnote{On smooth domains the single-layer, double-layer and adjoint double-layer operators are compact operators.
-Furthermore, the difference of the hypersingular operators is compact \cite{Hiptmair2006-om}.}.
+where $\mathcal{C}_{int}$ is a compact operator on sufficiently smooth domains.\footnote{On smooth domains the single-layer, double-layer and adjoint double-layer operators are compact operators.
+Furthermore, the difference of the hypersingular operators is compact \cite{Hiptmair2006-om}.}
 The eigenvalues of the interior derivative operator hence accumulate at the points $\frac{1}{2}(1 + \frac{\epsilon_2}{\epsilon_1})$ and $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$.
 In contrast, the exterior derivative operator has the form
 $$
