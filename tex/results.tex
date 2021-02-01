@@ -39,14 +39,14 @@ where $\mathcal{C}_{ext}$ is again a compact operator.
 We now only have one accumulation point, namely $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$.
 Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be much closer together than in the interior derivative case and therefore the GMRES convergence to be faster for the exterior derivative formulation.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{derivative_interior_eig.pdf}
     \caption{Eigenvalues of the system matrix of the derivative formulation for interior field.}
     \label{fig:derivative_interior_eig}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{derivative_exterior_eig.pdf}
     \caption{Eigenvalues of the system matrix of the derivative formulation for exterior field.}
@@ -64,7 +64,7 @@ The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), a
 Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=0.8\linewidth]{sketch_sphere_convergence.pdf}
     \caption{Sketch of a spherical molecule with an off-center unit charge at $(1,1,1)$.}
@@ -88,7 +88,7 @@ We computed the solvation energy of this molecule using $5$ different meshes, ob
 Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution for the solvation energy in this case, to compare with the numerical result: $-12.258363$ [kcal/mol].
 Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_convergence.pdf} 
     \caption{Mesh convergence study on a spherical molecule with an off-center charge, using both direct formulation and derivative formulation. The error on the solvation energy  with respect to the analytical solution is plotted for five meshes:
@@ -103,7 +103,7 @@ Similarly, we compute its solvation energy using 5 meshes with the element densi
 Same fine parameters in Table \ref{tab:sim_params_convergence}, were used as the previous test, to reveal the discretization error.
 Since an analytical solution is not available for this geometry, the reference values for error estimation come from Richardson extrapolation.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{5PTI.png}
     \caption{Structure of bovine pancreatic trypsin inhibitor (PDB code 5PTI).}
@@ -128,7 +128,7 @@ Since an analytical solution is not available for this geometry, the reference v
 Figure \ref{fig:5PTI_convergence} shows that the error of computing solvation energy of 5PTI converges linearly with respect to $N$, for both direct and derivative formulation.
 Both convergence results confirm that our software solves the mathematical model correctly.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{5PTI_convergence.pdf} 
     \caption{Mesh convergence study of the solvation energy of bovine pancreatic trypsin inhibitor (PDB code 5PTI), using both direct formulation and derivative formulation.
@@ -185,7 +185,7 @@ As for the assembly time, the derivative formulation is about $2$x slower, since
 In addition, the two hypersingular operators make it even more involved.
 Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_assembly_time.pdf} 
     \caption{Assembly time with respect to problem size $N$ for a spherical molecule with 100 random charges inside.}
@@ -199,7 +199,7 @@ The timings and linear scaling substantiate the efficiency of our \fmm implement
 In the largest case with over 10 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
 
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_fmm.pdf} 
     \caption{The average time of 1 Laplace FMM evaluation and 1 modified Helmholtz evaluation in GMRES with respect to problem size N using direct formulation.}
@@ -212,7 +212,7 @@ Therefore, the \gmres time reported here also reflects these contributions.
 Figure \ref{fig:sphere_gmres} demonstrates the time breakdown of \gmres in percentage.
 As problem size increases, \fmm evaluations dominate solution time.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \begin{subfigure}{\columnwidth}
         \centering
         \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_gmres_direct.pdf}}
@@ -231,7 +231,7 @@ We also measured the peak memory usage using the Linux command \texttt{/usr/bin/
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
 The largest case, with more than $2$ million elements, requires $36$GB for direct formulation and $43$GB for derivative formulation.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_memory.pdf} 
     \caption{Overall memory consumption in GB for both direct and derivative formulation.}
@@ -246,7 +246,7 @@ The prepared structure contains about 1.6 million atoms and our mesh has around 
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
 
-\begin{figure}[htbp]
+\begin{figure}%[htbp]
     \centering
     \includegraphics[width=0.8\linewidth]{6CO8_assembly.png} 
     \caption{Structure of Zika virus (PDB code 6CO8) in assembly view. Each color indicates a polymer chain.}
@@ -265,7 +265,7 @@ The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
     \label{tab:6CO8_result}
 \end{table*}
 
-\begin{figure*}[htbp]
+\begin{figure*}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{6CO8_potential.png} 
     \caption{Surface electrostatic potential of Zika virus. Visualization generated using ParaView.}
