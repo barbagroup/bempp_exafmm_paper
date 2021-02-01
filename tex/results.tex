@@ -55,12 +55,14 @@ Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be 
 
 \subsection{Mesh refinement study using a spherical molecule}
 
-To verify our \bem-\fmm integration, we first performed a mesh refinement study for a spherical molecule with an off-center charge.
-Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup.
-The molecule has a radius of 4 Angstrom and a relative permittivity of $\epsilon_1 = 4$; the unit charge is located at $(1,1,1)$.
-The solvent region has a relative permittivity of water ($\epsilon_2 = 80$); and the salt concentration is set to $150mM$ $(\kappa = 1/8 {\si{\angstrom}}^{-1})$.
+As a form of solution verification with the Bempp-Exafmm software, we completed two mesh-refinement studies.
+The first used a spherical molecule with an off-center charge, for which we have an analytical solution.
+In the next sub-section, we present a mesh-refinement study with a real molecule of biological relevance.
+Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case.
+It depicts a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
+The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150mM$ $(\kappa = 1/8 {\si{\angstrom}}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
-We compute the solvation energy of this molecule using $5$ meshes with a constant refinement factor of 4.
+We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
 
 \begin{figure}[htbp]
     \centering
@@ -83,14 +85,14 @@ We compute the solvation energy of this molecule using $5$ meshes with a constan
     \label{tab:sim_params_convergence}
 \end{table}
 
-Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution of the solvation energy for this spherical molecule: $-12.258363$ [kcal/mol],
-with which we can compare our results. Figure \ref{fig:sphere_convergence} shows the error of the solvation energy converges at the expected rate of $1/N$ for both formulations.
+Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution for the solvation energy in this case, to compare with the numerical result: $-12.258363$ [kcal/mol].
+Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_convergence.pdf} 
-    \caption{Mesh convergence study of the solvation energy of a spherical molecule with an off-center charge, using both direct formulation and derivative formulation. The error is with respect to the analytical solution. 
-    The sphere is discretized with 512, 2048, 8192, 32768 and 131072 boundary elements.}
+    \caption{Mesh convergence study on a spherical molecule with an off-center charge, using both direct formulation and derivative formulation. The error on the solvation energy  with respect to the analytical solution is plotted for five meshes:
+    the sphere discretized with 512, 2048, 8192, 32768 and 131072 boundary elements.}
     \label{fig:sphere_convergence}
 \end{figure}
 
