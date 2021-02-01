@@ -98,10 +98,10 @@ Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, con
 
 \subsection{Mesh refinement study using 5PTI}
 
-Next, we tested our code on a realistic structure - bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
-Similarly, we compute its solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
-Same fine parameters in Table \ref{tab:sim_params_convergence}, were used as the previous test, to reveal the discretization error.
-Since an analytical solution is not available for this geometry, the reference values for error estimation come from Richardson extrapolation.
+Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
+We computed solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
+The same fine parameters listed in Table \ref{tab:sim_params_convergence} were used, to reveal the discretization error.
+Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation using Richardson extrapolation.
 
 \begin{figure}%[htbp]
     \centering
@@ -125,8 +125,8 @@ Since an analytical solution is not available for this geometry, the reference v
     \label{tab:5PTI_mesh}
 \end{table}
 
-Figure \ref{fig:5PTI_convergence} shows that the error of computing solvation energy of 5PTI converges linearly with respect to $N$, for both direct and derivative formulation.
-Both convergence results confirm that our software solves the mathematical model correctly.
+Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$, for both the direct and derivative formulation.
+Both convergence results provide solution verification, and are evidence that our software solves the mathematical model correctly.
 
 \begin{figure}%[htbp]
     \centering
@@ -140,8 +140,8 @@ Both convergence results confirm that our software solves the mathematical model
 
 In this section, we investigate the performance of Bempp-Exafmm using a spherical molecule.
 The sphere has a radius of 1, and 100 charges are placed randomly inside, representing the atoms in the solute.
-We used the same dielectric constants and salt concentration as in previous the grid-convergence study.
-Other simulation parameters are reported in Table \ref{tab:sim_params_performance}.
+We used the same dielectric constants and salt concentration as in previous grid-convergence studies.
+Other simulation parameters are listed in Table \ref{tab:sim_params_performance}.
 
 \begin{table}[]
     \centering
@@ -159,7 +159,7 @@ Other simulation parameters are reported in Table \ref{tab:sim_params_performanc
 
 To imitate a wide range of problem sizes, we used five surface discretizations, with the number of elements ranging from 8 thousand to 2 million.
 Table \ref{tab:sphere_time} presents the assembly time, the solution time and the number of iterations to converge in each case for both formulations.
-The convergence results show that the condition number grows as the problem size increases in direct formulation; while it remains at the same level in the derivative formulation.
+The algebraic convergence shows that the condition number grows as the problem size increases with the direct formulation, while it remains at the same level with the derivative formulation.
 
 \begin{table*}[]
     \centering
@@ -181,7 +181,7 @@ In our implementation, each iteration in direct formulation requires $8$ \fmm ev
 That explains why the direct formulation leads to a shorter solution time (\gmres time), despite a slower convergence, in the two smaller cases.
 For larger problem sizes, faster convergence in the derivative formulation offsets the larger cost per iteration.
 
-As for the assembly time, the derivative formulation is about $2$x slower, since it needs to construct twice as many operators as direct formulation.
+As for the assembly time, the derivative formulation is about $2\times$ slower, since it needs to construct twice as many operators as the direct formulation.
 In addition, the two hypersingular operators make it even more involved.
 Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
 
@@ -206,11 +206,11 @@ In the largest case with over 10 million quadrature points, one Laplace \fmm cos
     \label{fig:sphere_fmm}
 \end{figure}
 
-In Bempp, pre-computing of the invariant matrices in \fmm, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
-In addition, each \fmm evaluation in \gmres is followed by a singular correction which compensates the singular integrals that are not ignored by \fmm.
+In Bempp, pre-computing the invariant matrices in \fmm, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
+In addition, each \fmm evaluation in \gmres is followed by a singular correction, which compensates the singular integrals that are not ignored by \fmm.
 Therefore, the \gmres time reported here also reflects these contributions.
-Figure \ref{fig:sphere_gmres} demonstrates the time breakdown of \gmres in percentage.
-As problem size increases, \fmm evaluations dominate solution time.
+Figure \ref{fig:sphere_gmres} shows the time breakdown of \gmres in percentages.
+As problem size increases, \fmm evaluations dominate the solution time.
 
 \begin{figure}%[htbp]
     \begin{subfigure}{\columnwidth}
@@ -241,7 +241,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for direc
 \subsection{Free energy of Zika virus}
 
 Finally, we present a more challenging problem that studies the free energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
-We acquired the molecular structure from Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
+We downloaded the molecular structure from the Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated a mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
@@ -261,28 +261,28 @@ The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
     Bempp derivative & -116254.9                                               & 8370.3                                                    & 3553.9                                                       & 4816.4                                                    & 152.0                                                 & 18            \\
     \pygbe       & -117261.1                                                   & -                                                         & -                                                            & -                                                         & -                                                     & -            
     \end{tabular}
-    \caption{Bempp and \pygbe results of computing the solvation energy of Zika virus.}
+    \caption{Results of computing the solvation energy of a Zika virus with Bempp and \pygbe .}
     \label{tab:6CO8_result}
 \end{table*}
 
-\begin{figure*}%[htbp]
+\begin{figure*}[t]%[htbp]
     \centering
     \includegraphics[width=\linewidth]{6CO8_potential.png} 
-    \caption{Surface electrostatic potential of Zika virus. Visualization generated using ParaView.}
+    \caption{Surface electrostatic potential of a Zika virus. Visualization generated using ParaView. The starfish pattern seen in the polymer-chain colorization of Figure \ref{fig:6CO8_assembly} is faintly visible in the potential.}
     \label{fig:6CO8_potential}
 \end{figure*}
 
 Table \ref{tab:6CO8_result} summarizes the results and performance.
 Again, we confirmed that the derivative formulation yields a well-conditioned system, which converged in 18 iterations and took less than 1.5 hours to solve.
-By contrast, direct formulation took almost twice as long to converge.
+By contrast, the direct formulation took almost twice as long to converge.
 
 In this case, we also verified against \pygbe \cite{cooper2016pygbe}, a Python \bem library for biomolecular electrostatics.
-Based on the solvation energy computed from \pygbe: $-117261.1$ [kcal/mol], the relative difference of our result is 0.6\% for direct formulation and 0.9\% for derivative formulation.
+Based on the solvation energy computed from \pygbe: $-117261.1$ [kcal/mol], the relative difference of our result is 0.6\% with the direct formulation and 0.9\% with the derivative formulation.
 Figure \ref{fig:6CO8_potential} shows the computed electrostatic potential on the surface.
 
 \subsection{Reproducibility package}
 
-Besides releasing our code with an open-source license, we spared no effort to maximize the reproducibility of this work via a ``repro-pack" in a version-control repository.
-It contains all raw data from the experiments and post-processing scripts, which are sufficient to produce every result presented in this section.
+Besides releasing all our software with an open-source license, we spared no effort to maximize the reproducibility of this work, compiling a ``repro-pack" in a version-control repository.
+It contains all raw data from the experiments and all post-processing scripts, which are necessary to produce every result presented in this section.
 The ``repro-pack" also provides driver and utility scripts should readers be interested in running these cases on their own hardware.
-The meshes and pqr files are available on Zenodo.
+The meshes and \texttt{pqr} files are made available on Zenodo.
