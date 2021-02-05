@@ -1,6 +1,34 @@
-A Poisson-Boltzmann solver is not something new in itself. They have been around for decades, are available as stand-alone applications and web servers, and come in a variety of implementations, ranging from finite difference, to finite element, and boundary element methods. Moreover, some are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014,WangETal2018}, usually interfaced through bash or Python scripts.
+% conditioning
+In section \ref{result_conditioning}, we compared the conditioning of the interior and exterior derivative formulations.
+Despite the fact that both yield a well-conditioned system, where the condition number does not grow with the problem size, the exterior formulation always converges faster due to the closeness of its eigenvalues.
+It shows a greater advantage over the interior formulation as the difference between $\epsilon_1$ and $\epsilon_2$ becomes larger.
+This study also serves as example of how users can benefit from our high-productivity platform.
+Through interactive computing, users can adapt various formulations, try out different problem setups, analyze intermediate results on-the-fly without the hassle of recompilation.
 
-The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language. This makes our effort stand out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
+% mesh refinement
+We performed two mesh refinement studies to verify Bempp-Exafmm, using a spherical molecule with an off-center charge and bovine pancreatic trypsin inhibitor.
+In the former study, we compared with the analytical solution; in the latter, we compared with an approximate value from Richard extrapolation.
+In both cases, we used the direct formulation and the exterior derivative formulation.
+To reveal the discretization error, we set the FMM expansion order to 10 to achieve 9 digits of accuracy.
+The error of the computed solvation energy decays linearly with respect to $N$, as shown in Figure \ref{fig:sphere_convergence} and \ref{fig:5PTI_convergence}.
+
+% performance and Zika virus
+In section \ref{result_performance}, we elaborate on the performance of Bempp-Exafmm for different problem sizes using both formulations.
+The linear complexity of the assembly time (Figure \ref{fig:sphere_assembly_time}) and FMM time (Figure \ref{fig:sphere_fmm}) guarantees the overall linear time complexity of Bempp-Exafmm, which, together with the linear space complexity shown in Figure \ref{fig:sphere_memory}, makes it feasible to perform large-scale simulations on a workstation.
+Table \ref{tab:sphere_time} lists the timings in detail.
+Despite being ill-conditioned, the direct formulation still shows an advantage in terms of the overall time for smaller problem sizes.
+Conversely, the derivative formulation shines in larger problems.
+The crossover point should be problem- and hardware-specific.
+Finally, we computed the solvation energy of Zika virus using both formulations and verified our results against PyGBe in \ref{result_zika}.
+The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node, which gives us confidence in the capability of Bempp-Exafmm of solving virus-scale problems.
+
+
+A Poisson-Boltzmann solver is not something new in itself.
+They have been around for decades, are available as stand-alone applications and web servers, and come in a variety of implementations, ranging from finite difference, to finite element, and boundary element methods.
+Moreover, some are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014,WangETal2018}, usually interfaced through bash or Python scripts.
+
+The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language.
+This makes our effort stand out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
 \begin{enumerate}
 \item Interoperability: Bempp is written in Python, and hence, is callable from a Jupyter notebook. This fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM \cite{EastmanETal2017}, Biobb \cite{AndrioETal2019},MDAnalysis \cite{GowersETal2019}, pytraj \cite{RoeCheatham2013}, or pymol \cite{PyMOL}. Then, the Jupyter notebook becomes a computational glue across models and scales; no interface script required. 
 
@@ -12,5 +40,6 @@ Also, there is a thin layer between the application and Bempp, giving a more exp
 
 \end{enumerate}
 
-There is a large number of popular molecular simulation software designed for different applications, scales, quantities of interest, etc. This led to community-wide efforts, such as BioExcel and MolSSI, that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes. This standard is very much aligned with our work.
-
+There is a large number of popular molecular simulation software designed for different applications, scales, quantities of interest, etc.
+This led to community-wide efforts, such as BioExcel and MolSSI, that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes.
+This standard is very much aligned with our work.

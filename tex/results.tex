@@ -5,7 +5,7 @@ All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 We used the full GMRES from SciPy package as our linear solver.
 
-\subsection{Matrix conditioning of two derivative formulations}
+\subsection{Matrix conditioning of two derivative formulations} \label{result_conditioning}
 
 We presented in section \ref{s:formulation} the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
 the \emph{direct}~\cite{YoonLenhoff1990}  and \emph{derivative}~\cite{JufferETal1991} formulations.
@@ -53,7 +53,7 @@ Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be 
     \label{fig:derivative_exterior_eig}
 \end{figure}
 
-\subsection{Mesh refinement study using a spherical molecule}
+\subsection{Mesh refinement study using a spherical molecule} \label{result_convergence_sphere}
 
 As a form of solution verification with the Bempp-Exafmm software, we completed two mesh-refinement studies.
 The first used a spherical molecule with an off-center charge, for which we have an analytical solution.
@@ -96,7 +96,7 @@ Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, con
     \label{fig:sphere_convergence}
 \end{figure}
 
-\subsection{Mesh refinement study using 5PTI}
+\subsection{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
 
 Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
 We computed solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
@@ -136,7 +136,7 @@ Both convergence results provide solution verification, and are evidence that ou
     \label{fig:5PTI_convergence}
 \end{figure}
 
-\subsection{Performance study using a spherical molecule}
+\subsection{Performance study using a spherical molecule} \label{result_performance}
 
 In this section, we investigate the performance of Bempp-Exafmm using a spherical molecule.
 The sphere has a radius of 1, and 100 charges are placed randomly inside, representing the atoms in the solute.
@@ -238,7 +238,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for direc
     \label{fig:sphere_memory}
 \end{figure}
 
-\subsection{Free energy of Zika virus}
+\subsection{Free energy of Zika virus} \label{result_zika}
 
 Finally, we present a more challenging problem that studies the free energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
 We downloaded the molecular structure from the Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated a mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
