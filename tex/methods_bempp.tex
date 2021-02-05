@@ -1,3 +1,4 @@
+%!TEX root = main.tex
 \subsection{An introduction to Bempp}
 Bempp [JOSS paper]] is a Python based boundary element library for the Galerkin discretization of boundary integral operators in electrostatics, acoustics and electromagnetics.
 Bempp originally started as mixed Python/C++ library.
@@ -17,11 +18,11 @@ Typical choices for the test and trial functions are either piecewise constant f
 By default, Bempp explicitly computes the matrix $A$ by applying quadrature rules to the arising integrals.
 The singularity of the Green's function needs to be accounted for in the quadrature rules for integration over adjacent or identical test/trial triangles.
 For well separated triangles standard triangle Gauss rules can be used for the quadrature.
-The memory and computational complexity of this discretization is $\mathcal{O}(n^2)$, which is suitable for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
+The memory and computational complexity of this discretization is $\mathcal{O}(n^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
 Bempp-cl performs the evaluation of the quadrature routines through highly optimized OpenCL kernels that make use of explicit AVX/AVX2/AVX-512 acceleration on CPUs.
 
-\subsection{FMM accelerated evaluation of integral operators}
-We can split up the action of the discretized integral operator $A$ onto a vector $x$ in the following way.
+\subsection{FMM-accelerated evaluation of integral operators}
+We can split up the action of the discretized integral operator $A$ onto a vector $\mathbf{x}$ in the following way.
 $$
 A = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}.
 $$
@@ -34,9 +35,9 @@ Finally, the matrix $S$ contains the contributions of $A$ arising from singulari
 This matrix is also highly sparse.
 
 We explicitly compute the matrices $P_1$, $P_2$ and $S$, and keep them in memory using sparse storage.
-The matrix $C$ is evaluated on the fly for each vector $x$ through a fast OpenCL kernel.
+The matrix $C$ is evaluated on the fly for each vector $\mathbf{x}$ through a fast OpenCL kernel.
 This leaves the matrix $G$.
-The action of $G$ on the vector $y=P_1 \mathbf{x}$ can be considered as a black-box to evaluate sums of the form
+The action of $G$ on the vector $\mathbf{y}=P_1 \mathbf{x}$ can be considered as a black-box to evaluate sums of the form
 %
 \begin{align}\label{eq:nbody_sum}
 s(\mathbf{x}_i) = \sum_j g(\mathbf{x}_i, \mathbf{y}_j)q_j.
