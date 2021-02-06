@@ -1,5 +1,5 @@
 %!TEX root = main.tex
-\subsection{Kernel-independent fast multipole method}
+\subsection{Fast multipole method}
 
 The fast multipole method (\fmm) is an algorithm that can reduce the quadratic time and space complexity of such matrix-vector multiplication down to $\mathcal{O}(N)$.
 In the context of \fmm, $\{\mathbf{x}_i\}$ and $\{\mathbf{y}_j\}$ in equation \ref{eq:nbody_sum} are often referred to as the set of targets and sources respectively, with $\{q_j\}$ representing the source densities (charges).
@@ -23,7 +23,7 @@ In $\mathcal{F}(B)$, the nodes that are the children of $B$'s parent's neighbors
 The contributions from the rest of the far-field are approximated at coarser levels via $B$'s ancestors.
 
 The classic \fmm \cite{greengard1987fast, cheng1999fast} relies on truncated analytical expansions to approximate far-field interactions, whereas its kernel-independent variant \cite{ying2004kernel} uses equivalent densities (charges) instead.
-In KIFMM, each node is associated with upward and downward equivalent densities (see Figure \ref{fig:multipole_local}), the analog of multipole and local expansions in the analytical \fmm.
+In \kifmm, each node is associated with upward and downward equivalent densities (see Figure \ref{fig:multipole_local}), the analog of multipole and local expansions in the analytical \fmm.
 The upward equivalent densities $q^{B,u}$ are used to approximate the influence of sources in $B$ on targets in $\mathcal{F}(B)$;
 the downward equivalent densities $q^{B,d}$ are used to approximate the influence of sources in $\mathcal{F}(B)$ on sources in $B$.
 To find these densities, we match the potential of equivalent densities to the potential of actual sources at the check surfaces:
@@ -33,13 +33,13 @@ To find these densities, we match the potential of equivalent densities to the p
     \sum_{\mathbf{y}_{j} \in \mathcal{F}(B)} g\left(\mathbf{x}_{i}^{B,d}, \mathbf{y}_{j}\right) q_{j} &= \sum_{j} g\left(\mathbf{x}_{i}^{B,d}, \mathbf{y}^{B,d}_{j}\right) q^{B,d}_{j}, \quad \forall i
 \end{align}
 %
-, and then solve the linear systems for $\{q^{B,u}_{j}\}$ and $\{q^{B,d}_{j}\}$.
-$\mathbf{x}_{i}^{B}$ and $\mathbf{y}_{j}^{B}$ denote the discretization points of the check surface and equivalent surface of $B$ respectively.
+We then solve the linear systems for $\{q^{B,u}_{j}\}$ and $\{q^{B,d}_{j}\}$.
+Here, $\mathbf{x}_{i}^{B}$ and $\mathbf{y}_{j}^{B}$ denote the discretization points of the check surface and equivalent surface of $B$ respectively.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{multipole_local_expansion.pdf}
-    \caption{Multipole expansion (left) and local expansion (right) in KIFMM.}
+    \caption{Multipole expansion (left) and local expansion (right) in \kifmm.}
     \label{fig:multipole_local}
 \end{figure}
 
@@ -55,7 +55,7 @@ The algorithm also defines the following operators:
     \item particle-to-particle (P2P): For a leaf node $B$, evaluate the potential induced by all sources in $\mathcal{N}(B)$ directly.
 \end{itemize}
 %
-As indicated by the arrows in Figure \ref{fig:translations}, translation operators in KIFMM share the same procedure: (1). evaluating the potentials on the check surface and (2). solving the equation arising from matching the potentials for the equivalent densities.
+As indicated by the arrows in Figure \ref{fig:translations}, translation operators in \kifmm share the same procedure: (1) evaluating the potentials on the check surface, and (2) solving the equation arising from matching the potentials for the equivalent densities.
 
 Figure \ref{fig:fmm_sketch} outlines the complete \fmm algorithm.
 During the upward pass, we compute P2M at all leaf nodes and perform M2M in post-order tree traversal.
@@ -65,7 +65,7 @@ Finally, we compute L2L in pre-order tree traversal, and perform L2P and P2P at 
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{translations.pdf}
-    \caption{M2M (left), M2L (middle) and L2L (right) operators in KIFMM. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.}
+    \caption{M2M (left), M2L (middle) and L2L (right) operators in \kifmm. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.}
     \label{fig:translations}
 \end{figure*}
 
@@ -77,5 +77,5 @@ Finally, we compute L2L in pre-order tree traversal, and perform L2P and P2P at 
 \end{figure}
 
 The original Exafmm \cite{yokota2012tuned,yokota2013fmm} implements the classical FMM based on dual tree traversal and focuses on low-accuracy optimizations.
-Recently, Exafmm receives a major update to adopt KIFMM due to its great extensibility.
-Its current generation, Exafmm-t, offers highly optimized KIFMM operators, allows pre-computing and caching invariant matrices and more importantly, provides a high-level Python interface to reach a broader audience.
+Recently, Exafmm receives a major update to adopt \kifmm due to its great extensibility.
+Its current generation, Exafmm-t, offers highly optimized \kifmm operators, allows pre-computing and caching invariant matrices and more importantly, provides a high-level Python interface to reach a broader audience.

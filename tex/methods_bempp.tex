@@ -43,6 +43,6 @@ The action of $G$ on the vector $\mathbf{y}=P_1 \mathbf{x}$ can be considered as
 s(\mathbf{x}_i) = \sum_j g(\mathbf{x}_i, \mathbf{y}_j)q_j.
 \end{align}
 %
-To evaluate this sum we use the C++ Exafmm library, a highly performant library that implements the kernel-independent fast multipole method (KIFMM) to approximately evaluate sums of the above form.
+To evaluate this sum we use the C++ Exafmm library, a highly performant library that implements the kernel-independent fast multipole method (\kifmm) to approximately evaluate sums of the above form.
 The complexity of this evaluation is $\mathcal{O}(N)$, where $N$ is the product of the number of surface triangles and the number of regular quadrature points per triangle.
 The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large  electrostatic simulations on a single workstation.
