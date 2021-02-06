@@ -96,6 +96,7 @@ We computed the solvation energy of this molecule using $5$ different meshes, ob
 
 Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution for the solvation energy in this case, to compare with the numerical result: $-12.258363$ [kcal/mol].
 Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
+The observed order of convergence is 1.001 for the direct formulation and 0.999 for the derivative formulation, using the middle three values.
 
 \begin{figure}%[htbp]
     \centering
@@ -134,7 +135,8 @@ Since an analytical solution is not available for this geometry, we obtained the
     \label{tab:5PTI_mesh}
 \end{table}
 
-Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$, for both the direct and derivative formulations.
+Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$.
+The observed order of convergence is 1.156 for the direct formulation and 1.038 for the derivative formulation, using the middle three values.
 Both convergence results provide solution verification, and are evidence that our software solves the mathematical model correctly.
 
 \begin{figure}%[htbp]
