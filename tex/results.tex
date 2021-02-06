@@ -63,7 +63,7 @@ The first used a spherical molecule with an off-center charge, for which we have
 In the next sub-section, we present a mesh-refinement study with a real molecule of biological relevance.
 Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case.
 It depicts a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
-The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150mM$ $(\kappa = 1/8 {\si{\angstrom}}^{-1})$.
+The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = 1/8\ {\si{\angstrom}}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
 
@@ -103,8 +103,8 @@ Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, con
 
 Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
 We computed solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
-The same fine parameters listed in Table \ref{tab:sim_params_convergence} were used, to reveal the discretization error.
-Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation using Richardson extrapolation.
+This test used the same parameters listed in Table \ref{tab:sim_params_convergence}, which are fine enough to reveal the discretization error.
+Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
 
 \begin{figure}%[htbp]
     \centering
@@ -128,7 +128,7 @@ Since an analytical solution is not available for this geometry, we obtained the
     \label{tab:5PTI_mesh}
 \end{table}
 
-Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$, for both the direct and derivative formulation.
+Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$, for both the direct and derivative formulations.
 Both convergence results provide solution verification, and are evidence that our software solves the mathematical model correctly.
 
 \begin{figure}%[htbp]
@@ -141,7 +141,7 @@ Both convergence results provide solution verification, and are evidence that ou
 
 \subsection{Performance study using a spherical molecule} \label{result_performance}
 
-In this section, we investigate the performance of Bempp-Exafmm using a spherical molecule.
+In this sub-section, we investigate the computational performance of Bempp-Exafmm using a spherical molecule.
 The sphere has a radius of 1, and 100 charges are placed randomly inside, representing the atoms in the solute.
 We used the same dielectric constants and salt concentration as in previous grid-convergence studies.
 Other simulation parameters are listed in Table \ref{tab:sim_params_performance}.
@@ -160,7 +160,7 @@ Other simulation parameters are listed in Table \ref{tab:sim_params_performance}
     \label{tab:sim_params_performance}
 \end{table}
 
-To imitate a wide range of problem sizes, we used five surface discretizations, with the number of elements ranging from 8 thousand to 2 million.
+To cover a wide range of problem sizes, we used five surface discretizations, with the number of elements ranging from 8 thousand to 2 million.
 Table \ref{tab:sphere_time} presents the assembly time, the solution time and the number of iterations to converge in each case for both formulations.
 The algebraic convergence shows that the condition number grows as the problem size increases with the direct formulation, while it remains at the same level with the derivative formulation.
 
@@ -197,7 +197,7 @@ Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly t
 
 Next, we want to confirm that the time complexity of mat-vecs in \gmres is also $\mathcal{O}(N)$.
 As we mentioned before, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 modified Helmholtz {\fmm}s for direct formulation, 8 and 11 for derivative formulation.
-We averaged the time spent on 1 Laplace \fmm and 1 modified Helmholtz \fmm respectively using direct formulation, and plot them with respect to $N$ in Figure \ref{fig:sphere_fmm}.
+We averaged the time spent on 1 Laplace \fmm and 1 modified Helmholtz \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:sphere_fmm}.
 The timings and linear scaling substantiate the efficiency of our \fmm implementation.
 In the largest case with over 10 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
 
@@ -209,7 +209,7 @@ In the largest case with over 10 million quadrature points, one Laplace \fmm cos
     \label{fig:sphere_fmm}
 \end{figure}
 
-In Bempp, pre-computing the invariant matrices in \fmm, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
+In Bempp, pre-computing the \fmm invariant matrices, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
 In addition, each \fmm evaluation in \gmres is followed by a singular correction, which compensates the singular integrals that are not ignored by \fmm.
 Therefore, the \gmres time reported here also reflects these contributions.
 Figure \ref{fig:sphere_gmres} shows the time breakdown of \gmres in percentages.
