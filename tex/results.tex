@@ -11,9 +11,12 @@ We presented in section \ref{s:formulation} the two formulations to solve the in
 the \emph{direct}~\cite{YoonLenhoff1990}  and \emph{derivative}~\cite{JufferETal1991} formulations.
 The latter is well-known to lead to a better-conditioned matrix.
 Its most common solution method finds the potential and its derivative in the interior of the boundary via Equations \eqref{eq:juffer}, but an alternative is to solve for the exterior fields via \eqref{eq:lu}.
-We conducted experiments with both the interior and exterior versions of the derivative formulation, solving the linear system using GMRES.
-Observing that the exterior version used by Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019} typically takes about half as many iterations to converge than the interior version, we studied the properties of these two methods in more detail.
-The results in this section aim to give a simple explanation for the different numerical behavior of the two versions of the derivative formulation.
+Bempp unfetters the user to experiment with these variants of the boundary element solution method, editing just a few lines of Python.
+We could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
+The programming effort required to implement a second formulation would have been a good reason.
+In our experiments, the exterior version used by Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019} took about half as many iterations to converge than the interior version---a sizable advantage.
+This led us to study the properties of the two variants of the derivative formulation in more detail.
+The results in this section aim to give a simple explanation for the different numerical behavior of the two methods.
 Our ability to explore and explain this issue showcases the power of interactive computing with a high-productivity software platform, like that provided by Bempp-Exafmm.
 
 GMRES methods have an intricate convergence behavior \cite{mark1999a}.
