@@ -1,5 +1,11 @@
 %!TEX root = main.tex
-In this section, we demonstrate the performance and capability of Bempp-Exafmm via electrostatic simulations, including computing the solvation energy of Zika virus.
+We demonstrate the performance and capability of Bempp-Exafmm via electrostatic simulations, including computing the solvation energy of a Zika virus.
+This section presents four types of results. 
+The first result explains the behavior of two variants of the mathematical formulation, from the conditioning point of view. 
+Second, we show solution verification through two grid-convergence studies: with a spherical molecule (having an analytical solution), and with a real biomolecule (using Richardson extrapolation).
+The third type of result looks at performance with problem sizes between 8,000 and 2 million elements, including timings, breakdowns, and computational complexity.
+Our final result is a demonstration using a structure with about 1.6 million atoms, the Zika virus, discretized with over 10 million boundary elements. 
+
 We ran all experiments on a single CPU node of \textit{Pegasus} \footnote{Pegasus is a Linux cluster at the George Washington University.}, equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
 All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
