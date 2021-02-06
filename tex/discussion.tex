@@ -1,3 +1,10 @@
+%!TEX root = main.tex
+With this paper, we introduce a new platform for computational investigations in biomolecular electrostatics, combining high-performance with high researcher productivity. 
+Bempp-Exafmm integrates one of the most trusted boundary element software packages with one of the most performant fast-summation libraries using multipole methods. 
+A Python entry point gives researchers ease of use, while enabling computational research at virus scale on standard workstations.
+The software is open source under permissive public licenses, and developed in the open.
+
+We present several results that confirm the usefulness of the platform, verify solution correctness with classic benchmarks, and showcase the performance. 
 % conditioning
 In section \ref{result_conditioning}, we compared the conditioning of the interior and exterior derivative formulations.
 Despite the fact that both yield a well-conditioned system, where the condition number does not grow with the problem size, the exterior formulation always converges faster due to the closeness of its eigenvalues.
@@ -9,12 +16,12 @@ Through interactive computing, users can adapt various formulations, try out dif
 We performed two mesh refinement studies to verify Bempp-Exafmm, using a spherical molecule with an off-center charge and bovine pancreatic trypsin inhibitor.
 In the former study, we compared with the analytical solution; in the latter, we compared with an approximate value from Richard extrapolation.
 In both cases, we used the direct formulation and the exterior derivative formulation.
-To reveal the discretization error, we set the FMM expansion order to 10 to achieve 9 digits of accuracy.
+To reveal the discretization error, we set the \fmm expansion order to 10 to achieve 9 digits of accuracy.
 The error of the computed solvation energy decays linearly with respect to $N$, as shown in Figure \ref{fig:sphere_convergence} and \ref{fig:5PTI_convergence}.
 
 % performance and Zika virus
 In section \ref{result_performance}, we elaborate on the performance of Bempp-Exafmm for different problem sizes using both formulations.
-The linear complexity of the assembly time (Figure \ref{fig:sphere_assembly_time}) and FMM time (Figure \ref{fig:sphere_fmm}) guarantees the overall linear time complexity of Bempp-Exafmm, which, together with the linear space complexity shown in Figure \ref{fig:sphere_memory}, makes it feasible to perform large-scale simulations on a workstation.
+The linear complexity of the assembly time (Figure \ref{fig:sphere_assembly_time}) and \fmm time (Figure \ref{fig:sphere_fmm}) guarantees the overall linear time complexity of Bempp-Exafmm, which, together with the linear space complexity shown in Figure \ref{fig:sphere_memory}, makes it feasible to perform large-scale simulations on a workstation.
 Table \ref{tab:sphere_time} lists the timings in detail.
 Despite being ill-conditioned, the direct formulation still shows an advantage in terms of the overall time for smaller problem sizes.
 Conversely, the derivative formulation shines in larger problems.
@@ -30,16 +37,15 @@ Moreover, some are integrated into a number of computational workflows that use 
 The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language.
 This makes our effort stand out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
 \begin{enumerate}
-\item Interoperability: Bempp is written in Python, and hence, is callable from a Jupyter notebook. This fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM \cite{EastmanETal2017}, Biobb \cite{AndrioETal2019},MDAnalysis \cite{GowersETal2019}, pytraj \cite{RoeCheatham2013}, or pymol \cite{PyMOL}. Then, the Jupyter notebook becomes a computational glue across models and scales; no interface script required. 
+\item Interoperability: Bempp is written in Python, and hence, is callable from a Jupyter notebook. This fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM \cite{EastmanETal2017}, Biobb \cite{AndrioETal2019}, MDAnalysis \cite{GowersETal2019}, pytraj \cite{RoeCheatham2013}, or PyMOL \cite{PyMOL}. The Jupyter Notebook becomes a computational glue across models and scales; no interface script required. 
 
-\item Ease of use: Python and Jupyter notebooks are widely used, even in non-computational settings. Bempp is easily installed through conda, and gives a result in less than 20 lines of code. This, moreover, using parallel and state-of-the-art algorithms in a way that is almost transparent to the user, allowing for large-scale simulations on workstations or small clusters at no extra cost.
+\item Ease of use: Python and Jupyter notebooks are widely used, even in non-computational settings. Bempp is easily installed through \texttt{conda}, and gives a result in less than 20 lines of code. This, moreover, using parallel and state-of-the-art algorithms in a way that is almost transparent to the user, allowing for large-scale simulations on workstations or small clusters at no extra cost.
+Also, there is a thin layer between the application and Bempp, giving a more experienced user access to develop new models, for example, through the \fmm-\bem coupling capability of Bempp.
 
-Also, there is a thin layer between the application and Bempp, giving a more experienced user access to develop new models, for example, through the FEM-BEM coupling capability of Bempp.
-
-\item Robustness: Bempp is actively developed with high standards of software engineering, such as unit and system testing, continuous integration, etc. Moreover, it was originally designed for scattering problems, impacting a large group of people, well beyond the molecular simulation community. This builds higher trust and reliability of the code, as it is thoroughly tested in a diverse set of applications. Moreover, the software has a better chance to survive in the long term, and any improvements done by people in other domains will have an effect in its use to solve the Poisson-Boltzmann equation. 
+\item Robustness: Bempp is actively developed with high standards of software engineering, such as unit and system testing, continuous integration, etc. It was originally designed for scattering problems, impacting a large group of people, well beyond the molecular simulation community. This builds high trust and reliability of the code, as it is thoroughly tested in a diverse set of applications. The software has a better chance to survive in the long term, and any improvements done by people in other domains will have an effect on its use to solve the Poisson-Boltzmann equation. 
 
 \end{enumerate}
 
-There is a large number of popular molecular simulation software designed for different applications, scales, quantities of interest, etc.
-This led to community-wide efforts, such as BioExcel and MolSSI, that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes.
+Many popular molecular simulation software packages exist, designed for different applications, scales, quantities of interest, etc.
+This has led to community-wide efforts, such as BioExcel and MolSSI, that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes.
 This standard is very much aligned with our work.
