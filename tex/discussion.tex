@@ -10,7 +10,9 @@ In section \ref{result_conditioning}, we compared the conditioning of the interi
 Despite the fact that both yield a well-conditioned system, where the condition number does not grow with the problem size, the exterior formulation always converges faster due to the clustering of its eigenvalues.
 It shows a greater advantage over the interior formulation as the difference between $\epsilon_1$ and $\epsilon_2$ becomes larger.
 Previous publications have used one or the other of these solution methods, but we found no comparison of the two in the literature.
-Our experiments show that the exterior formulation converges twice as fast with typical values of the permittivities: an important advantage.
+Our experiments showed that the exterior formulation converges twice as fast with typical values of the permittivities: an important advantage.
+Seeing this, we quickly computed condition numbers, made heatmaps of the matrices, and plotted eigenvalues on the complex plane---all interactively, in a Jupyter notebook---leading to an explanation of the different algebraic behaviors.
+(Readers can find a final Jupyter notebook in the GitHub repository for this manuscript.)
 This study also serves as example of how users can benefit from our high-productivity platform.
 Through interactive computing, users can adapt various formulations, try out different problem setups, analyze intermediate results on-the-fly without the hassle of recompilation.
 
@@ -29,26 +31,31 @@ Table \ref{tab:sphere_time} lists the timings in detail.
 Despite being ill-conditioned, the direct formulation still shows an advantage in terms of the overall time for smaller problem sizes.
 Conversely, the derivative formulation shines in larger problems.
 The crossover point should be problem- and hardware-specific.
-Finally, we computed the solvation energy of Zika virus using both formulations and verified our results against PyGBe in \ref{result_zika}.
+Finally, we computed the solvation energy of a Zika virus using both formulations and verified our results against PyGBe in \ref{result_zika}.
 The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node, which gives us confidence in the capability of Bempp-Exafmm of solving virus-scale problems.
 
 
-A Poisson-Boltzmann solver is not something new in itself.
-They have been around for decades, are available as stand-alone applications and web servers, and come in a variety of implementations, ranging from finite difference, to finite element, and boundary element methods.
-Moreover, some are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014,WangETal2018}, usually interfaced through bash or Python scripts.
+Poisson-Boltzmann solvers
+have been around for decades, available as stand-alone applications and web servers, and using a variety of solution approaches ranging from finite difference, to finite element, and boundary element methods.
+Some solvers are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014,WangETal2018}, usually interfaced through bash or Python scripts.
 
 The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language.
 This makes our effort stand out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
 \begin{enumerate}
 \item Interoperability: Bempp is written in Python, and hence, is callable from a Jupyter notebook. This fits naturally in any computational workflow that uses Jupyter notebooks, for example, with openMM \cite{EastmanETal2017}, Biobb \cite{AndrioETal2019}, MDAnalysis \cite{GowersETal2019}, pytraj \cite{RoeCheatham2013}, or PyMOL \cite{PyMOL}. The Jupyter Notebook becomes a computational glue across models and scales; no interface script required. 
 
-\item Ease of use: Python and Jupyter notebooks are widely used, even in non-computational settings. Bempp is easily installed through \texttt{conda}, and gives a result in less than 20 lines of code. This, moreover, using parallel and state-of-the-art algorithms in a way that is almost transparent to the user, allowing for large-scale simulations on workstations or small clusters at no extra cost.
-Also, there is a thin layer between the application and Bempp, giving a more experienced user access to develop new models, for example, through the \fmm-\bem coupling capability of Bempp.
+\item Ease of use: Python and Jupyter notebooks are widely used, even in non-computational settings. Bempp is easily installed through \texttt{conda}, and gives a result in less than 20 lines of code. This, moreover, using parallel and state-of-the-art algorithms in a way that is almost transparent to the user, allowing for large-scale simulations on workstations or small clusters.
+A thin layer separates the application and Bempp, giving a more experienced user access to develop new models, for example, through the \fmm-\bem coupling capability of Bempp.
 
 \item Robustness: Bempp is actively developed with high standards of software engineering, such as unit and system testing, continuous integration, etc. It was originally designed for scattering problems, impacting a large group of people, well beyond the molecular simulation community. This builds high trust and reliability of the code, as it is thoroughly tested in a diverse set of applications. The software has a better chance to survive in the long term, and any improvements done by people in other domains will have an effect on its use to solve the Poisson-Boltzmann equation. 
 
 \end{enumerate}
 
 Many popular molecular simulation software packages exist, designed for different applications, scales, quantities of interest, etc.
-This has led to community-wide efforts, such as BioExcel and MolSSI, that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes.
+This has led to community-wide efforts, such as BioExcel and MolSSI (\url{http://molssi.org}), that are looking for a common ground between them, as well as promoting good software development practices for robust and easy-to-use codes.
 This standard is very much aligned with our work.
+
+Modern research software efforts today aim for the union of high performance and high researcher productivity.
+A vigorous trend is unmistakable towards empowering users with interactive computing, particularly using Jupyter notebooks, 
+Our work contributes a platform for interactive investigations in biomolecular electrostatics that is easy to use, easy to install, highly performant, extensible, open source and free.
+We contemplate a bright future for science domains that gel community efforts to jointly develop and curate software tools with similar philosophy.
