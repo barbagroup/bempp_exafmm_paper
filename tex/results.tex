@@ -9,7 +9,7 @@ Our final result is a demonstration using a structure with about 1.6 million ato
 We ran all experiments on a single CPU node of \textit{Pegasus} \footnote{Pegasus is a Linux cluster at the George Washington University.}, equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
 All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
-We used the full GMRES from SciPy package as our linear solver.
+We used the full GMRES from the SciPy library as our linear solver.
 
 \subsection{Matrix conditioning of two derivative formulations} \label{result_conditioning}
 
@@ -69,8 +69,8 @@ In each of the following studies, we present two sets of results: one from using
 As a form of solution verification with the Bempp-Exafmm software, we completed two mesh-refinement studies.
 The first used a spherical molecule with an off-center charge, for which we have an analytical solution.
 In the next sub-section, we present a mesh-refinement study with a real molecule of biological relevance.
-Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case.
-It depicts a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
+Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case:
+a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
 The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = 1/8\ {\si{\angstrom}}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
@@ -252,9 +252,9 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
     \label{fig:sphere_memory}
 \end{figure}
 
-\subsection{Free energy of Zika virus} \label{result_zika}
+\subsection{Solvation energy of a Zika virus} \label{result_zika}
 
-Finally, we present a more challenging problem that studies the free energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
+Finally, we present a more challenging problem that studies the solvation energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
 We downloaded the molecular structure from the Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated a mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements, corresponding to between 1 and 2 triangles per square Angstrom.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
