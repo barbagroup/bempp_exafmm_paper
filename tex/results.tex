@@ -114,6 +114,7 @@ Next, we tested our software using a real biomolecule: bovine pancreatic trypsin
 We computed solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
 This test used the same parameters listed in Table \ref{tab:sim_params_convergence}, which are fine enough to reveal the discretization error.
 Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
+The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
 
 \begin{figure}%[htbp]
     \centering
@@ -185,8 +186,8 @@ The algebraic convergence shows that the condition number grows as the problem s
     524288                                                       & 675.8                                                    & 121.6                                                       & 554.2                                                    & 51            & 421.3                                                    & 256.3                                                       & 165.0                                                    & 4            \\
     2097152                                                      & 3159.8                                                   & 483.3                                                       & 2676.5                                                   & 70            & 1592.1                                                   & 1011.6                                                      & 580.5                                                    & 4           
     \end{tabular}
-    \caption{Assembly and solution times of calculating the solvation energy of a spherical molecule with 100 random charges inside.
-    Assembly time include time spent on preparing preconditioners.}
+    \caption{Assembly and solution times of calculating the solvation energy of a spherical molecule with 100 random charges inside, using the direct and derivative (exterior) formulations.
+    Assembly times include time spent on preparing preconditioners.}
     \label{tab:sphere_time}
 \end{table*}
 
@@ -255,7 +256,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
 
 Finally, we present a more challenging problem that studies the free energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
 We downloaded the molecular structure from the Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated a mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
-The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements.
+The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements, corresponding to between 1 and 2 triangles per square Angstrom.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
 
