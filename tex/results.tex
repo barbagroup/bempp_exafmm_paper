@@ -48,6 +48,8 @@ where $\mathcal{C}_{ext}$ is again a compact operator.
 We now only have one accumulation point, namely $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$.
 Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be much closer together than in the interior derivative case and therefore the GMRES convergence to be faster for the exterior derivative formulation.
 
+In each of the following studies, we present two sets of results: one from using the exterior derivative formulation with a lumped mass preconditioner, and the other from using the direct formulation with a block-diagonal preconditioner.
+
 \begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{derivative_interior_eig.pdf}
@@ -240,7 +242,7 @@ As problem size increases, \fmm evaluations dominate the solution time.
 
 We also measured the peak memory usage using the Linux command \texttt{/usr/bin/time -v}.
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
-The largest case, with more than $2$ million elements, requires $36$GB for direct formulation and $43$GB for derivative formulation.
+The largest case, with more than $2$ million elements, requires $36$GB for the direct formulation and $43$GB for the derivative formulation.
 
 \begin{figure}%[htbp]
     \centering
