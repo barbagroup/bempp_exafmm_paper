@@ -48,6 +48,8 @@ where $\mathcal{C}_{ext}$ is again a compact operator.
 We now only have one accumulation point, namely $\frac{1}{2}(1 + \frac{\epsilon_1}{\epsilon_2})$.
 Unless $\epsilon_1\approx \epsilon_2$ we therefore expect the eigenvalues to be much closer together than in the interior derivative case and therefore the GMRES convergence to be faster for the exterior derivative formulation.
 
+In each of the following studies, we present two sets of results: one from using the exterior derivative formulation with a lumped mass preconditioner, and the other from using the direct formulation with a block-diagonal preconditioner.
+
 \begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{derivative_interior_eig.pdf}
@@ -96,6 +98,7 @@ We computed the solvation energy of this molecule using $5$ different meshes, ob
 
 Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution for the solvation energy in this case, to compare with the numerical result: $-12.258363$ [kcal/mol].
 Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
+The observed order of convergence is 1.001 for the direct formulation and 0.999 for the derivative formulation, using the middle three values.
 
 \begin{figure}%[htbp]
     \centering
@@ -134,7 +137,8 @@ Since an analytical solution is not available for this geometry, we obtained the
     \label{tab:5PTI_mesh}
 \end{table}
 
-Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$, for both the direct and derivative formulations.
+Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$.
+The observed order of convergence is 1.156 for the direct formulation and 1.038 for the derivative formulation, using the middle three values.
 Both convergence results provide solution verification, and are evidence that our software solves the mathematical model correctly.
 
 \begin{figure}%[htbp]
@@ -238,7 +242,7 @@ As problem size increases, \fmm evaluations dominate the solution time.
 
 We also measured the peak memory usage using the Linux command \texttt{/usr/bin/time -v}.
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
-The largest case, with more than $2$ million elements, requires $36$GB for direct formulation and $43$GB for derivative formulation.
+The largest case, with more than $2$ million elements, requires $36$GB for the direct formulation and $43$GB for the derivative formulation.
 
 \begin{figure}%[htbp]
     \centering
