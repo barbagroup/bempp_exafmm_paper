@@ -7,17 +7,20 @@ The software is open source under permissive public licenses, and developed in t
 We present several results that confirm the usefulness of the platform, verify solution correctness with classic benchmarks, and showcase the performance. 
 % conditioning
 In section \ref{result_conditioning}, we compared the conditioning of the interior and exterior derivative formulations.
-Despite the fact that both yield a well-conditioned system, where the condition number does not grow with the problem size, the exterior formulation always converges faster due to the closeness of its eigenvalues.
+Despite the fact that both yield a well-conditioned system, where the condition number does not grow with the problem size, the exterior formulation always converges faster due to the clustering of its eigenvalues.
 It shows a greater advantage over the interior formulation as the difference between $\epsilon_1$ and $\epsilon_2$ becomes larger.
+Previous publications have used one or the other of these solution methods, but we found no comparison of the two in the literature.
+Our experiments show that the exterior formulation converges twice as fast with typical values of the permittivities: an important advantage.
 This study also serves as example of how users can benefit from our high-productivity platform.
 Through interactive computing, users can adapt various formulations, try out different problem setups, analyze intermediate results on-the-fly without the hassle of recompilation.
 
 % mesh refinement
-We performed two mesh refinement studies to verify Bempp-Exafmm, using a spherical molecule with an off-center charge and bovine pancreatic trypsin inhibitor.
+We performed two mesh-refinement studies to verify Bempp-Exafmm, using a spherical molecule with an off-center charge, and using a real biomolecule (bovine pancreatic trypsin inhibitor).
 In the former study, we compared with the analytical solution; in the latter, we compared with an approximate value from Richard extrapolation.
 In both cases, we used the direct formulation and the exterior derivative formulation.
 To reveal the discretization error, we set the \fmm expansion order to 10 to achieve 9 digits of accuracy.
 The error of the computed solvation energy decays linearly with respect to $N$, as shown in Figure \ref{fig:sphere_convergence} and \ref{fig:5PTI_convergence}.
+These results provide evidence of the code correctness for computing biomolecular solvation energies.
 
 % performance and Zika virus
 In section \ref{result_performance}, we elaborate on the performance of Bempp-Exafmm for different problem sizes using both formulations.
