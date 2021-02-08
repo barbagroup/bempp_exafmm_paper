@@ -73,6 +73,7 @@ Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the cur
 a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
 The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = 1/8\ {\si{\angstrom}}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
+With an expansion order of 10, our \fmm achieved 9 digits of accuracy.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
 
 \begin{figure}%[htbp]
@@ -87,7 +88,7 @@ We computed the solvation energy of this molecule using $5$ different meshes, ob
     \begin{tabular}{lc}
     \hline
     \gmres tolerance          & $10^{-7}$ \\
-    regular quadrature order  & 4    \\
+    \# regular quadrature points  & 6    \\
     \fmm expansion order      & 10   \\
     \fmm $\ncrit$             & 500  \\
     \hline
@@ -162,7 +163,7 @@ Other simulation parameters are listed in Table \ref{tab:sim_params_performance}
     \begin{tabular}{lc}
     \hline
     \gmres tolerance          & $10^{-4}$ \\
-    regular quadrature order  & 4    \\
+    \# regular quadrature points  & 6    \\
     \fmm expansion order      & 5   \\
     \fmm $\ncrit$             & 500  \\
     \hline
@@ -188,7 +189,7 @@ The algebraic convergence shows that the condition number grows as the problem s
     2097152                                                      & 3159.8                                                   & 483.3                                                       & 2676.5                                                   & 70            & 1592.1                                                   & 1011.6                                                      & 580.5                                                    & 4           
     \end{tabular}
     \caption{Assembly and solution times of calculating the solvation energy of a spherical molecule with 100 random charges inside, using the direct and derivative (exterior) formulations.
-    Assembly times include time spent on preparing preconditioners.}
+    6 regular quadrature points were used per element and the \fmm expansion order was set to 5.}
     \label{tab:sphere_time}
 \end{table*}
 
@@ -208,15 +209,18 @@ Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly t
 \end{figure}
 
 Next, we want to confirm that the time complexity of mat-vecs in \gmres is also $\mathcal{O}(N)$.
-As we mentioned before, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 modified Helmholtz {\fmm}s for direct formulation, 8 and 11 for derivative formulation.
+As we mentioned before, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 modified Helmholtz {\fmm}s for the direct formulation, 8 and 11 for the derivative formulation.
 We averaged the time spent on 1 Laplace \fmm and 1 modified Helmholtz \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:sphere_fmm}.
+Using an \fmm order of 5, we achieved about 5 digits of accuracy in each mat-vec.
 The timings and linear scaling substantiate the efficiency of our \fmm implementation.
-In the largest case with over 10 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
+In the largest case with over 12 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
 
 \begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_fmm.pdf} 
-    \caption{The average time of 1 Laplace FMM evaluation and 1 modified Helmholtz evaluation in GMRES with respect to problem size N using direct formulation.}
+    \caption{The average time of 1 Laplace FMM evaluation and 1 modified Helmholtz evaluation in GMRES with respect to problem size N using direct formulation, with 6 regular quadrature points per element.
+    The \fmm expansion order was set to 5 to achieve around 5 digits of accuracy.
+    }
     \label{fig:sphere_fmm}
 \end{figure}
 
@@ -236,7 +240,8 @@ As problem size increases, \fmm evaluations dominate the solution time.
         \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_gmres_derivative.pdf}}
     \end{subfigure}
 
-    \caption{Time breakdown of \gmres in percentage using direct formulation (top) and derivative formulation (bottom).}
+    \caption{Time breakdown of \gmres in percentage using direct formulation (top) and derivative formulation (bottom).
+    6 regular quadrature points were used per element and the \fmm expansion order was set to 5.}
     \label{fig:sphere_gmres}
 \end{figure}
 
@@ -247,7 +252,8 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
 \begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_memory.pdf} 
-    \caption{Overall memory consumption in GB for both direct and derivative formulation.}
+    \caption{Overall memory consumption in GB for both direct and derivative formulation.
+    6 regular quadrature points were used per element and the \fmm expansion order was set to 5.}
     \label{fig:sphere_memory}
 \end{figure}
 
@@ -257,7 +263,7 @@ Finally, we present a more challenging problem that studies the solvation energy
 We downloaded the molecular structure from the Protein Data Bank (PDB), parameterized it with \texttt{pdb2pqr} and generated a mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements, corresponding to between 1 and 2 triangles per square Angstrom.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
-The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
+The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
 
 \begin{figure}%[htbp]
     \centering
@@ -274,7 +280,8 @@ The \fmm expansion order was 4 and the tolerance of \gmres was $10^{-4}$.
     Bempp derivative & -116254.9                                               & 8370.3                                                    & 3553.9                                                       & 4816.4                                                    & 152.0                                                 & 18            \\
     \pygbe       & -117261.1                                                   & -                                                         & -                                                            & -                                                         & -                                                     & -            
     \end{tabular}
-    \caption{Results of computing the solvation energy of a Zika virus with Bempp and \pygbe .}
+    \caption{Results of computing the solvation energy of a Zika virus with Bempp and \pygbe.
+    3 regular quadrature points were used per element and the \fmm expansion order was set to 4.}
     \label{tab:6CO8_result}
 \end{table*}
 
