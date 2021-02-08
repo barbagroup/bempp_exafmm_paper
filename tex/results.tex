@@ -173,6 +173,7 @@ Other simulation parameters are listed in Table \ref{tab:sim_params_performance}
 
 To cover a wide range of problem sizes, we used five surface discretizations, with the number of elements ranging from 8 thousand to 2 million.
 Table \ref{tab:sphere_time} presents the assembly time, the solution time and the number of iterations to converge in each case for both formulations.
+The assembly time includes the time to pre-compute the \fmm invariant matrices, create sparse and singular assemblers and calculate preconditioners.
 The algebraic convergence shows that the condition number grows as the problem size increases with the direct formulation, while it remains at the same level with the derivative formulation.
 
 \begin{table*}[]
@@ -212,7 +213,6 @@ We averaged the time spent on 1 Laplace \fmm and 1 modified Helmholtz \fmm respe
 The timings and linear scaling substantiate the efficiency of our \fmm implementation.
 In the largest case with over 10 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
 
-
 \begin{figure}%[htbp]
     \centering
     \includegraphics[width=\linewidth]{sphere_fmm.pdf} 
@@ -220,9 +220,8 @@ In the largest case with over 10 million quadrature points, one Laplace \fmm cos
     \label{fig:sphere_fmm}
 \end{figure}
 
-In Bempp, pre-computing the \fmm invariant matrices, initializing singular assemblers and many other computations are triggered by calling the iterative solver.
-In addition, each \fmm evaluation in \gmres is followed by a singular correction, which compensates the singular integrals that are not ignored by \fmm.
-Therefore, the \gmres time reported here also reflects these contributions.
+In Bempp, each \fmm evaluation is followed by a singular correction, which compensates the singular integrals that are not ignored by \fmm.
+Therefore, the \gmres time reported here consists of \fmm time, singular correction time, as well as the time spent on other steps in the \gmres algorithm.
 Figure \ref{fig:sphere_gmres} shows the time breakdown of \gmres in percentages.
 As problem size increases, \fmm evaluations dominate the solution time.
 
