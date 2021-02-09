@@ -14,12 +14,13 @@ In this case, the full system consisted of 160 million atoms, and the computatio
 This is among the largest biomolecular systems ever simulated using all-atom molecular dynamics.
 
 Only a few elite researchers can access these leadership computing facilities, however, and if molecular science of viruses is to progress, computational tools that are more widely accessible are needed.
-The vision behind this paper is to build an electrostatic simulation platform for biomolecular applications that allows researchers to access it via the Python/Jupyter ecosystem. This provides a high degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation processes.
+The vision behind this paper is to build an electrostatic simulation platform for biomolecular applications that allows researchers to access it via the Python/Jupyter ecosystem. This provides a high degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation workflowss.
 
 To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance fast multipole method (\fmm) library Exafmm. 
-Boundary integral problems are described in Bempp using a high-level approach that allows to build up even complex block-operator systems in just a few lines of code. Bempp then executes the discretization, depending on the chosen parameters and machine environment. In the case of \fmm acceleration, Exafmm is called essentially as a matrix-vector black-box below the user level, hiding any technicalities associated with the discretization.
+Boundary integral problems are described in Bempp using a high-level approach that enables building even complex block-operator systems in just a few lines of Python code. Bempp then executes the discretization, depending on the chosen parameters and machine environment. 
+Exafmm is called as a matrix-vector black-box below the user level, hiding all technicalities associated with the discretization.
 
-This approach has the following advantages as compared to an integrated PB solver in, for example, C++:
+This approach has the following advantages as compared to an integrated PB solver implemented in, for example, C++:
 \begin{itemize}
 	\item \textit{Strict separation of concerns}. The user-level description of the electrostatic problem is completely separated from the underlying discretization routines and the \fmm coupling. One can easily move between different types of implementations (e.g., dense discretization, \fmm) editing a single parameter, change input file handling or postprocessing.
 	\item \textit{Fast prototyping of different formulations}. We present in this paper results produced with a direct formulation and derivative or Juffer-type formulations. Applying these different formulations requires editing just a few lines of high-level code. The user can easily experiment with other models, such as piecewise solvation models with different solvation parameters in each layer.
@@ -27,5 +28,10 @@ This approach has the following advantages as compared to an integrated PB solve
 \end{itemize}
 A high-level productive approach does come with some costs. A dedicated highly specialized C++ code that integrates all steps might be faster than our solution. Nevertheless, in this paper we demonstrate that our software platform is highly competitive for real-world solvation energy computations (and many other electrostatic computations), while preserving full flexibility through the use of a high-productivity Python environment.
 
-
-
+We present results that show the power of interactive computing to study modeling variations, results to confirm code correctness and describe performance, and a final showcase that computes solvation free energy for a medium-sized virus particle.
+Our first result explains the behavior of two solution methods that vary in whether they solve for the potential internal or external to the molecular interface, from the conditioning point of view.
+Solution verification via grid-convergence studies with two problem set-ups gives us confidence in the software implementation.
+Performance-wise, we show results with problem sizes up to 2 million boundary elements, we show computational complexity of the \fmm evaluations, and timing breakdowns of the solver.
+The final result uses a realistic structure, the enveloped Zika virus, computing the surface potential and solvation free energy with about 10 million boundary elements.
+All results are reproducible and we share scripts, data, configuration files, and Jupyter notebooks in the manuscript repository, found at \url{https://github.com/barbagroup/bempp_exafmm_paper/}, in addition to permanent archives in Zenodo.
+Permanent identifiers are provided at the end of the Results section.
