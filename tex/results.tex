@@ -4,7 +4,7 @@ This section presents four types of results.
 The first result explains the behavior of two variants of the mathematical formulation, from the conditioning point of view. 
 Second, we show solution verification through two grid-convergence studies: with a spherical molecule (having an analytical solution), and with a real biomolecule (using Richardson extrapolation).
 The third type of result looks at performance with problem sizes between 8,000 and 2 million elements, including timings, breakdowns, and computational complexity.
-Our final result is a demonstration using a structure with about 1.6 million atoms, the Zika virus, discretized with over 10 million boundary elements. 
+Our final result is a demonstration using a structure with about 1.6 million atoms, the Zika virus, discretized with about 10 million boundary elements.
 
 We ran all experiments on a single CPU node of \textit{Pegasus} \footnote{Pegasus is a Linux cluster at the George Washington University.}, equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
 All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
@@ -303,6 +303,8 @@ Figure \ref{fig:6CO8_potential} shows the computed electrostatic potential on th
 \subsection{Reproducibility package}
 
 Besides releasing all our software with an open-source license, we spared no effort to maximize the reproducibility of this work, compiling a ``repro-pack" in a version-control repository.
-It contains all raw data from the experiments and all post-processing scripts, which are necessary to produce every result presented in this section.
-The ``repro-pack" also provides driver and utility scripts should readers be interested in running these cases on their own hardware.
-The meshes and \texttt{pqr} files are made available on Zenodo.
+It contains all raw data from the experiments and a small Python package---\texttt{bempp\_pbs}, to facilitate running PB simulations with Bempp.
+\texttt{bempp\_pbs} comprises a collection of scripts, including all post-processing scripts that are necessary to produce every result presented in this section, and driver and utility scripts for different formulations, with which readers can run these cases on their own hardware.
+In addition, the ``repro-pack" also provides a Jupyter notebook for each study to generate secondary data and results.
+The notebook dedicated to \ref{result_conditioning} showcases how we could run a simple case of a spherical molecule using two formulations within just a number of lines of code, and then compare their conditioning quantitatively with the help of other Python scientific tools.
+Lastly, our meshes and \texttt{pqr} files are made available on Zenodo.
