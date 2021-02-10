@@ -18,7 +18,7 @@ Typical choices for the test and trial functions are either piecewise constant f
 By default, Bempp explicitly computes the matrix $A$ by applying quadrature rules to the arising integrals.
 The singularity of the Green's function needs to be accounted for in the quadrature rules for integration over adjacent or identical test/trial triangles.
 For well separated triangles standard triangle Gauss rules can be used for the quadrature.
-The memory and computational complexity of this discretization is $\mathcal{O}(n^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
+The memory and computational complexity of this discretization is $\mathcal{O}(N^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
 Bempp-cl performs the evaluation of the quadrature routines through highly optimized OpenCL kernels that make use of explicit AVX/AVX2/AVX-512 acceleration on CPUs.
 
 \subsection{FMM-accelerated evaluation of integral operators}
