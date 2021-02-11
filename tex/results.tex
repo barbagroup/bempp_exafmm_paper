@@ -276,12 +276,14 @@ The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs an
     \centering
     \begin{tabular}{c|c|ccccc}
                  & \begin{tabular}[c]{@{}c@{}}$\Delta G_{\mathrm{solv}}$\\ (kcal/mol)\end{tabular} & \begin{tabular}[c]{@{}c@{}}total \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES \\ time (s)\end{tabular} & \begin{tabular}[c]{@{}l@{}}memory\\ (GB)\end{tabular} & \# iterations \\ \hline
-    Bempp direct & -116587.5                                                   & 11005.4                                                   & 1534.5                                                       & 9470.9                                                    & 109.7                                                 & 105           \\
-    Bempp derivative & -116254.9                                               & 8370.3                                                    & 3553.9                                                       & 4816.4                                                    & 152.0                                                 & 18            \\
-    \pygbe       & -117261.1                                                   & -                                                         & -                                                            & -                                                         & -                                                     & -            
+    direct     & -116587.5                                               & 11005.4                                                   & 1534.5                                                       & 9470.9                                                    & 109.7                                                 & 105           \\
+    derivative & -116254.9                                               & 8370.3                                                    & 3553.9                                                       & 4816.4                                                    & 152.0                                                 & 18            
     \end{tabular}
-    \caption{Results of computing the solvation energy of a Zika virus with Bempp and \pygbe.
-    3 regular quadrature points were used per element and the \fmm expansion order was set to 4.}
+    \caption{Results of computing the solvation energy of a Zika virus with Bempp using both the direct and derivative formulations.
+    3 regular quadrature points were used per element and the \fmm expansion order was set to 4.
+    To verify our result, we ran the same case with \pygbe using the direct formulation on a workstation with a 24-core CPU.
+    The solvation energy computed from \pygbe is -117261.1 [kcal/mol].
+    }
     \label{tab:6CO8_result}
 \end{table*}
 
