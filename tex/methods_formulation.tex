@@ -38,11 +38,11 @@ Equation \eqref{eq:pde} can be re-written as an integral equation on $\Gamma$ vi
 where $\phi_{1,\Gamma} = \phi_1(\mathbf{r}_\Gamma)$ and $\phi_{2,\Gamma} = \phi_2(\mathbf{r}_\Gamma)$ are evaluated on $\Gamma$ approaching from $\Omega_1$ and $\Omega_2$, respectively. $K$ and $V$ are the double- and single-layer potentials for the Laplace (subscript $L$) and modified Helmholtz (Yukawa, subscript $Y$) kernels, defined as:
 %
 \begin{align}\label{eq:single_double}
-V^\Omega_{L,Y}(\varphi) = \oint_\Gamma G_{L,Y}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
-K^\Omega_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial G_{L,Y}}{\partial\mathbf{n}'}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}',\nonumber\\
+V^\Omega_{L,Y}(\varphi) = \oint_\Gamma g_{L,Y}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+K^\Omega_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial g_{L,Y}}{\partial\mathbf{n}'}(\mathbf{r}_\Omega,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}',\nonumber\\
 \end{align}
 %
-where $\varphi(\mathbf{r})$ is a distribution over $\Gamma$, and $G_L(\mathbf{r},\mathbf{r}')=\frac{1}{4\pi|\mathbf{r}-\mathbf{r}'|}$ and $G_Y(\mathbf{r},\mathbf{r}')=\frac{e^{-\kappa|\mathbf{r}-\mathbf{r}'|}}{4\pi|\mathbf{r}-\mathbf{r}'|}$ are the free-space Green's function of the Laplace and linearized Poisson-Boltzmann equations, respectively. 
+where $\varphi(\mathbf{r})$ is a distribution over $\Gamma$, and $g_L(\mathbf{r},\mathbf{r}')=\frac{1}{4\pi|\mathbf{r}-\mathbf{r}'|}$ and $g_Y(\mathbf{r},\mathbf{r}')=\frac{e^{-\kappa|\mathbf{r}-\mathbf{r}'|}}{4\pi|\mathbf{r}-\mathbf{r}'|}$ are the free-space Green's function of the Laplace and linearized Poisson-Boltzmann equations, respectively. 
 
 We can use Equation \eqref{eq:volume_potential} to compute $\phi_\Gamma$ and $\partial\phi_\Gamma/\partial\mathbf{n}$ with either the \emph{direct}~\cite{YoonLenhoff1990} or \emph{derivative}~\cite{JufferETal1991} (also known as \emph{Juffer}) formulations.
 The simpler direct formulation results from evaluating $\phi_1$ and $\phi_2$ in the limit as $\mathbf{r}$ approaches $\Gamma$, and applying the interface conditions from Equation \eqref{eq:pde}, giving:
@@ -65,8 +65,8 @@ An alternative with better conditioning was derived by Juffer \emph{et al.} \cit
 Here, we use the adjoint double-layer ($K'$) and hypersingular ($W$) operators, which are defined as
 %
 \begin{align}\label{eq:adj_hyp}
-K^{\prime\Gamma}_{L,Y}(\varphi) = \oint_\Gamma \frac{G_{L,Y}}{\partial\mathbf{n}}(\mathbf{r}_\Gamma,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
-W^\Gamma_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial^2 G_{L,Y}}{\partial\mathbf{n}'\partial\mathbf{n}}(\mathbf{r}_\Gamma,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+K^{\prime\Gamma}_{L,Y}(\varphi) = \oint_\Gamma \frac{g_{L,Y}}{\partial\mathbf{n}}(\mathbf{r}_\Gamma,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
+W^\Gamma_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial^2 g_{L,Y}}{\partial\mathbf{n}'\partial\mathbf{n}}(\mathbf{r}_\Gamma,\mathbf{r}')\varphi(\mathbf{r}')d\mathbf{r}'\nonumber\\
 \end{align}
 %
 A slightly modified version of Equation \eqref{eq:juffer} is used in the work from Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019}, where they scale the expressions by $\epsilon_1/\epsilon_2$, and solve for the exterior field. This gives
