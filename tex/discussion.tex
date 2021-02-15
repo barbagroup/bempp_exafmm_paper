@@ -32,11 +32,10 @@ Despite being ill-conditioned, the direct formulation still shows an advantage i
 Conversely, the derivative formulation shines in larger problems.
 The crossover point should be problem- and hardware-specific.
 Finally, we computed the solvation energy of a Zika virus using both formulations and verified our results against PyGBe in \ref{result_zika}.
-The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node, which gives us confidence in the capability of Bempp-Exafmm of solving virus-scale problems.
+The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node.
+It shows that the performance of our code is in the same ballpark as other state-of-the-art fast BEM PB solvers \cite{GengKrasny2013,ZhangPengHuangPitsianisSunLu2015,CooperBardhanBarba2014} and gives us confidence in its capability of solving virus-scale problems.
 
-
-Poisson-Boltzmann solvers
-have been around for decades, available as stand-alone applications and web servers, and using a variety of solution approaches ranging from finite difference, to finite element, and boundary element methods.
+Poisson-Boltzmann solvers have been around for decades, available as stand-alone applications and web servers, and using a variety of solution approaches ranging from finite difference, to finite element, and boundary element methods.
 Some solvers are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014,WangETal2018}, usually interfaced through bash or Python scripts.
 
 The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language.
