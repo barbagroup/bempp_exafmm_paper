@@ -5,29 +5,30 @@ Bempp originally started as mixed Python/C++ library.
 Recently, Bempp underwent a complete redevelopment and the current version Bempp-cl is written completely in Python with OpenCL kernels for the low-level computational routines that are just-in-time compiled for the underlying architecture during runtime.
 To understand Bempp consider the simple boundary integral equation
 $$
-\int_{\Gamma} g(\mathbf{x}, \mathbf{y}) \phi(\mathbf{y})ds(\mathbf{y}) = f(\mathbf{x})
+\int_{\Gamma} g(\mathbf{r}, \mathbf{r'}) \phi(\mathbf{r'})ds(\mathbf{r'}) = f(\mathbf{r})
 $$
-where $\Gamma\subset\mathbb{R}^3$ is the surface of a bounded domain $\Omega\subset\mathbb{R}^3$, and $g(\mathbf{x}, \mathbf{y}) = \frac{1}{4\pi|\mathbf{x}-\mathbf{y}|}$ is the electrostatic Green's function.
+where $\Gamma\subset\mathbb{R}^3$ is the surface of a bounded domain $\Omega\subset\mathbb{R}^3$, and $g(\mathbf{r}, \mathbf{r'}) = \frac{1}{4\pi|\mathbf{r}-\mathbf{r'}|}$ is the electrostatic Green's function.
 A Galerkin discretization of this equation takes the form
 $$
 A\mathbf{x} = b
 $$
-with $A_{ij} = \int_{\Gamma}\Psi_i(\mathbf{x})\int_{\Gamma}g(\mathbf{x}, \mathbf{y})\phi_j(\mathbf{y})ds(\mathbf{y})ds(\mathbf{y})$ and $b_i = \int_{\Gamma}\psi_i(\mathbf{x})f(\mathbf{x})ds(\mathbf{x})$.
+with $A_{ij} = \int_{\Gamma}\Psi_i(\mathbf{r})\int_{\Gamma}g(\mathbf{r}, \mathbf{r'})\phi_j(\mathbf{r'})ds(\mathbf{r'})ds(\mathbf{r})$ and $b_i = \int_{\Gamma}\psi_i(\mathbf{r})f(\mathbf{r})ds(\mathbf{r})$.
 Here, the functions $\Psi_j$ are a finite dimensional basis of $n$ test functions and the $\phi_j$ are a finite dimensional basis of $n$ trial functions with the Galerkin solution being defined as $\phi=\sum_{i}\mathbf{x}_j\phi_j$.
 Typical choices for the test and trial functions are either piecewise constant functions or continuous, piecewise linear functions over a surface triangulation of $\Gamma$. 
 By default, Bempp explicitly computes the matrix $A$ by applying quadrature rules to the arising integrals.
 The singularity of the Green's function needs to be accounted for in the quadrature rules for integration over adjacent or identical test/trial triangles.
 For well separated triangles standard triangle Gauss rules can be used for the quadrature.
 The memory and computational complexity of this discretization is $\mathcal{O}(N^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
-Bempp-cl performs the evaluation of the quadrature routines through highly optimized OpenCL kernels that make use of explicit AVX/AVX2/AVX-512 acceleration on CPUs.
+Bempp-cl performs the evaluation of the quadrature routines through highly optimized OpenCL kernels that make use of explicit AVX2/AVX-512 acceleration on CPUs.
 
 \subsection{FMM-accelerated evaluation of integral operators}
 We can split up the action of the discretized integral operator $A$ onto a vector $\mathbf{x}$ in the following way.
-$$
-A = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}.
-$$
+\begin{equation}
+\label{eq:bempp_fmm_matvec}
+A\mathbf{x} = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}.
+\end{equation}
 The matrices $P_1$ and $P_2$ are sparse matrices that convert the action of trial and test functions onto weighted sums over the quadrature points.
-The matrix $G$ is a large dense matrix that contains the Green's function evaluation $g(\mathbf{x}_i, \mathbf{y}_j)$ over all quadrature points $x_i$ and $y_j$ across all triangles.
+The matrix $G$ is a large dense matrix that contains the Green's function evaluation $g(\mathbf{r}_i, \mathbf{r'}_j)$ over all quadrature points $r_i$ and $r'_j$ across all triangles.
 The matrix $C$ is a sparse correction matrix that subtracts out the Green's function values over quadrature points associated with  adjacent triangles.
 This is done since these triangles require a singularity adapted quadrature rule.
 By explicitly subtracting out these contributions through the matrix $C$, we can use any code for the fast evaluation of particle sums of the type appearing in the $G$ matrix without the requirement to communicate to the summation code the geometry and singularity structure induced by the triangles of the surface mesh, a functionality that most such codes do not offer in any case.
@@ -40,9 +41,9 @@ This leaves the matrix $G$.
 The action of $G$ on the vector $\mathbf{y}=P_1 \mathbf{x}$ can be considered as a black-box to evaluate sums of the form
 %
 \begin{align}\label{eq:nbody_sum}
-s(\mathbf{x}_i) = \sum_j g(\mathbf{x}_i, \mathbf{y}_j)q_j.
+s(\mathbf{x}_i) = \sum_j g(\mathbf{r}_i, \mathbf{r'}_j)q_j.
 \end{align}
 %
 To evaluate this sum we use the C++ Exafmm library, a highly performant library that implements the kernel-independent fast multipole method (\kifmm) to approximately evaluate sums of the above form.
 The complexity of this evaluation is $\mathcal{O}(N)$, where $N$ is the product of the number of surface triangles and the number of regular quadrature points per triangle.
-The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large  electrostatic simulations on a single workstation.
+The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large  electrostatic simulations on a single workstation. Details of Exafmm are discussed in the following Section.
