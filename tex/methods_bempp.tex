@@ -28,7 +28,7 @@ We can split up the action of the discretized integral operator $A$ onto a vecto
 A\mathbf{x} = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}.
 \end{equation}
 The matrices $P_1$ and $P_2$ are sparse matrices that convert the action of trial and test functions onto weighted sums over the quadrature points.
-The matrix $G$ is a large dense matrix that contains the Green's function evaluation $g(\mathbf{r}_i, \mathbf{r'}_j)$ over all quadrature points $r_i$ and $r'_j$ across all triangles.
+The matrix $G$ is a large dense matrix that contains the Green's function evaluation $g(\mathbf{r}_i, \mathbf{r}_j')$ over all quadrature points $\mathbf{r}_i$ and $\mathbf{r}_j'$ across all triangles.
 The matrix $C$ is a sparse correction matrix that subtracts out the Green's function values over quadrature points associated with  adjacent triangles.
 This is done since these triangles require a singularity adapted quadrature rule.
 By explicitly subtracting out these contributions through the matrix $C$, we can use any code for the fast evaluation of particle sums of the type appearing in the $G$ matrix without the requirement to communicate to the summation code the geometry and singularity structure induced by the triangles of the surface mesh, a functionality that most such codes do not offer in any case.
@@ -41,9 +41,9 @@ This leaves the matrix $G$.
 The action of $G$ on the vector $\mathbf{y}=P_1 \mathbf{x}$ can be considered as a black-box to evaluate sums of the form
 %
 \begin{align}\label{eq:nbody_sum}
-s(\mathbf{x}_i) = \sum_j g(\mathbf{r}_i, \mathbf{r'}_j)q_j.
+s(\mathbf{x}_i) = \sum_j g(\mathbf{r}_i, \mathbf{r}_j')q_j.
 \end{align}
 %
 To evaluate this sum we use the C++ Exafmm library, a highly performant library that implements the kernel-independent fast multipole method (\kifmm) to approximately evaluate sums of the above form.
 The complexity of this evaluation is $\mathcal{O}(N)$, where $N$ is the product of the number of surface triangles and the number of regular quadrature points per triangle.
-The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large  electrostatic simulations on a single workstation. Details of Exafmm are discussed in the following Section.
+The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large electrostatic simulations on a single workstation. Details of Exafmm are discussed in the following section.
