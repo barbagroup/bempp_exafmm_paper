@@ -31,7 +31,7 @@ Table \ref{tab:sphere_time} lists the timings in detail.
 Despite being ill-conditioned, the direct formulation still shows an advantage in terms of the overall time for smaller problem sizes.
 Conversely, the derivative formulation shines in larger problems.
 The crossover point should be problem- and hardware-specific.
-Finally, we computed the solvation energy of a Zika virus using both formulations and verified our results against PyGBe in \ref{result_zika}.
+Finally, we computed the solvation energy of a Zika virus using both formulations and verified our results against \pygbe in \ref{result_zika}.
 The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node.
 It shows that the performance of our code is in the same ballpark as other state-of-the-art fast BEM PB solvers \cite{GengKrasny2013,ZhangPengHuangPitsianisSunLu2015,CooperBardhanBarba2014} and gives us confidence in its capability of solving virus-scale problems.
 
