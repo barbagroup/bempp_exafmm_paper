@@ -2,8 +2,9 @@
 \subsection{Fast multipole method}
 
 The fast multipole method (\fmm) is an algorithm that can reduce the quadratic time and space complexity of such matrix-vector multiplication down to $\mathcal{O}(N)$.
-In the context of \fmm, $\{\mathbf{x}_i\}$ and $\{\mathbf{y}_j\}$ in equation \ref{eq:nbody_sum} are often referred to as the set of targets and sources respectively, with $\{q_j\}$ representing the source densities (charges).
+In the context of \fmm, $\{\mathbf{r}_i\}$ and $\{\mathbf{r}_j'\}$ in Equation \ref{eq:nbody_sum} are often referred to as the set of targets and sources respectively, with $\{q_j\}$ representing the source densities (charges).
 The goal of \fmm is to efficiently compute the potential at $N$ targets $\{s_i\}$ induced by all $N$ sources and the kernel function $g$.
+Following the common notations in the literature, we use $\mathbf{x}_i$ and $\mathbf{y}_j$, instead of $\mathbf{r}_i$ and $\mathbf{r}_j'$, to denote targets and sources respectively in this subsection.
 
 The \fmm algorithm builds upon two fundamental ideas: (1) approximating the far-range interactions between distant clusters of sources and targets using low-rank methods, while computing the near-range interactions exactly, and (2) partitioning the domain using a tree structure to maximize the far-range portion in the computation.
 
