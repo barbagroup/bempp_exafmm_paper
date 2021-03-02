@@ -4,6 +4,8 @@
 
 Manuscript repository, including all source files for the text and reproducibility packages for all figures.
 
+Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
+
 ## Reproducibility package archives
 Wang, Tingyu, Cooper, Christopher D., Betcke, Timo, Barba, Lorena A., High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm (manuscript and repro-pack), (2021). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4568951.svg)](https://doi.org/10.5281/zenodo.4568951)
 
