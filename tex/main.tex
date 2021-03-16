@@ -1,7 +1,9 @@
-\documentclass[final,5p,times,twocolumn]{elsarticle}
+\documentclass[twocolumn]{article}
 
 \usepackage{algorithm}
 \usepackage{amsmath}
+\usepackage{amsfonts} % \mathbb
+\usepackage{authblk}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{siunitx}  % use \si{\angstrom} for Angstrom
@@ -20,27 +22,23 @@
 
 \graphicspath{{figs/}}
 
-\journal{Computer Physics Communications}
-\begin{document}
-
-\begin{frontmatter}
 \title{High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm}
 
-\author[gwu]{Tingyu Wang}
-\ead{twang66@gwu.edu}
+\author[1]{Tingyu Wang}
+\author[2]{Christopher D. Cooper}
+\author[3]{Timo Betcke}
+\author[1]{Lorena A. Barba}
 
-\author[usm]{Christopher D. Cooper}
-\ead{christopher.cooper@usm.cl}
+\affil[1]{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington, DC, USA}
+\affil[2]{Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
+\affil[3]{Department of Mathematics, University College London, UK}
+%\ead{twang66@gwu.edu}
+%\ead{christopher.cooper@usm.cl}
+%\ead{t.betcke@ucl.ac.uk}
+%\ead{labarba@gwu.edu}
 
-\author[ucl]{Timo Betcke}
-\ead{t.betcke@ucl.ac.uk}
-
-\author[gwu]{Lorena A. Barba}
-\ead{labarba@gwu.edu}
-
-\address[gwu]{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington DC}
-\address[usm]{Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
-\address[ucl]{Department of Mathematics, University College London, UK}
+\begin{document}
+\maketitle
 
 %% abstract
 \begin{abstract}
@@ -61,27 +59,27 @@ Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can pro
 \end{abstract}
 
 %% keyword
-\begin{keyword}
-    boundary integral equation \sep boundary element method \sep Galerkin method \sep fast multipole method \sep
-    Python \sep biomolecular electrostatics \sep implicit solvent \sep Poisson-Boltzmann \sep solvation free energy
-\end{keyword}
-
-\end{frontmatter}
+%\begin{keyword}
+%    boundary integral equation \sep boundary element method \sep Galerkin method \sep fast multipole method \sep
+%    Python \sep biomolecular electrostatics \sep implicit solvent \sep Poisson-Boltzmann \sep solvation free energy
+%\end{keyword}
 
 % body of paper
 \section{Introduction}\label{sec:intro}
 \input{introduction}
-
-\section{Methods}\label{sec:methods}
-\input{methods_formulation}
-\input{methods_bempp}
-\input{methods_exafmm}
 
 \section{Results}\label{sec:results}
 \input{results}
 
 \section{Discussion} \label{sec:discussion}
 \input{discussion}
+
+\small{
+\section{Methods}\label{sec:methods}
+\input{methods_formulation}
+\input{methods_bempp}
+\input{methods_exafmm}
+}
 
 \section*{Acknowledgments}
 We thank Dr. Sergio Pantano for providing us with the parameterized structure of the Zika virus capsid.
