@@ -3,13 +3,14 @@
 \usepackage{algorithm}
 \usepackage{amsmath}
 \usepackage{amsfonts} % \mathbb
-\usepackage{authblk}
+\usepackage[margin=0.5in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{siunitx}  % use \si{\angstrom} for Angstrom
 \usepackage{subcaption} % use \subfigure
 \usepackage{xspace}
 
+\newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
 \newcommand{\pygbe}{\texttt{PyGBe}\xspace}
 \newcommand{\gmres}{\textsc{gmres}\xspace}
 \newcommand{\bem}{\textsc{bem}\xspace}
@@ -24,18 +25,12 @@
 
 \title{High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm}
 
-\author[1]{Tingyu Wang}
-\author[2]{Christopher D. Cooper}
-\author[3]{Timo Betcke}
-\author[1]{Lorena A. Barba}
-
-\affil[1]{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington, DC, USA}
-\affil[2]{Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
-\affil[3]{Department of Mathematics, University College London, UK}
-%\ead{twang66@gwu.edu}
-%\ead{christopher.cooper@usm.cl}
-%\ead{t.betcke@ucl.ac.uk}
-%\ead{labarba@gwu.edu}
+\author{%
+    Tingyu Wang\thanks{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington, DC, USA}%
+    \and Christopher D. Cooper\thanks{Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}%
+    \and Timo Betcke\thanks{Department of Mathematics, University College London, UK}%
+    \and Lorena A. Barba\samethanks[1]%
+}
 
 \begin{document}
 \maketitle

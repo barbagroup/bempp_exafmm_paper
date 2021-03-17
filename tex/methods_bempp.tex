@@ -1,5 +1,5 @@
 %!TEX root = main.tex
-\subsection{An introduction to Bempp}
+\paragraph{An introduction to Bempp}
 Bempp \cite{Betcke2021} is a Python based boundary element library for the Galerkin discretization of boundary integral operators in electrostatics, acoustics and electromagnetics.
 Bempp originally started as mixed Python/C++ library.
 Recently, Bempp underwent a complete redevelopment and the current version Bempp-cl is written completely in Python with OpenCL kernels for the low-level computational routines that are just-in-time compiled for the underlying architecture during runtime.
@@ -21,7 +21,7 @@ For well separated triangles standard triangle Gauss rules can be used for the q
 The memory and computational complexity of this discretization is $\mathcal{O}(N^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
 Bempp-cl evaluates the quadrature routines with highly optimized OpenCL kernels that make use of explicit AVX2/AVX-512 acceleration on CPUs.
 
-\subsection{FMM-accelerated evaluation of integral operators}
+\paragraph{FMM-accelerated evaluation of integral operators}
 We can split up the action of the discretized integral operator $A$ onto a vector $\mathbf{x}$ in the following way.
 \begin{equation}
 \label{eq:bempp_fmm_matvec}
