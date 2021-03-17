@@ -8,13 +8,6 @@ Following the common notations in the literature, we use $\mathbf{x}_i$ and $\ma
 
 The \fmm algorithm builds upon two fundamental ideas: (1) approximating the far-range interactions between distant clusters of sources and targets using low-rank methods, while computing the near-range interactions exactly, and (2) partitioning the domain using a tree structure to maximize the far-range portion in the computation.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{near_far_decomposition.pdf}
-    \caption{An example of a 3-level quadtree.}
-    \label{fig:near_far_decomp}
-\end{figure}
-
 To construct the octree, we first create a cube that encloses all sources/targets and then recursively subdivide the domain until each cube at the finest level only contains a constant number of points.
 Figure \ref{fig:near_far_decomp} depicts a 3-level quadtree.
 The potentials of targets in node $B$ consist of three contributions: the influence from sources in the near-field of $B$: $\mathcal{N}(B)$, in the interaction list of $B$: $\mathcal{I}(B)$, and in the rest of the domain.
@@ -24,7 +17,7 @@ In $\mathcal{F}(B)$, the nodes that are the children of $B$'s parent's neighbors
 The contributions from the rest of the far-field are approximated at coarser levels via $B$'s ancestors.
 
 The classic \fmm \cite{greengard1987fast, cheng1999fast} relies on truncated analytical expansions to approximate far-field interactions, whereas its kernel-independent variant \cite{ying2004kernel} uses equivalent densities (charges) instead.
-In \kifmm, each node is associated with upward and downward equivalent densities (see Figure \ref{fig:multipole_local}), the analog of multipole and local expansions in the analytical \fmm.
+In \kifmm, each node is associated with upward and downward equivalent densities (see Figure \ref{fig:multipole} and \ref{fig:local}), the analog of multipole and local expansions in the analytical \fmm.
 The upward equivalent densities $q^{B,u}$ are used to approximate the influence of sources in $B$ on targets in $\mathcal{F}(B)$;
 the downward equivalent densities $q^{B,d}$ are used to approximate the influence of sources in $\mathcal{F}(B)$ on sources in $B$.
 To find these densities, we match the potential of equivalent densities to the potential of actual sources at the check surfaces:
@@ -37,25 +30,10 @@ To find these densities, we match the potential of equivalent densities to the p
 We then solve the linear systems for $\{q^{B,u}_{j}\}$ and $\{q^{B,d}_{j}\}$.
 Here, $\mathbf{x}_{i}^{B}$ and $\mathbf{y}_{j}^{B}$ denote the discretization points of the check surface and equivalent surface of $B$ respectively.
 
-\begin{figure}[t]
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \makebox[\textwidth][c]{\includegraphics[width=0.8\linewidth]{multipole_expansion.pdf}}
-    \end{subfigure}
-
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \makebox[\textwidth][c]{\includegraphics[width=0.8\linewidth]{local_expansion.pdf}}
-    \end{subfigure}
-
-    \caption{Multipole expansion (top) and local expansion (bottom) in \kifmm.}
-    \label{fig:multipole_local}
-\end{figure}
-
 The algorithm also defines the following operators:
 %
 \begin{itemize}
-    \item particle-to-multipole (P2M): For a leaf node $B$, compute $B$'s upward equivalent densities, \ie multipole expansion, from the sources in $B$. (Figure \ref{fig:multipole_local} top)
+    \item particle-to-multipole (P2M): For a leaf node $B$, compute $B$'s upward equivalent densities, \ie multipole expansion, from the sources in $B$. (Figure \ref{fig:multipole})
     \item multipole-to-multipole (M2M): For a non-leaf node $B$, evaluate $B$'s multipole expansion based on the multipole expansions of all $B$'s children. (Figure \ref{fig:translations} left)
     \item multipole-to-local (M2L): For a node $B$, evaluate $B$'s downward equivalent densities, \ie local expansion, by using the multipole expansions of all nodes in $\mathcal{I}(B)$. (Figure \ref{fig:translations} middle)
     \item local-to-local (L2L): For a non-leaf node $B$, add the contribution of $B$'s local expansion to the local expansions of $B$'s children. (Figure \ref{fig:translations} right)
@@ -72,18 +50,38 @@ Next, we compute M2L for all nodes.
 Finally, we compute L2L in pre-order tree traversal, and perform L2P and P2P at all leaf nodes during the downward pass.
 
 \begin{figure*}
-    \centering
-    \includegraphics[width=\linewidth]{translations.pdf}
-    \caption{M2M (left), M2L (middle) and L2L (right) operators in \kifmm. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.}
-    \label{fig:translations}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{An example of a 3-level quadtree.}
+        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{near_far_decomposition.pdf}}
+        \label{fig:near_far_decomp}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{Sketch of FMM algorithm using a binary tree.}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{fmm_sketch.pdf}}
+        \label{fig:fmm_sketch}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{Multipole expansion in \kifmm.}
+        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{multipole_expansion.pdf}}
+        \label{fig:multipole}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{Local expansion in \kifmm.}
+        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{local_expansion.pdf}}
+        \label{fig:local}
+    \end{subfigure}
+    \begin{subfigure}{\linewidth}
+        \centering
+        \subcaption{M2M (left), M2L (middle) and L2L (right) operators in \kifmm. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.}
+        \includegraphics[width=\linewidth]{translations.pdf}
+        \label{fig:translations}
+    \end{subfigure}
+    \caption{Illustrations of the \fmm algorithm.}
 \end{figure*}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{fmm_sketch.pdf}
-    \caption{Sketch of FMM algorithm using a binary tree.}
-    \label{fig:fmm_sketch}
-\end{figure}
 
 The original Exafmm \cite{yokota2012tuned,yokota2013fmm} implements the classical \fmm based on dual tree traversal and focuses on low-accuracy optimizations.
 Recently, Exafmm received a major update to adopt \kifmm due to its great extensibility.
