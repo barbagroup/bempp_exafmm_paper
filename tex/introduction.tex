@@ -14,7 +14,7 @@ In this case, the full system consisted of 160 million atoms, and the computatio
 This is among the largest biomolecular systems ever simulated using all-atom molecular dynamics.
 
 Only a few elite researchers can access these leadership computing facilities, however, and if molecular science of viruses is to progress, computational tools that are more widely accessible are needed.
-The vision behind this paper is to build an electrostatic simulation platform for biomolecular applications that allows researchers to access it via the Python/Jupyter ecosystem. This provides a high degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation workflowss.
+The vision behind this paper is to build an electrostatic simulation platform for biomolecular applications that allows researchers to access it via the Python/Jupyter ecosystem. This provides a high degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation workflows.
 
 To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance fast multipole method (\fmm) library Exafmm. 
 Boundary integral problems are described in Bempp using a high-level approach that enables building even complex block-operator systems in just a few lines of Python code. Bempp then executes the discretization, depending on the chosen parameters and machine environment. 
