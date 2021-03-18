@@ -1,9 +1,10 @@
 \documentclass[twocolumn]{article}
 
+\usepackage{abstract}
 \usepackage{algorithm}
 \usepackage{amsmath}
 \usepackage{amsfonts} % \mathbb
-\usepackage[margin=0.5in]{geometry}
+\usepackage[margin=0.6in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{mathtools} % \multlined
@@ -33,11 +34,15 @@
     \and Lorena A. Barba\samethanks[1]%
 }
 
+\date{}
+
 \begin{document}
+
+\twocolumn[
 \maketitle
 
 %% abstract
-\begin{abstract}
+\begin{onecolabstract}
 Biomolecular electrostatics is key in protein function and the chemical processes affecting it.
 Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can provide insights with less computational power than full atomistic models, making large-system studies---at the scale of viruses, for example---accessible to more researchers.
     This paper presents a high-productivity and high-performance PB solver based on Exafmm, a fast multipole method (FMM) library, and Bempp, a Galerkin boundary element method (BEM) package.
@@ -52,8 +57,8 @@ Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can pro
     All results in the paper are presented with utmost care for reproducibility. 
     Readers can find input data (meshes and pqr files) in a Zenodo archive, Jupyter notebooks and secondary data necessary to reproduce all the figures in the paper's GitHub repository at \url{https://github.com/barbagroup/bempp_exafmm_paper/}, and all the software in version-controlled repositories under permissive standard licenses.
 
-\end{abstract}
-
+\end{onecolabstract}
+]
 %% keyword
 %\begin{keyword}
 %    boundary integral equation \sep boundary element method \sep Galerkin method \sep fast multipole method \sep
