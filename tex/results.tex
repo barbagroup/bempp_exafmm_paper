@@ -107,7 +107,7 @@ The observed order of convergence is 1.001 for the direct formulation and 0.999 
 \paragraph{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
 
 Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
-We parameterized the molecule with \texttt{pdb2pqr}~\cite{DolinskyETal2004} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:converge ce}).
+We parameterized the molecule with \texttt{pdb2pqr}~\cite{DolinskyETal2004} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:convergence}).
 This test used the same parameters listed in Table \ref{tab:convergence}, which are fine enough to reveal the discretization error.
 Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
 The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
