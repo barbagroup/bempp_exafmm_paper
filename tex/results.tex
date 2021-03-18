@@ -52,19 +52,22 @@ We want to emphasize that the above argument is valid for the continuous operato
 
 In each of the following studies, we present two sets of results: one from using the exterior derivative formulation with the lumped mass preconditioner, and the other from using the direct formulation with a block-diagonal preconditioner presented by Altman and co-workers \cite{AltmanBardhanWhiteTidor2009}.
 
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{derivative_interior_eig.pdf}
-    \caption{Eigenvalues of the system matrix of the derivative formulation for interior field.}
-    \label{fig:derivative_interior_eig}
-\end{figure}
-
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{derivative_exterior_eig.pdf}
-    \caption{Eigenvalues of the system matrix of the derivative formulation for exterior field.}
-    \label{fig:derivative_exterior_eig}
-\end{figure}
+\begin{figure*}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{derivative_interior_eig.pdf}}
+        \label{fig:derivative_interior_eig}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{derivative_exterior_eig.pdf}}
+        \label{fig:derivative_exterior_eig}
+    \end{subfigure}
+    \caption{Eigenvalues of the system matrix of the derivative formulation for interior field (\textbf{a}) and for exterior field (\textbf{b}).
+    }
+\end{figure*}
 
 \paragraph{Mesh refinement study using a spherical molecule} \label{result_convergence_sphere}
 
@@ -77,13 +80,6 @@ The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), a
 Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
 With an expansion order of 10, our \fmm achieved 9 digits of accuracy.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
-
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=0.8\linewidth]{sketch_sphere_convergence.pdf}
-    \caption{Sketch of a spherical molecule with an off-center unit charge at $(1,1,1)$.}
-    \label{fig:sketch_sphere_convergence}
-\end{figure}
 
 \begin{table}[]
     \centering
@@ -103,14 +99,6 @@ Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analyti
 Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
 The observed order of convergence is 1.001 for the direct formulation and 0.999 for the derivative formulation, using the middle three values.
 
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{sphere_convergence.pdf} 
-    \caption{Mesh convergence study on a spherical molecule with an off-center charge, using both direct formulation and derivative formulation. The error on the solvation energy  with respect to the analytical solution is plotted for five meshes:
-    the sphere discretized with 512, 2048, 8192, 32768 and 131072 boundary elements.}
-    \label{fig:sphere_convergence}
-\end{figure}
-
 \paragraph{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
 
 Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
@@ -118,13 +106,6 @@ We parameterized the molecule with \texttt{pdb2pqr}~\cite{DolinskyETal2004} and 
 This test used the same parameters listed in Table \ref{tab:sim_params_convergence}, which are fine enough to reveal the discretization error.
 Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
 The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
-
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{5PTI.png}
-    \caption{Structure of bovine pancreatic trypsin inhibitor (PDB code 5PTI).}
-    \label{fig:5PTI_structure}
-\end{figure}
 
 \begin{table}[]
     \centering
@@ -145,13 +126,41 @@ Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation
 The observed order of convergence is 1.156 for the direct formulation and 1.038 for the derivative formulation, using the middle three values.
 Both convergence results provide solution verification, and are evidence that our software solves the mathematical model correctly.
 
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{5PTI_convergence.pdf} 
-    \caption{Mesh convergence study of the solvation energy of bovine pancreatic trypsin inhibitor (PDB code 5PTI), using both direct formulation and derivative formulation.
-    The error is with respect to the extrapolated solution using Richardson extrapolation.}
-    \label{fig:5PTI_convergence}
-\end{figure}
+\begin{figure*}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{sketch_sphere_convergence.pdf}}
+        \label{fig:sketch_sphere_convergence}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{5PTI.png}}
+        \label{fig:5PTI_structure}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_convergence.pdf}}
+        \label{fig:sphere_convergence}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{5PTI_convergence.pdf}}
+        \label{fig:5PTI_convergence}
+    \end{subfigure}
+    \caption{Two mesh refinement studies using a spherical molecule and a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI).
+    \textbf{a}, Sketch of a spherical molecule with an off-center unit charge at $(1,1,1)$.
+    \textbf{b}, Structure of 5PTI.
+    \textbf{c}, Mesh convergence study on a spherical molecule with an off-center charge, using both direct formulation and derivative formulation. The error on the solvation energy with respect to the analytical solution is plotted for five meshes:
+    the sphere discretized with 512, 2048, 8192, 32768 and 131072 boundary elements.
+    \textbf{d}, Mesh convergence study of the solvation energy of bovine pancreatic trypsin inhibitor (PDB code 5PTI), using both direct formulation and derivative formulation.
+    The error is with respect to the extrapolated solution using Richardson extrapolation.
+    }
+\end{figure*}
+
 
 \paragraph{Performance study with direct and derivative formulations} \label{result_performance}
 
@@ -203,13 +212,6 @@ As for the assembly time, the derivative formulation is about $2\times$ slower, 
 In addition, the two hypersingular operators make it even more involved.
 Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
 
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{sphere_assembly_time.pdf} 
-    \caption{Assembly time with respect to problem size $N$ for a spherical molecule with 100 random charges inside.}
-    \label{fig:sphere_assembly_time}
-\end{figure}
-
 Next, we want to confirm that the time complexity of mat-vecs in \gmres is also $\mathcal{O}(N)$.
 As we mentioned before, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 modified Helmholtz {\fmm}s for the direct formulation, 8 and 11 for the derivative formulation.
 We averaged the time spent on 1 Laplace \fmm and 1 modified Helmholtz \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:sphere_fmm}.
@@ -217,47 +219,53 @@ Using an \fmm order of 5, we achieved about 5 digits of accuracy in each mat-vec
 The timings and linear scaling substantiate the efficiency of our \fmm implementation.
 In the largest case with over 12 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
 
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{sphere_fmm.pdf} 
-    \caption{The average time of 1 Laplace \fmm evaluation and 1 modified Helmholtz evaluation across all iterations in GMRES with respect to problem size N using direct formulation, with 6 regular quadrature points per element.
-    The \fmm expansion order was set to 5 to achieve around 5 digits of accuracy.
-    }
-    \label{fig:sphere_fmm}
-\end{figure}
-
 In Bempp, the matrix-vector product has the shape $A\mathbf{x} = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}$ (see Equation \ref{eq:bempp_fmm_matvec}), where the dominant costs are the \fmm evaluation of the Green's function matrix $G$ and the on-the-fly evaluation of the singular correction matrix $C$. Moreover, as stated above for the full $2\times 2$ block system a number of \fmm passes together with corresponding singular corrections need to be performed.
 Therefore, the \gmres time reported here consists of \fmm time, singular correction time, as well as the time spent on other steps in the \gmres algorithm.
-Figure \ref{fig:sphere_gmres} shows the time breakdown of \gmres in percentages.
+Figure \ref{fig:sphere_gmres_direct} and \ref{fig:sphere_gmres_derivative} show the time breakdown of \gmres in percentages.
 As problem size increases, \fmm evaluations dominate the solution time.
-
-\begin{figure}%[htbp]
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_gmres_direct.pdf}}
-    \end{subfigure}
-
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_gmres_derivative.pdf}}
-    \end{subfigure}
-
-    \caption{Time breakdown of \gmres in percentage using direct formulation (top) and derivative formulation (bottom).
-    6 regular quadrature points were used per element and the \fmm expansion order was set to 5.}
-    \label{fig:sphere_gmres}
-\end{figure}
 
 We also measured the peak memory usage using the Linux command \texttt{/usr/bin/time -v}.
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
 The largest case, with more than $2$ million elements, requires $36$GB for the direct formulation and $43$GB for the derivative formulation.
 
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{sphere_memory.pdf} 
-    \caption{Overall memory consumption in GB for both direct and derivative formulation.
-    6 regular quadrature points were used per element and the \fmm expansion order was set to 5.}
-    \label{fig:sphere_memory}
-\end{figure}
+\begin{figure*}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_assembly_time.pdf}}
+        \label{fig:sphere_assembly_time}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_fmm.pdf}}
+        \label{fig:sphere_fmm}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_gmres_direct.pdf}}
+        \label{fig:sphere_gmres_direct}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{sphere_gmres_derivative.pdf}}
+        \label{fig:sphere_gmres_derivative}
+    \end{subfigure}
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \subcaption{}
+        \includegraphics[width=\linewidth]{sphere_memory.pdf}
+        \label{fig:sphere_memory}
+    \end{subfigure}
+    \caption{Performance results using a spherical molecule with 100 random charges inside.
+    6 regular quadrature points were used per element and the \fmm expansion order was set to 5 to achieve around 5 digits of accuracy.
+    \textbf{a}, Assembly time with respect to problem size $N$.
+    \textbf{b}, The average time of 1 Laplace \fmm evaluation and 1 modified Helmholtz evaluation across all iterations in GMRES with respect to problem size N using direct formulation.
+    \textbf{c},\textbf{d}, Time breakdown of \gmres in percentage using direct formulation (\textbf{c}) and derivative formulation (\textbf{d}).
+    \textbf{e}, Overall memory consumption in GB for both direct and derivative formulation.}
+\end{figure*}
 
 \paragraph{Solvation energy of a Zika virus} \label{result_zika}
 
@@ -266,13 +274,6 @@ We downloaded the molecular structure from the Protein Data Bank (PDB), paramete
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements, corresponding to between 1 and 2 triangles per square Angstrom.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
-
-\begin{figure}%[htbp]
-    \centering
-    \includegraphics[width=0.8\linewidth]{6CO8_assembly.png}
-    \caption{Structure of Zika virus (PDB code 6CO8) in assembly view. Each color indicates a polymer chain.}
-    \label{fig:6CO8_assembly}
-\end{figure}
 
 \begin{table*}[]
     \centering
@@ -289,11 +290,22 @@ The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs an
     \label{tab:6CO8_result}
 \end{table*}
 
-\begin{figure*}[t]%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{6CO8_potential.png} 
-    \caption{Surface electrostatic potential of a Zika virus. Visualization generated using ParaView. The starfish pattern seen in the polymer-chain colorization of Figure \ref{fig:6CO8_assembly} is faintly visible in the potential.}
-    \label{fig:6CO8_potential}
+\begin{figure*}
+    \begin{subfigure}{0.35\textwidth}
+        \centering
+        \subcaption{}
+        \includegraphics[width=\linewidth]{6CO8_assembly.png}
+        \label{fig:6CO8_assembly}
+    \end{subfigure}
+    \begin{subfigure}{0.6\textwidth}
+        \centering
+        \subcaption{}
+        \includegraphics[width=\linewidth]{6CO8_potential.png}
+        \label{fig:6CO8_potential}
+    \end{subfigure}
+    \caption{\textbf{a}, Structure of Zika virus (PDB code 6CO8) in assembly view. Each color indicates a polymer chain.
+    \textbf{b}, Surface electrostatic potential of a Zika virus. Visualization generated using ParaView. The starfish pattern seen in the polymer-chain colorization of Figure \ref{fig:6CO8_assembly} is faintly visible in the potential.
+    }
 \end{figure*}
 
 Table \ref{tab:6CO8_result} summarizes the results and performance.
