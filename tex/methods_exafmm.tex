@@ -50,39 +50,18 @@ Next, we compute M2L for all nodes.
 Finally, we compute L2L in pre-order tree traversal, and perform L2P and P2P at all leaf nodes during the downward pass.
 
 \begin{figure*}
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \subcaption{}
-        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{near_far_decomposition.pdf}}
-        \label{fig:near_far_decomp}
-    \end{subfigure}
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \subcaption{}
-        \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{fmm_sketch.pdf}}
-        \label{fig:fmm_sketch}
-    \end{subfigure}
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \subcaption{}
-        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{multipole_expansion.pdf}}
-        \label{fig:multipole}
-    \end{subfigure}
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \subcaption{}
-        \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{local_expansion.pdf}}
-        \label{fig:local}
-    \end{subfigure}
-    \begin{subfigure}{\linewidth}
-        \centering
-        \subcaption{}
-        \includegraphics[width=\linewidth]{translations.pdf}
-        \label{fig:translations}
-    \end{subfigure}
+\centering
+    \subfloat[][A 3-level quadtree.]{\includegraphics[width=0.35\textwidth]{near_far_decomposition.pdf}
+        \label{fig:near_far_decomp}}
+    \subfloat[][Sketch of FMM algorithm using a binary tree.]{\includegraphics[width=0.6\textwidth]{fmm_sketch.pdf}
+        \label{fig:fmm_sketch}}\\
+    \subfloat[][]{\includegraphics[width=0.4\textwidth]{multipole_expansion.pdf}
+        \label{fig:multipole}}
+   \subfloat[][]{\includegraphics[width=0.4\textwidth]{local_expansion.pdf}
+        \label{fig:local}}\\
+\subfloat[][]{\includegraphics[width=\textwidth]{translations.pdf}
+        \label{fig:translations}}
     \caption{Illustrations of the \fmm algorithm.
-    \textbf{a}, An example of a 3-level quadtree.
-    \textbf{b}, Sketch of FMM algorithm using a binary tree.
     \textbf{c},\textbf{d}, Multipole and local expansion in \kifmm.
     \textbf{e}, M2M (left), M2L (middle) and L2L (right) operators in \kifmm. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.
     }
