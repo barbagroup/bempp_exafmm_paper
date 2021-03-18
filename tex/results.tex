@@ -16,7 +16,7 @@ We used the full GMRES from the SciPy library as our linear solver.
 We presented in section \ref{s:formulation} the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
 the \emph{direct}~\cite{YoonLenhoff1990}  and \emph{derivative}~\cite{JufferETal1991} formulations.
 The latter is well-known to lead to a better-conditioned matrix.
-Its most common solution method finds the potential and its derivative in the interior of the boundary via Equations \eqref{eq:juffer}, but an alternative is to solve for the exterior fields via \eqref{eq:lu}.
+Its most common solution method finds the potential and its derivative in the interior of the boundary via equations \eqref{eq:juffer}, but an alternative is to solve for the exterior fields via \eqref{eq:lu}.
 Bempp unfetters the user to experiment with these variants of the boundary element solution method, editing just a few lines of Python.
 We could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
 The programming effort required to implement a second formulation would have been a good reason.
