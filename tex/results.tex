@@ -6,7 +6,7 @@ Second, we show solution verification through two grid-convergence studies: with
 The third type of result looks at performance with problem sizes between 8,000 and 2 million elements, including timings, breakdowns, and computational complexity.
 Our final result is a demonstration using a structure with about 1.6 million atoms, the Zika virus, discretized with about 10 million boundary elements.
 
-We ran all experiments on a single CPU node of \textit{Pegasus} \footnote{Pegasus is a Linux cluster at the George Washington University.}, equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
+We ran all experiments on a single CPU node of \textit{Pegasus},\footnote{Pegasus is a Linux cluster at the George Washington University.} equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
 All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 We used the full GMRES from the SciPy library as our linear solver.
@@ -72,7 +72,7 @@ In the next sub-section, we present a mesh-refinement study with a real molecule
 Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case:
 a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
 The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = 1/8\ {\si{\angstrom}}^{-1})$.
-Other simulation parameters are listed in Table \ref{tab:sim_params_convergence}.
+Other simulation parameters are listed in Table \ref{tab:convergence}.
 With an expansion order of 10, our \fmm achieved 9 digits of accuracy.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
 
@@ -84,26 +84,9 @@ We computed the solvation energy of this molecule using $5$ different meshes, ob
     \# regular quadrature points  & 6    \\
     \fmm expansion order      & 10   \\
     \fmm $\ncrit$             & 500  \\
-    \hline
+    \hline  \vspace{0.3 cm}
     \end{tabular}
-    \caption{Simulation parameters used in the mesh refinement study for a spherical molecule.}
-    \label{tab:sim_params_convergence}
-\end{table}
 
-Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution for the solvation energy in this case, to compare with the numerical result: $-12.258363$ [kcal/mol].
-Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
-The observed order of convergence is 1.001 for the direct formulation and 0.999 for the derivative formulation, using the middle three values.
-
-\paragraph{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
-
-Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
-We parameterized the molecule with \texttt{pdb2pqr}~\cite{DolinskyETal2004} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:5PTI_mesh}).
-This test used the same parameters listed in Table \ref{tab:sim_params_convergence}, which are fine enough to reveal the discretization error.
-Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
-The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
-
-\begin{table}[]
-    \centering
     \begin{tabular}{cc}
     number of elements & mesh density ($\#/{\si{\angstrom}}^2$) \\
     \hline
@@ -113,9 +96,23 @@ The estimated relative error with the finest mesh is 1.2\% with the direct formu
     25204              & 8                                       \\
     50596              & 16                                     
     \end{tabular}
-    \caption{Mesh sizes and mesh densities of 5 meshes used in the grid refinement study on 5PTI. Mesh densities are measured by the number of elements per square Angstrom.}
-    \label{tab:5PTI_mesh}
+    \caption{Simulation parameters for the grid-refinement studies (top); mesh sizes/densities used in the grid refinement study on 5PTI. Mesh densities measured as number of elements per square Angstrom.}
+    \label{tab:convergence}
 \end{table}
+
+Kirkwood's derivation \cite{kirkwood1934theory} allows us to compute the analytical solution for the solvation energy in this case, to compare with the numerical result: $-12.258363$ [kcal/mol].
+Figure \ref{fig:sphere_convergence} shows the error in the solvation energy, converging at the expected rate of $1/N$ for both formulations.
+The observed order of convergence is 1.001 for the direct formulation and 0.999 for the derivative formulation, using the middle three values.
+
+\paragraph{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
+
+Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
+We parameterized the molecule with \texttt{pdb2pqr}~\cite{DolinskyETal2004} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:converge ce}).
+This test used the same parameters listed in Table \ref{tab:convergence}, which are fine enough to reveal the discretization error.
+Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
+The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
+
+
 
 Figure \ref{fig:5PTI_convergence} shows that the error of the computed solvation energy for 5PTI converges linearly with respect to $N$.
 The observed order of convergence is 1.156 for the direct formulation and 1.038 for the derivative formulation, using the middle three values.
