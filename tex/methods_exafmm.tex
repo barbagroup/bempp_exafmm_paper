@@ -52,35 +52,40 @@ Finally, we compute L2L in pre-order tree traversal, and perform L2P and P2P at 
 \begin{figure*}
     \begin{subfigure}{\columnwidth}
         \centering
-        \subcaption{An example of a 3-level quadtree.}
+        \subcaption{}
         \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{near_far_decomposition.pdf}}
         \label{fig:near_far_decomp}
     \end{subfigure}
     \begin{subfigure}{\columnwidth}
         \centering
-        \subcaption{Sketch of FMM algorithm using a binary tree.}
+        \subcaption{}
         \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{fmm_sketch.pdf}}
         \label{fig:fmm_sketch}
     \end{subfigure}
     \begin{subfigure}{\columnwidth}
         \centering
-        \subcaption{Multipole expansion in \kifmm.}
+        \subcaption{}
         \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{multipole_expansion.pdf}}
         \label{fig:multipole}
     \end{subfigure}
     \begin{subfigure}{\columnwidth}
         \centering
-        \subcaption{Local expansion in \kifmm.}
+        \subcaption{}
         \makebox[\textwidth][c]{\includegraphics[width=0.7\linewidth]{local_expansion.pdf}}
         \label{fig:local}
     \end{subfigure}
     \begin{subfigure}{\linewidth}
         \centering
-        \subcaption{M2M (left), M2L (middle) and L2L (right) operators in \kifmm. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.}
+        \subcaption{}
         \includegraphics[width=\linewidth]{translations.pdf}
         \label{fig:translations}
     \end{subfigure}
-    \caption{Illustrations of the \fmm algorithm.}
+    \caption{Illustrations of the \fmm algorithm.
+    \textbf{a}, An example of a 3-level quadtree.
+    \textbf{b}, Sketch of FMM algorithm using a binary tree.
+    \textbf{c},\textbf{d}, Multipole and local expansion in \kifmm.
+    \textbf{e}, M2M (left), M2L (middle) and L2L (right) operators in \kifmm. Node $C$ is the parent of $B$, and node $A$ is in the interaction list of $B$.
+    }
 \end{figure*}
 
 The original Exafmm \cite{yokota2012tuned,yokota2013fmm} implements the classical \fmm based on dual tree traversal and focuses on low-accuracy optimizations.
