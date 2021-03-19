@@ -18,7 +18,7 @@ Typical choices for the test and trial functions are either piecewise constant f
 By default, Bempp explicitly computes the matrix $A$ by applying quadrature rules to the arising integrals.
 The singularity of the Green's function needs to be accounted for in the quadrature rules for integration over adjacent or identical test/trial triangles.
 For well separated triangles standard triangle Gauss rules can be used for the quadrature.
-The memory and computational complexity of this discretization is $\mathcal{O}(N^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
+The memory and computational complexity of this discretization is $\mathcal{O}(n^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
 Bempp-cl evaluates the quadrature routines with highly optimized OpenCL kernels that make use of explicit AVX2/AVX-512 acceleration on CPUs.
 
 \paragraph{FMM-accelerated evaluation of integral operators}
@@ -46,4 +46,4 @@ s(\mathbf{x}_i) = \sum_j g(\mathbf{r}_i, \mathbf{r}_j')q_j.
 %
 To evaluate this sum we use the C++ Exafmm library, a highly performant library that implements the kernel-independent fast multipole method (\kifmm) to approximately evaluate sums of the above form.
 The complexity of this evaluation is $\mathcal{O}(N)$, where $N$ is the product of the number of surface triangles and the number of regular quadrature points per triangle.
-The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large electrostatic simulations on a single workstation. Details of Exafmm are discussed in the following section.
+The linear complexity means that we can scale the evaluation of the discretized integral operator from tens of thousands to millions of elements, allowing us to solve large electrostatic simulations on a single workstation. Details of the \fmm implementation are discussed in the following section.
