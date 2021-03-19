@@ -13,7 +13,7 @@ We used the full GMRES from the SciPy library as our linear solver.
 
 \paragraph{Matrix conditioning of two derivative formulations} \label{result_conditioning}
 
-We presented in section \ref{s:formulation} the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
+Section \ref{s:formulation} presents the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
 the \emph{direct}~\cite{YoonLenhoff1990}  and \emph{derivative}~\cite{JufferETal1991} formulations.
 The latter is well-known to lead to a better-conditioned matrix.
 Its most common solution method finds the potential and its derivative in the interior of the boundary via equations \eqref{eq:juffer}, but an alternative is to solve for the exterior fields via \eqref{eq:lu}.
