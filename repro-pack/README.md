@@ -25,6 +25,8 @@ pip install git+git://github.com/bempp/bempp-cl
 pip install git+git://github.com/exafmm/exafmm-t
 ```
 
+The installation will take several minutes on a normal workstation.
+
 **2. Clone this repo and install bempp_pbs**
 
 Next, clone this repo locally, change directory to this `repro-pack` folder:
@@ -60,6 +62,8 @@ For example, to sumbit the run for the Zika virus case using derivative formulat
 cd runs/6CO8/derivative_ex
 sbatch run.sh
 ```
+
+The raw output file, in this case `6CO8_q2_p4_920333.out`, will be saved in the same directory. Next, you can follow [the corresponding notebook](https://github.com/barbagroup/bempp_exafmm_paper/blob/master/repro-pack/notebooks/6CO8.ipynb) to post-process the data.
 
 For users whose environment does not use slurm workload manager, you can extract the execution command from `run.sh`. To run the same case as above:
 ``` bash
