@@ -10,7 +10,7 @@ This is the repro-pack for the bimolecular electrostatics applications using bem
 
 Following the steps below to run each case:
 
-**1. Install bempp-cl and exafmm-t**
+### 1. Install bempp-cl and exafmm-t
 
 We suggest to use `conda` as the package manager and create a conda environment for this application.
 ``` bash
@@ -19,6 +19,14 @@ conda install -n bempp --yes numpy scipy matplotlib numba pytest jupyter plotly 
 conda install -n bempp --yes -c conda-forge pocl pyopencl meshio
 ```
 Then activate this environment: `conda activate bempp`.
+
+Next, we need to install exafmm-t's dependencies: OpenBLAS and FFTW3. Follow these commands to install them on Ubuntu:
+``` bash
+apt-get update
+apt-get -y install libopenblas-dev libfftw3-dev
+```
+Modify the commands accordingly if you are running other Linux distributions or using another package manager.
+
 Finally, install `bempp-cl` and `exafmm-t`:
 ``` bash
 pip install git+git://github.com/bempp/bempp-cl
@@ -27,7 +35,7 @@ pip install git+git://github.com/exafmm/exafmm-t
 
 The installation will take several minutes on a normal workstation.
 
-**2. Clone this repo and install bempp_pbs**
+### 2. Clone this repo and install bempp_pbs
 
 Next, clone this repo locally, change directory to this `repro-pack` folder:
 ``` bash
@@ -39,7 +47,11 @@ Then pip install `bempp_pbs` in editable mode:
 pip install -e .
 ```
 
-**3. Run/Sumbit the script**
+### 3. Download meshes and pqr files from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4568768.svg)](https://doi.org/10.5281/zenodo.4568768)
+
+Unzip the meshes into `mesh` folder and the pqr files into `pqr` folder respectively.
+
+### 4. Run/Sumbit the script
 First, the current scripts need us to define the environment variable `REPRO_PATH` as this `bempp_exafmm_paper/repro-pack` directory:
 ``` bash
 export REPRO_PATH=$(pwd)
