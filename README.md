@@ -7,9 +7,12 @@ Manuscript repository, including all source files for the text and reproducibili
 Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
 
 ## Reproducibility package archives
-Wang, Tingyu, Cooper, Christopher D., Betcke, Timo, Barba, Lorena A., High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm (manuscript and repro-pack), (2021). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4568951.svg)](https://doi.org/10.5281/zenodo.4568951)
 
-Wang, Tingyu, Cooper, Christopher D., Betcke, Timo, Barba, Lorena A., High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm (meshes and pqr files), (2021). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4568768.svg)](https://doi.org/10.5281/zenodo.4568768)
+See the [README in the repro-pack folder](https://github.com/barbagroup/bempp_exafmm_paper/tree/master/repro-pack) for instructions.
+
+- Wang, Tingyu, Cooper, Christopher D., Betcke, Timo, Barba, Lorena A., High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm (manuscript and repro-pack), (2021). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4568951.svg)](https://doi.org/10.5281/zenodo.4568951)
+
+- Wang, Tingyu, Cooper, Christopher D., Betcke, Timo, Barba, Lorena A., High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm (meshes and pqr files), (2021). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4568768.svg)](https://doi.org/10.5281/zenodo.4568768)
 
 ## Software
 
