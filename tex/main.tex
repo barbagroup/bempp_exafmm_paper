@@ -1,13 +1,19 @@
-\documentclass[final,5p,times,twocolumn]{elsarticle}
+\documentclass[twocolumn]{article}
 
+\usepackage{abstract}
 \usepackage{algorithm}
 \usepackage{amsmath}
+\usepackage{amsfonts} % \mathbb
+\usepackage[margin=0.6in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{mathtools} % \multlined
 \usepackage{siunitx}  % use \si{\angstrom} for Angstrom
-\usepackage{subcaption} % use \subfigure
+
+\usepackage{subfig}
 \usepackage{xspace}
 
+\newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
 \newcommand{\pygbe}{\texttt{PyGBe}\xspace}
 \newcommand{\gmres}{\textsc{gmres}\xspace}
 \newcommand{\bem}{\textsc{bem}\xspace}
@@ -20,30 +26,24 @@
 
 \graphicspath{{figs/}}
 
-\journal{Computer Physics Communications}
-\begin{document}
-
-\begin{frontmatter}
 \title{High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm}
 
-\author[gwu]{Tingyu Wang}
-\ead{twang66@gwu.edu}
+\author{%
+    Tingyu Wang\thanks{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington, DC, USA}%
+    \and Christopher D. Cooper\thanks{Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}%
+    \and Timo Betcke\thanks{Department of Mathematics, University College London, UK}%
+    \and Lorena A. Barba\samethanks[1]%
+}
 
-\author[usm]{Christopher D. Cooper}
-\ead{christopher.cooper@usm.cl}
+\date{}
 
-\author[ucl]{Timo Betcke}
-\ead{t.betcke@ucl.ac.uk}
+\begin{document}
 
-\author[gwu]{Lorena A. Barba}
-\ead{labarba@gwu.edu}
-
-\address[gwu]{Department of Mechanical and Aerospace Engineering, The George Washington University, Washington DC}
-\address[usm]{Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
-\address[ucl]{Department of Mathematics, University College London, UK}
+\twocolumn[
+\maketitle
 
 %% abstract
-\begin{abstract}
+\begin{onecolabstract}
 Biomolecular electrostatics is key in protein function and the chemical processes affecting it.
 Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can provide insights with less computational power than full atomistic models, making large-system studies---at the scale of viruses, for example---accessible to more researchers.
     This paper presents a high-productivity and high-performance PB solver based on Exafmm, a fast multipole method (FMM) library, and Bempp, a Galerkin boundary element method (BEM) package.
@@ -58,24 +58,17 @@ Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can pro
     All results in the paper are presented with utmost care for reproducibility. 
     Readers can find input data (meshes and pqr files) in a Zenodo archive, Jupyter notebooks and secondary data necessary to reproduce all the figures in the paper's GitHub repository at \url{https://github.com/barbagroup/bempp_exafmm_paper/}, and all the software in version-controlled repositories under permissive standard licenses.
 
-\end{abstract}
-
+\end{onecolabstract}
+]
 %% keyword
-\begin{keyword}
-    boundary integral equation \sep boundary element method \sep Galerkin method \sep fast multipole method \sep
-    Python \sep biomolecular electrostatics \sep implicit solvent \sep Poisson-Boltzmann \sep solvation free energy
-\end{keyword}
-
-\end{frontmatter}
+%\begin{keyword}
+%    boundary integral equation \sep boundary element method \sep Galerkin method \sep fast multipole method \sep
+%    Python \sep biomolecular electrostatics \sep implicit solvent \sep Poisson-Boltzmann \sep solvation free energy
+%\end{keyword}
 
 % body of paper
 \section{Introduction}\label{sec:intro}
 \input{introduction}
-
-\section{Methods}\label{sec:methods}
-\input{methods_formulation}
-\input{methods_bempp}
-\input{methods_exafmm}
 
 \section{Results}\label{sec:results}
 \input{results}
@@ -83,11 +76,44 @@ Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can pro
 \section{Discussion} \label{sec:discussion}
 \input{discussion}
 
-\section*{Acknowledgments}
-We thank Dr. Sergio Pantano for providing us with the parameterized structure of the Zika virus capsid.
-CDC acknowledges support by ANID (Agencia Nacional de Investigaci\'{o}n y Desarrollo) through project Basal FB0821.
-TB was supported by Engineering and Physical Sciences Research Council Grant EP/V001531/1.
-LAB acknowledges funding from the National Science Foundation via award \#1747669.
+\small{
+\section{Methods}\label{sec:methods}
+\input{methods_formulation}
+\input{methods_bempp}
+\input{methods_exafmm}
+}
+
+\section{Data availability}
+We deposited the meshes and \texttt{pqr} files on the Zenodo service: \href{http://doi.org/10.5281/zenodo.4568768}{doi:10.5281/zenodo.4568768}.
+The raw and secondary data for all results are available in the archival deposit of our paper’s GitHub repository: \href{http://doi.org/10.5281/zenodo.4568951}{doi:10.5281/zenodo.4568951}.
+
+\section{Code availability}
+Exafmm is available at \href{https://github.com/exafmm/exafmm-t}{https://github.com/exafmm/exafmm-t}.
+Bempp-cl is available at \href{https://github.com/bempp/bempp-cl}{https://github.com/bempp/bempp-cl}.
+The scripts for plotting and rerunning our experiments are available in the archival deposit of our paper’s GitHub repository: \href{http://doi.org/10.5281/zenodo.4568951}{doi:10.5281/zenodo.4568951}.
+
 \bibliography{./reference}{}
 \bibliographystyle{elsarticle-num}
+
+\section*{Acknowledgments}
+We thank Dr. Sergio Pantano for providing us with the parameterized structure of the Zika virus capsid.
+CDC acknowledges support by ANID (Agencia Nacional de Investigaci\'{o}n y Desarrollo) through PIA/APOYO AFB180002.
+TB was supported by Engineering and Physical Sciences Research Council Grant EP/V001531/1.
+LAB acknowledges funding from the National Science Foundation via award \#1747669.
+
+\section*{Author contributions}
+LAB and TB conceived this project. 
+TW wrote the version of the Exafmm code used in this work, the Python bindings and the Bempp integration. 
+TB gave technical support on Bempp usage and wrote code to aid the integration.
+CDC gave conceptual advice and helped set up computational experiments.
+TW ran the calculations and prepared the figures.
+TW, CDC, TB, and LAB discussed and guided the conduct of the research, and interpreted the results.
+TW wrote the first draft of the manuscript, and all authors contributed materially to the writing and revising.
+LAB guided the data management and guarantees the preservation of the full research compendium for this work. 
+All authors confirm that the figures and conclusions accurately reflect the research.
+
+
+\section*{Competing interests}
+The authors declare no competing interests.
+
 \end{document}

@@ -1,5 +1,5 @@
 %!TEX root = main.tex
-\subsection{Boundary integral formulation of electrostatics in molecular solvation}\label{s:formulation}
+\paragraph{Boundary integral formulation of electrostatics in molecular solvation}\label{s:formulation}
 
 Biomolecules in an ionic solvent or water can be represented with a model where the solvent is a continuous dielectric: the so-called implicit-solvent model.
 The molecule (solute) is a dielectric cavity with partial charges at the atomic locations,  represented as a collection of Dirac delta functions.
@@ -23,7 +23,7 @@ With interface conditions on the molecular surface $\Gamma$, where the potential
 %
 \begin{figure}
 \centering
-\includegraphics[width=0.25\textwidth]{implicit_solvent.pdf}
+\includegraphics[width=0.2\textwidth]{implicit_solvent.pdf}
 \caption{Representation of a dissolved molecule with the implicit-solvent model. The solute ($\Omega_1$) and solvent ($\Omega_2$) regions are interfaced by the solvent-excluded surface ($\Gamma$), and $q_k$ and $r_{vdW}$ are the atomic charge and radii, respectively.}
 \label{fig:implicit_solvent}
 \end{figure}
@@ -56,10 +56,12 @@ This formulation is ill-conditioned, since the condition number of the resulting
 An alternative with better conditioning was derived by Juffer \emph{et al.} \cite{JufferETal1991} by taking the normal derivative of Equation \eqref{eq:volume_potential}, and coupling both $\phi$ and $\partial\phi/\partial\mathbf{n}$ on the boundary as follows:
 
 \begin{align}\label{eq:juffer}
-\frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) - \left(\frac{\epsilon_2}{\epsilon_1}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
-&= \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|} \nonumber \\
-- \left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{1,\Gamma}) +  \frac{1}{2}\frac{\phi_{1,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) &+ \left(\frac{\epsilon_1}{\epsilon_2}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right)\nonumber\\ 
-&= \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right) \nonumber \\
+    &\begin{multlined}[t][0.48\textwidth] \frac{\phi_{1,\Gamma}}{2}\left(1+\frac{\epsilon_2}{\epsilon_1}\right) - \left(\frac{\epsilon_2}{\epsilon_1}K_Y^\Gamma - K_L^\Gamma\right)(\phi_{1,\Gamma}) \\
+    + \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right) = \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}
+    \end{multlined} \nonumber \\
+    &\begin{multlined}[t][0.48\textwidth] - \left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{1,\Gamma}) +  \frac{1}{2}\frac{\phi_{1,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) \\
+    + \left(\frac{\epsilon_1}{\epsilon_2}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{1,\Gamma} \right) = \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_1|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right)
+    \end{multlined}
 \end{align}
 %
 Here, we use the adjoint double-layer ($K'$) and hypersingular ($W$) operators, which are defined as
@@ -72,10 +74,12 @@ W^\Gamma_{L,Y}(\varphi) = \oint_\Gamma \frac{\partial^2 g_{L,Y}}{\partial\mathbf
 A slightly modified version of Equation \eqref{eq:juffer} is used in the work from Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019}, where they scale the expressions by $\epsilon_1/\epsilon_2$, and solve for the exterior field. This gives
 %
 \begin{align}\label{eq:lu}
-\frac{\phi_{2,\Gamma}}{2}\left(\frac{\epsilon_1}{\epsilon_2}+1\right) - \left(K_Y^\Gamma - \frac{\epsilon_1}{\epsilon_2}K_L^\Gamma\right)(\phi_{2,\Gamma}) &+ \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right)\nonumber\\ 
-&= \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_2|\mathbf{r}_{\Gamma} - \mathbf{r}_k|} \nonumber \\
-- \frac{\epsilon_1}{\epsilon_2}\left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{2,\Gamma}) +  \frac{1}{2}\frac{\phi_{2,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) &+ \left(\frac{\epsilon_1}{\epsilon_2}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right)\nonumber\\ 
-&= \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_2|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right) \nonumber \\
+    &\begin{multlined}[t][0.48\textwidth] \frac{\phi_{2,\Gamma}}{2}\left(\frac{\epsilon_1}{\epsilon_2}+1\right) - \left(K_Y^\Gamma - \frac{\epsilon_1}{\epsilon_2}K_L^\Gamma\right)(\phi_{2,\Gamma}) \\
+    + \left(V_Y^\Gamma - V_L^\Gamma\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right) = \sum_{k=0}^{N_q}  \frac{q_k}{4\pi\epsilon_2|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}
+    \end{multlined} \nonumber \\
+    &\begin{multlined}[t][0.48\textwidth] -\frac{\epsilon_1}{\epsilon_2}\left(W_Y^\Gamma - W_L^\Gamma\right)(\phi_{2,\Gamma}) +  \frac{1}{2}\frac{\phi_{2,\Gamma}}{\partial\mathbf{n}}\left(1+\frac{\epsilon_1}{\epsilon_2}\right) \\
+    + \left(\frac{\epsilon_1}{\epsilon_2}K_Y^{\prime\Gamma} - K_L^{\prime\Gamma}\right)\left( \frac{\partial}{\partial \mathbf{n}} \phi_{2,\Gamma} \right) = \sum_{k=0}^{N_q}  \frac{\partial}{\partial\mathbf{n}_\mathbf{r}}\left(\frac{q_k}{4\pi\epsilon_2|\mathbf{r}_{\Gamma} - \mathbf{r}_k|}\right)
+    \end{multlined}
 \end{align}
 
 As we charge up the cavity, the solvent ions rearrange and polarize.
