@@ -18,7 +18,7 @@ Through interactive computing, users can adapt various formulations, try out dif
 
 % mesh refinement
 We performed two mesh-refinement studies to verify Bempp-Exafmm, using a spherical molecule with an off-center charge, and using a real biomolecule (bovine pancreatic trypsin inhibitor).
-In the former study, we compared with the analytical solution; in the latter, we compared with an approximate value from Richard extrapolation.
+In the former study, we compared with the analytical solution; in the latter, we compared with an approximate value from Richardson extrapolation.
 In both cases, we used the direct formulation and the exterior derivative formulation.
 To reveal the discretization error, we set the \fmm expansion order to 10 to achieve 9 digits of accuracy.
 The error of the computed solvation energy decays linearly with respect to $N$, as shown in Figure \ref{fig:sphere_convergence} and \ref{fig:5PTI_convergence}.
