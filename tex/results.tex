@@ -199,7 +199,7 @@ Therefore, the \gmres time reported here consists of \fmm time, singular correct
 Figure \ref{fig:sphere_gmres_direct} and \ref{fig:sphere_gmres_derivative} show the time breakdown of \gmres in percentages.
 As problem size increases, \fmm evaluations dominate the solution time.
 
-We also measured the peak memory usage using the Linux command \texttt{/usr/bin/time -v}.
+We also measured the peak memory usage using the GNU time\footnote{Some Linux distributions do not ship with GNU time.} command \texttt{/usr/bin/time -v}.
 We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
 The largest case, with more than $2$ million elements, requires $36$GB for the direct formulation and $43$GB for the derivative formulation.
 
