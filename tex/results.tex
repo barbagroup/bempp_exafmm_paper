@@ -188,11 +188,12 @@ In addition, the two hypersingular operators make it even more involved.
 Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
 
 Next, we want to confirm that the time complexity of mat-vecs in \gmres is also $\mathcal{O}(N)$.
-As we mentioned before, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 modified Helmholtz {\fmm}s for the direct formulation, 8 and 11 for the derivative formulation.
-We averaged the time spent on 1 Laplace \fmm and 1 modified Helmholtz \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:sphere_fmm}.
+The Poisson equation requires \fmm with Laplace kernel and the linearized Poisson-Boltzmann equation requires \fmm with Yukawa kernel.
+As we mentioned before, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 Yukawa {\fmm}s for the direct formulation, 8 and 11 for the derivative formulation.
+We averaged the time spent on 1 Laplace \fmm and 1 Yukawa \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:sphere_fmm}.
 Using an \fmm order of 5, we achieved about 5 digits of accuracy in each mat-vec.
 The timings and linear scaling substantiate the efficiency of our \fmm implementation.
-In the largest case with over 12 million quadrature points, one Laplace \fmm cost $2.1$s and one modified Helmholtz \fmm cost $5.4$s to compute.
+In the largest case with over 12 million quadrature points, one Laplace \fmm costs $2.1$s and one Yukawa \fmm costs $5.4$s to compute.
 
 In Bempp, the matrix-vector product has the shape $A\mathbf{x} = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}$ (see Equation \ref{eq:bempp_fmm_matvec}), where the dominant costs are the \fmm evaluation of the Green's function matrix $G$ and the on-the-fly evaluation of the singular correction matrix $C$. Moreover, as stated above for the full $2\times 2$ block system a number of \fmm passes together with corresponding singular corrections need to be performed.
 Therefore, the \gmres time reported here consists of \fmm time, singular correction time, as well as the time spent on other steps in the \gmres algorithm.
@@ -216,7 +217,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
   \subfloat[][]{\includegraphics[width=0.4\textwidth]{sphere_gmres_derivative.pdf}
         \label{fig:sphere_gmres_derivative}}
     \caption{Performance on a spherical molecule with 100 random charges inside;
-    6 regular quadrature points per element; \fmm expansion order set to 5 to achieve 5 digits of accuracy. Problem size represented by number of elements, $N$. Evaluation time (b) is an average for 1 Laplace \fmm evaluation and 1 modified Helmholtz evaluation across all iterations in GMRES using direct formulation.
+    6 regular quadrature points per element; \fmm expansion order set to 5 to achieve 5 digits of accuracy. Problem size represented by number of elements, $N$. Evaluation time (b) is an average for 1 Laplace \fmm evaluation and 1 Yukawa \fmm evaluation across all iterations in GMRES using direct formulation.
     \textbf{c},\textbf{d}, Time breakdown of \gmres in percentage using direct formulation (\textbf{c}) and derivative formulation (\textbf{d}).}
 \end{figure*}
 
