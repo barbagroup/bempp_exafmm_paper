@@ -16,7 +16,7 @@ with $A_{ij} = \int_{\Gamma}\Psi_i(\mathbf{r})\int_{\Gamma}g(\mathbf{r}, \mathbf
 Here, the functions $\Psi_j$ are a finite dimensional basis of $n$ test functions and the $\phi_j$ are a finite dimensional basis of $n$ trial functions with the Galerkin solution being defined as $\phi=\sum_{i}\mathbf{x}_j\phi_j$.
 Typical choices for the test and trial functions are either piecewise constant functions or continuous, piecewise linear functions over a surface triangulation of $\Gamma$. 
 By default, Bempp explicitly computes the matrix $A$ by applying quadrature rules to the arising integrals.
-The singularity of the Green's function needs to be accounted for in the quadrature rules for integration over adjacent or identical test/trial triangles.
+The singularity of the Green's function needs to be accounted for in the quadrature rules for integration over adjacent or identical test/trial triangles \cite{ERICHSEN1998215}.
 For well separated triangles standard triangle Gauss rules can be used for the quadrature.
 The memory and computational complexity of this discretization is $\mathcal{O}(n^2)$, which is practical for problems of size up to twenty or thirty thousand elements on a single workstation, depending on the available memory and number of CPU cores.
 Bempp-cl evaluates the quadrature routines with highly optimized OpenCL kernels that make use of explicit AVX2/AVX-512 acceleration on CPUs.
