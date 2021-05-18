@@ -142,7 +142,8 @@ To further validate Bempp-Exafmm, we compared our results with well-established 
 For each molecule, we created three successive meshes for each software to study the convergence.
 For Bempp-Exafmm, We used \texttt{Nanoshaper} to generate three surface meshes with the element density set to 4, 8, 16 per square \AA, respectively.
 In APBS, we tweaked [?] to ensure that three grid spacings are refined with a factor of 2.
-Other parameters are the same as our previous grid-convergence study.
+All mesh sizes are availabe in Appendix \ref{sec:apbs_mesh}.
+Other parameters are the same as our previous grid-convergence study, as listed in Table \ref{tab:convergence}.
 
 Table \ref{tab:APBS_result} presents the convergence results of both codes using a set of molecules.
 The derivative formulation is used in Bempp.
@@ -150,7 +151,7 @@ We obtained an extrapolated value of the solvation energy of each molecule, serv
 As expected, the solvation energy computed from Bempp converges at the rate of $\mathcal{O}(N^{-1})$, where $N$ is the number of elements;
 the energy computed from APBS converges at the rate of $\mathcal{O}(h^{-1})$, where $h$ denotes the grid spacing.
 The difference of the extrapolated solvation energy between Bempp and APBS varies between 0.8\% and 1.8\% across all cases.
-We also compared our results with MIBPB only using the finest mesh, and the details can be found in the appendix.
+We also compared our results with MIBPB only using the finest mesh, and the details can be found in Appendix \ref{sec:comp_mibpb}.
 
 \begin{table*}[]
     \centering
