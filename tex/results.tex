@@ -155,20 +155,22 @@ We also compared our results with MIBPB only using the finest mesh, and the deta
 
 \begin{table*}[]
     \centering
-    \begin{tabular}{c|ccc|cc|ccc|cc}
-         & \multicolumn{5}{c|}{APBS}                                                                    & \multicolumn{5}{c}{Bempp}                                                                   \\
-         & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order} & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order} \\
-    ID   & coarse   & medium   & fine     &                                    &                        & coarse   & medium   & fine     &                                    &                        \\ \hline
-    1A2S & 5.25e-02 & 2.40e-02 & 1.10e-02 & -456.56                            & 1.13                   & 4.21e-02 & 1.93e-02 & 8.86e-03 & -461.25                            & 1.12                   \\
-    1A63 & 4.51e-02 & 1.88e-02 & 7.82e-03 & -559.39                            & 1.26                   & 5.82e-02 & 2.60e-02 & 1.16e-02 & -567.24                            & 1.16                   \\
-    1A7M & 4.13e-02 & 1.88e-02 & 8.53e-03 & -524.29                            & 1.14                   & 4.93e-02 & 2.24e-02 & 1.02e-02 & -531.48                            & 1.14                   \\
-    1AJJ & 4.40e-02 & 1.33e-02 & 4.00e-03 & -266.15                            & 1.73                   & 2.75e-02 & 1.12e-02 & 4.59e-03 & -268.67                            & 1.29                   \\
-    1F6W & 6.45e-02 & 2.78e-02 & 1.20e-02 & -1277.51                           & 1.21                   & 4.18e-02 & 1.80e-02 & 7.76e-03 & -1301.08                           & 1.22                   \\
-    1R69 & 4.31e-02 & 2.10e-02 & 1.02e-02 & -261.02                            & 1.04                   & 5.09e-02 & 2.34e-02 & 1.08e-02 & -265.02                            & 1.12                   \\
-    1SVR & 5.28e-02 & 2.21e-02 & 9.28e-03 & -393.45                            & 1.25                   & 6.48e-02 & 2.89e-02 & 1.29e-02 & -398.83                            & 1.16                   \\
-    1VJW & 3.09e-02 & 1.45e-02 & 6.77e-03 & -297.06                            & 1.09                   & 4.92e-02 & 2.23e-02 & 1.01e-02 & -302.50                            & 1.14                   \\
-    5PTI & 3.68e-02 & 1.38e-02 & 5.14e-03 & -311.69                            & 1.42                   & 5.12e-02 & 2.23e-02 & 9.67e-03 & -314.34                            & 1.20                  
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{cc|ccc|cc|ccc|cc}
+      &   & \multicolumn{5}{c|}{APBS}                                                                    & \multicolumn{5}{c}{Bempp}                                                                   \\
+      &   & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order} & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order} \\
+    ID   & $N_{atoms}$ & coarse   & medium   & fine     &                                    &                        & coarse   & medium   & fine     &                                    &                        \\ \hline
+    1AJJ & 513 & 4.40e-02 & 1.33e-02 & 4.00e-03 & -266.15                            & 1.73                   & 2.75e-02 & 1.12e-02 & 4.59e-03 & -268.67                            & 1.29                   \\
+    1VJW & 826 & 3.09e-02 & 1.45e-02 & 6.77e-03 & -297.06                            & 1.09                   & 4.92e-02 & 2.23e-02 & 1.01e-02 & -302.50                            & 1.14                   \\
+    5PTI & 892 & 3.68e-02 & 1.38e-02 & 5.14e-03 & -311.69                            & 1.42                   & 5.12e-02 & 2.23e-02 & 9.67e-03 & -314.34                            & 1.20                   \\
+    1R69 & 997 & 4.31e-02 & 2.10e-02 & 1.02e-02 & -261.02                            & 1.04                   & 5.09e-02 & 2.34e-02 & 1.08e-02 & -265.02                            & 1.12                   \\
+    1A2S & 1272 & 5.25e-02 & 2.40e-02 & 1.10e-02 & -456.56                            & 1.13                   & 4.21e-02 & 1.93e-02 & 8.86e-03 & -461.25                            & 1.12                   \\
+    1SVR & 1433 & 5.28e-02 & 2.21e-02 & 9.28e-03 & -393.45                            & 1.25                   & 6.48e-02 & 2.89e-02 & 1.29e-02 & -398.83                            & 1.16                   \\
+    1A63 & 2065 & 4.51e-02 & 1.88e-02 & 7.82e-03 & -559.39                            & 1.26                   & 5.82e-02 & 2.60e-02 & 1.16e-02 & -567.24                            & 1.16                   \\
+    1A7M & 2804 & 4.13e-02 & 1.88e-02 & 8.53e-03 & -524.29                            & 1.14                   & 4.93e-02 & 2.24e-02 & 1.02e-02 & -531.48                            & 1.14                   \\
+    1F6W & 8247 & 6.45e-02 & 2.78e-02 & 1.20e-02 & -1277.51                           & 1.21                   & 4.18e-02 & 1.80e-02 & 7.76e-03 & -1301.08                           & 1.22                     
     \end{tabular}
+    }
     \caption{Convergence results of the solvation energy of 9 molecules using APBS and Bempp with derivative formulation.
     The error is with respect to an extrapolated value of the solvation energy using Richardson extrapolation.
     The solvation energy $\Delta G_{solv}$ is in units of kcal/mol.
