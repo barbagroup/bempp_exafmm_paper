@@ -35,8 +35,10 @@ Finally, we computed the solvation energy of a Zika virus using both formulation
 The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node.
 It shows that the performance of our code is in the same ballpark as other state-of-the-art fast BEM PB solvers \cite{GengKrasny2013,ZhangPengHuangPitsianisSunLu2015,CooperBardhanBarba2014} and gives us confidence in its capability of solving virus-scale problems.
 
-Poisson-Boltzmann solvers have been around for decades, available as stand-alone applications and web servers, and using a variety of solution approaches ranging from finite difference, to finite element, and boundary element methods \cite{JurrusETal2018}.
-Some solvers are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014,WangETal2018}, usually interfaced through bash or Python scripts.
+Poisson-Boltzmann solvers have been around for decades, available as stand-alone applications and web servers, and using a variety of solution approaches \cite{JurrusETal2018} ranging from finite difference, to finite element, and boundary element methods.
+Some solvers are integrated into a number of computational workflows that use them for mean field potential visualization \cite{HumphreyETal1996} and free energy calculations \cite{MillerETal2012,KumariETal2014}, usually interfaced through bash or Python scripts.
+Our approach also becomes useful as part of existing computational workflows, for example, to compute solvation free energies in MMPBSA methods \cite{WangETal2018}.
+The Poisson-Boltzmann model has known limitations, being the rigid approximation of the solute a specially difficult one at large scales. However, the electrostatic potential and polar solvation free energy still give valuable information \cite{LiLiZhangAlexov2012} for analysis. 
 
 The modern design of Bempp is built such that high-performance computations are accessible from a high-productivity language.
 This makes our effort stand out in the current landscape of Poisson-Boltzmann solvers in three ways: interoperability, ease of use, and robustness. 
