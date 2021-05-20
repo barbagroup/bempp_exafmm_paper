@@ -11,6 +11,9 @@ All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 We used the full GMRES from the SciPy library as our linear solver.
 
+In all of the following test cases, the relative permittivity is $\epsilon_1 = 4$ in the solute region and $\epsilon_2 = 80$ in the solvent region, and the inverse of Debye length in the solvent region is $\kappa = 1/8\ {\si{\angstrom}}^{-1}$.
+We downloaded the molecule structures from the Protein Data Bank (PDB), parameterized them with \texttt{pdb2pqr}~\cite{DolinskyETal2004}, and generated meshes on the solvent-excluded surface (SES) using \texttt{Nanoshaper} with a probe radius of $1.4 \si{\angstrom}$.
+
 \paragraph{Matrix conditioning of two derivative formulations} \label{result_conditioning}
 
 Section \ref{s:formulation} presents the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
@@ -107,7 +110,7 @@ The observed order of convergence is 1.001 for the direct formulation and 0.999 
 \paragraph{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
 
 Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
-We parameterized the molecule with \texttt{pdb2pqr}~\cite{DolinskyETal2004} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:convergence}).
+We parameterized the molecule with \texttt{pdb2pqr} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:convergence}).
 This test used the same parameters listed in Table \ref{tab:convergence}, which are fine enough to reveal the discretization error.
 Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
 The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
@@ -139,6 +142,7 @@ Both convergence results provide solution verification, and are evidence that ou
 % add comparison with results from APBS
 \paragraph{Comparison with existing codes} \label{comparison}
 To further validate Bempp-Exafmm, we compared our results with well-established software: the finite-difference version of APBS, using 5PTI and 8 other molecules.
+We prepared the molecular structures using the \texttt{charmm} force field.
 For each molecule, we created three successive meshes for each software to study the convergence.
 For Bempp-Exafmm, We used \texttt{Nanoshaper} to generate three surface meshes with the element density set to 4, 8, 16 per square \AA, respectively.
 In APBS, we tweaked [?] to ensure that three grid spacings are refined with a factor of 2.
@@ -150,7 +154,8 @@ The derivative formulation is used in Bempp.
 We obtained an extrapolated value of the solvation energy of each molecule, serving as the reference value, for each software, respectively.
 As expected, the solvation energy computed from Bempp converges at the rate of $\mathcal{O}(N^{-1})$, where $N$ is the number of elements;
 the energy computed from APBS converges at the rate of $\mathcal{O}(h^{-1})$, where $h$ denotes the grid spacing.
-The difference of the extrapolated solvation energy between Bempp and APBS varies between 0.8\% and 1.8\% across all cases.
+The difference of the extrapolated solvation energy between two codes varies between 0.8\% and 1.8\% across all cases.
+This discrepancy is expected because Bempp-Exafmm and APBS use different geometrical representations for the molecular surface, and furthermore, the atomic charges in the molecule are mapped to grid points through interpolation in APBS.
 We also compared our results with MIBPB only using the finest mesh, and the details can be found in Appendix \ref{sec:comp_mibpb}.
 
 \begin{table*}[]
@@ -182,7 +187,7 @@ We also compared our results with MIBPB only using the finest mesh, and the deta
 \paragraph{Performance study with direct and derivative formulations} \label{result_performance}
 
 In this sub-section, we investigate the computational performance of Bempp-Exafmm using a spherical molecule.
-The sphere has a radius of 1, and 100 charges are placed randomly inside, representing the atoms in the solute.
+The sphere has a radius of 1 \AA\, and 100 charges are placed randomly inside, representing the atoms in the solute.
 We used the same dielectric constants and salt concentration as in previous grid-convergence studies.
 Other simulation parameters are listed in Table \ref{tab:sim_params_performance}.
 
@@ -266,7 +271,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
 \paragraph{Solvation energy of a Zika virus} \label{result_zika}
 
 Finally, we present a more challenging problem that studies the solvation energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
-We downloaded the molecular structure from the Protein Data Bank (PDB), parameterized it with the \texttt{amber} force field, and generated a mesh on the solvent-excluded surface using \texttt{Nanoshaper}.
+We parameterized the molecular structure with the \texttt{amber} force field, and generated a mesh on the SES using \texttt{Nanoshaper}.
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements, corresponding to between 1 and 2 triangles per square Angstrom.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
