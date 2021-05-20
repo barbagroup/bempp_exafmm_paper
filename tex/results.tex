@@ -140,8 +140,8 @@ Both convergence results provide solution verification, and are evidence that ou
 \end{figure*}
 
 % add comparison with results from APBS
-\paragraph{Comparison with existing codes} \label{comparison}
-To further validate Bempp-Exafmm, we compared our results with well-established software: the finite-difference version of APBS, using 5PTI and 8 other molecules.
+\paragraph{Comparison with trusted community software} \label{comparison}
+To further validate Bempp-Exafmm, we compared our results with a well-established code: the finite-difference version of APBS, using 5PTI and 8 other molecules.
 We prepared the molecular structures using the \texttt{charmm} force field.
 For each molecule, we created three successive meshes for each software to study the convergence.
 For Bempp-Exafmm, We used \texttt{Nanoshaper} to generate three surface meshes with the element density set to 4, 8, 16 ${\si{\angstrom}}^{-2}$, respectively.
@@ -156,7 +156,7 @@ As expected, the solvation energy computed from Bempp converges at the rate of $
 the energy computed from APBS converges at the rate of $\mathcal{O}(h^{-1})$, where $h$ denotes the grid spacing.
 The difference of the extrapolated solvation energy between two codes varies between 0.8\% and 1.8\% across all cases.
 This discrepancy is expected because Bempp-Exafmm and APBS use different geometrical representations for the molecular surface, and furthermore, the atomic charges in the molecule are mapped to grid points through interpolation in APBS.
-We also compared our results with MIBPB only using the finest mesh, and the details can be found in Appendix \ref{sec:comp_mibpb}.
+We also compared our results with MIBPB \cite{chen2011mibpb} only using the finest mesh, and the details can be found in Appendix \ref{sec:comp_mibpb}.
 
 \begin{table*}[]
     \centering
