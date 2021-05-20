@@ -6,7 +6,7 @@ In so-called implicit-solvent models~\cite{RouxSimonson1999,DecherchiETal2015}, 
 Starting from electrostatic theory, this leads to a mathematical model based on the linearized Poisson-Boltzmann equation, and widely used to compute mean-field electrostatic potentials and solvation free energies.
 Poisson-Boltzmann solvers have been numerically implemented using finite difference \cite{RocchiaAlexovHonig2001, BakerETal2001}, finite element \cite{BakerETal2001,BondETal2010,HolstETal2012}, boundary element \cite{AltmanBardhanWhiteTidor2009, GengKrasny2013, ZhangPengHuangPitsianisSunLu2015, CooperBardhanBarba2014}, and (semi) analytical \cite{LotanHead-Gordon2006,FelbergETal2017} methods, scaling up to problems as large as virus capsids \cite{ZhangETal2019,MartinezETal2019}.
 
-Virus-scale simulations are at the limit of what can be accomplished in computational biophysics, using leadership computing facilities.
+Virus-scale simulations are at the limit of what can be accomplished in computational biophysics \cite{HaddenPerilla2018}, using leadership computing facilities.
 The first explicit-solvent atomic simulation of a virus using molecular dynamics was published just 15 years ago, modeling a plant virus (satellite tobacco mosaic virus) of 1.7 nm in diameter \cite{FreddolinoETal2006}.
 The full model included 1 million atoms, and the computations ran for many days on the world-class facilities at the National Center for Supercomputing Application (NCSA), University of Illinois.
 Using largely the same methods, researchers just last year could model the full viral envelope of a 2009 pandemic influenza A H1N1 virus, with a diameter of about 115 nm \cite{DurrantETal2020}.
@@ -14,6 +14,7 @@ In this case, the full system consisted of 160 million atoms, and the computatio
 This is among the largest biomolecular systems ever simulated using all-atom molecular dynamics.
 
 Only a few elite researchers can access these leadership computing facilities, however, and if molecular science of viruses is to progress, computational tools that are more widely accessible are needed.
+It is in this context where approximate coarse grained \cite{ReddySansom2016,MachadoETal2017,HuberETal2021} and continuum models \cite{MartinezETal2019} play a key role.
 The vision behind this paper is to build an electrostatic simulation platform for biomolecular applications that allows researchers to access it via the Python/Jupyter ecosystem. This provides a high degree of flexibility in the underlying formulations, rapid prototyping of novel models, ease of deployment and integration into existing simulation workflows.
 
 To achieve this vision, we are coupling two libraries, the high-level Galerkin boundary element library Bempp, which is fully developed in Python, and the very fast low-level high-performance fast multipole method (\fmm) library Exafmm. 
