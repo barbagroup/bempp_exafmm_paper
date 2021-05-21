@@ -145,8 +145,8 @@ To further validate Bempp-Exafmm, we compared our results with a well-establishe
 We prepared the molecular structures using the \texttt{charmm} force field.
 For each molecule, we created three successive meshes for each software to study the convergence.
 For Bempp-Exafmm, We used \texttt{Nanoshaper} to generate three surface meshes with the element density set to 4, 8, 16 ${\si{\angstrom}}^{-2}$, respectively.
-In APBS, we tweaked [?] to ensure that three grid spacings are refined with a factor of 2.
-All mesh sizes are availabe in Appendix \ref{sec:apbs_mesh}.
+In APBS, we controlled the multigrid parameters to ensure that three grid spacings are refined with a constant factor of 2.
+All mesh sizes are listed in Appendix \ref{sec:apbs_mesh}.
 Other parameters are the same as our previous grid-convergence study, as listed in Table \ref{tab:convergence}.
 
 Table \ref{tab:APBS_result} presents the convergence results of both codes using a set of molecules.
