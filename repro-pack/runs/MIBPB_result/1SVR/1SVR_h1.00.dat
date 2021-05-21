@@ -1,0 +1,101 @@
+ eps0,eps1,h:   4.0000000000000000        80.000000000000000        1.0000000000000000     
+ The total number of atoms is:        1433
+ Command: ./MS_Intersection  1SVR.xyzr 1.40 1.00 4.00
+grid dimension: 44 47 48
+initializing the grid...
+initializing the surface...
+classifying the grid points...
+compute intersections...
+
+No missing cases!
+
+surface area: 4672.36
+surface volume: 12079
+output info into the files...
+clean the memory...
+running time: 11.99 seconds...
+Solvent exclusion surface generated OK.
+
+ The total number of grids in the Cartesian mesh is:
+       99264
+ The number of grids along each side is:
+          44          47          48
+ The total number of the intersection is:
+        6890
+ The total number of irregular grid points is:
+        7500
+ x, y, z left:  -20.792999819999999       -25.104999220000000       -24.069000740000000     
+ Temp1, 2, 3   512.07159149389668        128.92323646266769        330.56450675725853     
+ The sum of sa for phi0 is   378863.96507910790     
+ The sum of ijka for phi0 is  -347701664
+ The sum of bphi0 is:   8534.7084889788330     
+ The max for bphi0 on the boundary is:   0.0000000000000000     
+ The DSLUGM solver is employed
+ Boundary value problem solver cost:  0.15940700000000002     
+ The maximum of phi0 is:  0.21489077812435109     
+ Temporary sum of phi0 is:   752.75843871982568     
+ The temporary sum of phi0e is:   1247.3753054753236     
+ The ratio between phi0e and phi0 is:   1.6570724967184229     
+ The ratio between io and ioe is:   1.6436152291105122     
+ The number of neighbor 2 fic val need to find for phi0 is         462
+ The number of neighbor 2 fic val can be replaced for phi0 is      142002
+ The number of neighbor 3 fic val need to find for phi0 is         563
+ The number of neighbor 3 fic val can be replaced for phi0 is       94413
+ Temporary sum of RHS is   11.079980070326778     
+ The temporary sum of RHS before finding fic values is:  -10.950855296208983     
+ Patched used!
+ searchauxi4 --> auxiliary point outside comput domain
+ sub          25          20          15
+ sub          25          21          15
+ sub used           0           0           0           1
+ The temporary sum of RHS after finding fic values is:  -10.950855296208983     
+ Set equation is OK now!
+ The sum of sa is:   74118144.973062798     
+ The sum of u is:   138.31686937500783     
+ The total for the PBE computation is:   4.4176359999999999     
+ The number of neighbor 2 fic val need to find is        2453
+ The number of neighbor 2 fic val can be replaced us      140011
+ Need three points extrapolation for neighbor 3 points!
+ The number of neighbor 3 fic val need to find is        1040
+ The number of neighbor 3 fic val can be replaced us       93936
+          24          20          15          25          20          15
+         -10          -1           1
+ Neighbor 1 grids at this grid does not have value yet!
+ Need some other schemes to get the fic val at this point!
+          24          21          15          25          21          15
+         -10          -1           1
+ Neighbor 1 grids at this grid does not have value yet!
+ Need some other schemes to get the fic val at this point!
+          26          20          15          25          20          15
+         -10          -1           1
+ Neighbor 1 grids at this grid does not have value yet!
+ Need some other schemes to get the fic val at this point!
+ Extrapolation or neighbor combination scheme employed!
+ Extrapolation scheme is OK!
+ Extrapolation or neighbor combination scheme employed!
+ Extrapolation scheme is OK!
+ The sum of reaction field potential is:   1021.8261491624880     
+ Electrostatics solvation engergy=:  -409.66220052220206     
+	Command being timed: "./mibpb 1SVR eps0=4 eps1=80 kappa1=0.125 h=1.00 prds=1.4 ilinear=1 smibpb=0"
+	User time (seconds): 16.81
+	System time (seconds): 0.31
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.26
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 213904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 105052
+	Voluntary context switches: 269
+	Involuntary context switches: 31
+	Swaps: 0
+	File system inputs: 200
+	File system outputs: 9792
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

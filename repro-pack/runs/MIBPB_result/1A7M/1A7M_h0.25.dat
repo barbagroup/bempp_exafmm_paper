@@ -1,0 +1,92 @@
+ eps0,eps1,h:   4.0000000000000000        80.000000000000000       0.25000000000000000     
+ The total number of atoms is:        2804
+ Command: ./MS_Intersection  1A7M.xyzr 1.40 0.25 4.00
+grid dimension: 191 266 225
+initializing the grid...
+initializing the surface...
+classifying the grid points...
+compute intersections...
+
+No missing cases!
+
+surface area: 7773.73
+surface volume: 23963.4
+output info into the files...
+clean the memory...
+running time: 198.03 seconds...
+Solvent exclusion surface generated OK.
+
+ The total number of grids in the Cartesian mesh is:
+    11431350
+ The number of grids along each side is:
+         191         266         225
+ The total number of the intersection is:
+      186090
+ The total number of irregular grid points is:
+      206235
+ x, y, z left:  -26.058000220000000       -32.314000579999998       -30.703000580000001     
+ Temp1, 2, 3   6292.5547836314199        3238.4537576854746        1908.9521811793984     
+ The sum of sa for phi0 is   346108529.75719208     
+ The sum of ijka for phi0 is -1947816996
+ The sum of bphi0 is:   4075270.4250358264     
+ The max for bphi0 on the boundary is:   0.0000000000000000     
+ The DSLUGM solver is employed
+ Linear solver fails, error code:           2
+ Boundary value problem solver cost:   590.29414599999996     
+ The maximum of phi0 is:  0.28881645717648530     
+ Temporary sum of phi0 is:   135687.68102832531     
+ The temporary sum of phi0e is:   156591.04328049422     
+ The ratio between phi0e and phi0 is:   1.1540549745839142     
+ The ratio between io and ioe is:   1.1361008364103062     
+ The number of neighbor 2 fic val need to find for phi0 is        1036
+ The number of neighbor 2 fic val can be replaced for phi0 is    18390416
+ The number of neighbor 3 fic val need to find for phi0 is        9863
+ The number of neighbor 3 fic val can be replaced for phi0 is    12251105
+ Temporary sum of RHS is   853.91025425988346     
+ The temporary sum of RHS before finding fic values is:   853.91025425988346     
+ Patched used!
+ searchauxi4 --> auxiliary point outside comput domain
+ The temporary sum of RHS after finding fic values is:   853.91025425988346     
+ Set equation is OK now!
+ The sum of sa is:   149319634565.98618     
+ The sum of u is:   45424.944450105628     
+ The total for the PBE computation is:   1476.7580220000000     
+ The number of neighbor 2 fic val need to find is       58585
+ The number of neighbor 2 fic val can be replaced us    18332867
+ The number of neighbor 3 fic val need to find is       26422
+ The number of neighbor 3 fic val can be replaced us    12234546
+          98         149         101          98         150         101
+         -10          -1           1
+ Neighbor 1 grids at this grid does not have value yet!
+ Need some other schemes to get the fic val at this point!
+          98         151         101          98         150         101
+         -10          -1           1
+ Neighbor 1 grids at this grid does not have value yet!
+ Need some other schemes to get the fic val at this point!
+ Extrapolation or neighbor combination scheme employed!
+ Extrapolation scheme is OK!
+ The sum of reaction field potential is:  -145221.57545165549     
+ Electrostatics solvation engergy=:  -531.92905945661789     
+	Command being timed: "./mibpb 1A7M eps0=4 eps1=80 kappa1=0.125 h=0.25 prds=1.4 ilinear=1 smibpb=0"
+	User time (seconds): 1759.36
+	System time (seconds): 19.38
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 29:43.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8336880
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3492022
+	Voluntary context switches: 9806
+	Involuntary context switches: 690
+	Swaps: 0
+	File system inputs: 384
+	File system outputs: 956120
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
