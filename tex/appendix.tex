@@ -26,8 +26,10 @@ The former uses Cartesian grids while the latter uses surface meshes generated b
 
 \section{Comparison with MIBPB}\label{sec:comp_mibpb}
 We also compared the solvation energy computed from Bempp and another trusted finite-difference code MIBPB using the same set of molecules.
+The version we used was downloaded from \href{https://weilab.math.msu.edu/MIBPB}{https://weilab.math.msu.edu/MIBPB}.
 We enabled the linearized PB solver option in MIBPB and set the grid resolution parameter to 0.25 to produce finer grids.
 Correspondingly, we selected Bempp's results from the finest mesh, whose size is shown in Table \ref{tab:APBS_mesh}, to compare.
+Other parameters are the same as those in the grid-convergence study, listed in Table \ref{tab:convergence}.
 Table \ref{tab:MIBPB_result} presents the grid sizes used in MIBPB and the solvation energy computed from both software.
 The difference in $\Delta G_{solv}$ varies between 0.05\% and 1.9\% across all molecules.
 
