@@ -6,7 +6,7 @@ Second, we show solution verification through two grid-convergence studies: with
 The third type of result looks at performance with problem sizes between 8,000 and 2 million elements, including timings, breakdowns, and computational complexity.
 Our final result is a demonstration using a structure with about 1.6 million atoms, the Zika virus, discretized with about 10 million boundary elements.
 
-We ran all experiments on a single CPU node of \textit{Pegasus},\footnote{Pegasus is a Linux cluster at the George Washington University.} equipped with two 20-core Intel Xeon Gold 6148 CPUs running at 3.7 GHz and 192GB RAM.
+We ran all experiments on a single CPU node of \textit{Pegasus},\footnote{Pegasus is a Linux cluster at the George Washington University.} equipped with two 20-core Intel Xeon Gold 6148 CPUs (base frequency at 2.4 GHz, max turbo frequency at 3.7 GHz) and 192GB RAM.
 All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 We used the full GMRES from the SciPy library as our linear solver.
