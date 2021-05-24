@@ -22,6 +22,7 @@ In the former study, we compared with the analytical solution; in the latter, we
 In both cases, we used the direct formulation and the exterior derivative formulation.
 To reveal the discretization error, we set the \fmm expansion order to 10 to achieve 9 digits of accuracy.
 The error of the computed solvation energy decays linearly with respect to $N$, as shown in Figure \ref{fig:sphere_convergence} and \ref{fig:5PTI_convergence}.
+Our convergence result is consistent with those from \pygbe \cite{CooperBardhanBarba2014} and TABI \cite{GengKrasny2013}, where linear convergence is also observed with real molecules.
 Furthermore, we employed a set of proteins to compare Bempp-Exafmm with the finite-difference version of APBS.
 The 0.8\% to 1.8\% discrepancy in the solvation energy is expected, and possibly results from the difference in the surface representation and the interpolation required to smoothen the atomic charges in APBS.
 These results provide evidence of the code correctness for computing biomolecular solvation energies.
