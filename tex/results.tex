@@ -162,8 +162,9 @@ Other parameters are the same as our previous grid-convergence study, as listed 
 Table \ref{tab:APBS_result} presents the convergence results of both codes using a set of molecules.
 The derivative formulation is used in Bempp.
 We obtained an extrapolated value of the solvation energy of each molecule, serving as the reference value, for each software, respectively.
-As expected, the solvation energy computed from Bempp converges at the rate of $\mathcal{O}(N^{-1})$, where $N$ is the number of elements;
-the energy computed from APBS converges at the rate of $\mathcal{O}(h^{-1})$, where $h$ denotes the grid spacing.
+As expected, the solvation energy computed from Bempp converges at the rate of $\mathcal{O}(N^{-1})$, where $N$ is the number of elements.
+With APBS, the average observed order of convergence over all cases is 1.25, with respect to the grid spacing $h$, and other studies \cite{CooperBardhanBarba2014,GengKrasny2013} have reported a similar rate. 
+Our $\mathcal{O}(N^{-1})$ convergence corresponds to $\mathcal{O}(h^{-2})$ convergence in element size.
 The difference of the extrapolated solvation energy between two codes varies between 0.8\% and 1.8\% across all cases.
 This discrepancy is expected because Bempp-Exafmm and APBS use different geometrical representations for the molecular surface, and furthermore, the atomic charges in the molecule are mapped to grid points through interpolation in APBS.
 We also compared our results with MIBPB \cite{chen2011mibpb} only using the finest mesh, and the details can be found in Appendix \ref{sec:comp_mibpb}.
@@ -173,7 +174,7 @@ We also compared our results with MIBPB \cite{chen2011mibpb} only using the fine
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{cc|ccc|cc|ccc|cc}
       &   & \multicolumn{5}{c|}{APBS}                                                                    & \multicolumn{5}{c}{Bempp}                                                                   \\
-      &   & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order} & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order} \\
+      &   & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order$(1/h)$} & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order$(1/N)$} \\
     ID   & $N_{atoms}$ & coarse   & medium   & fine     &                                    &                        & coarse   & medium   & fine     &                                    &                        \\ \hline
     1AJJ & 513 & 4.40e-02 & 1.33e-02 & 4.00e-03 & -266.15                            & 1.73                   & 2.75e-02 & 1.12e-02 & 4.59e-03 & -268.67                            & 1.29                   \\
     1VJW & 826 & 3.09e-02 & 1.45e-02 & 6.77e-03 & -297.06                            & 1.09                   & 4.92e-02 & 2.23e-02 & 1.01e-02 & -302.50                            & 1.14                   \\
@@ -189,7 +190,7 @@ We also compared our results with MIBPB \cite{chen2011mibpb} only using the fine
     \caption{Convergence results of the solvation energy of 9 molecules using APBS and Bempp with derivative formulation.
     The error is with respect to an extrapolated value of the solvation energy using Richardson extrapolation.
     The solvation energy $\Delta G_{solv}$ is in units of kcal/mol.
-    The observed order of convergence is with respect to the grid spacing $h$ for APBS and with respect to the number of elements $N$ for Bempp.}
+    The observed order of convergence is with respect to the grid spacing $h$ for APBS (volumetric-based) and with respect to the number of elements $N$ for Bempp (boundary-element-based).}
     \label{tab:APBS_result}
 \end{table*}
 
