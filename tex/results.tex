@@ -281,7 +281,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
 \paragraph{Solvation energy of a Zika virus} \label{result_zika}
 
 Finally, we present a more challenging problem that studies the solvation energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
-We parameterized the molecular structure with the \texttt{amber} force field, and generated a mesh on the SES using \texttt{Nanoshaper}.
+We parameterized the molecular structure with the \texttt{amber} force field, and generated a mesh on the SES using \texttt{Nanoshaper}. (Mesh generation took less than 5 min.)
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements and a total surface area of $3.14\times 10^6 {\si{\angstrom}}^{2}$, corresponding to an element density of $3.16 {\si{\angstrom}}^{-2}$.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
@@ -295,6 +295,7 @@ The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs an
     \end{tabular}
     \caption{Results of computing the solvation energy of a Zika virus with Bempp using both the direct and derivative formulations.
     3 regular quadrature points were used per element and the \fmm expansion order was set to 4.
+    The mesh generation time is minor and not included in the total time.
     To verify our result, we ran the same case with \pygbe using the direct formulation on a workstation with a 24-core CPU.
     The solvation energy computed from \pygbe is -117261.1 [kcal/mol].
     }
