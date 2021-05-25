@@ -1,0 +1,56 @@
+read
+    mol pqr 1A63.pqr
+end
+
+elec name solv-state
+    mg-auto
+    dime 129 129 129 
+#    dime 257 257 257 
+#    dime 513 513 513 
+    cglen 106.2755 64.2875 65.3718
+    fglen 82.5150 57.8162 58.4540
+    cgcent mol 1
+    fgcent mol 1
+    mol 1
+    lpbe
+    bcfl sdh
+    pdie 4.0000
+    sdie 80.0000
+    ion charge 1 conc 0.150 radius 1.4
+    ion charge -1 conc 0.150 radius 1.4     
+    srfm mol
+    chgm spl2
+    sdens 10.00
+    srad 1.40
+    swin 0.30
+    temp 298.15
+    calcenergy total
+    calcforce no
+end
+
+elec name ref-state
+    mg-auto
+    dime 129 129 129 
+#    dime 257 257 257 
+#    dime 513 513 513 
+    cglen 106.2755 64.2875 65.3718
+    fglen 82.5150 57.8162 58.4540
+    cgcent mol 1
+    fgcent mol 1
+    mol 1
+    lpbe
+    bcfl sdh
+    pdie 4.0000
+    sdie 4.0000
+    srfm mol
+    chgm spl2
+    sdens 10.00
+    srad 1.40
+    swin 0.30
+    temp 298.15
+    calcenergy total
+    calcforce no
+end
+
+print elecEnergy solv-state - ref-state end
+quit
