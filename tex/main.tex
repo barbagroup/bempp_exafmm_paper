@@ -48,11 +48,11 @@
 \begin{onecolabstract}
 Biomolecular electrostatics is key in protein function and the chemical processes affecting it.
 Implicit-solvent models via the Poisson-Boltzmann (PB) equation provide insights with less computational cost than atomistic models, making large-system studies---at the scale of viruses---accessible to more researchers.
-    Here we present a high-productivity and high-performance PB solver based on Exafmm, a fast multipole method (FMM) library, and Bempp, a Galerkin boundary element method (BEM) package.
+    Here we present a high-productivity and high-performance PB solver based on Exafmm, a fast multipole method library, and Bempp, a Galerkin boundary element method package.
     The workflow integrates an easy-to-use Python interface with optimized computational kernels, and
-    users can perform simulations interactively via Jupyter notebooks, for faster prototyping.
+    can be run interactively via Jupyter notebooks, for faster prototyping.
     Our results show the capability of the software, confirm code correctness, and assess performance with between 8,000 and 2 million elements.
-    Showcasing the power of this interactive computing platform, in just a few lines of code we study the conditioning of two variants of the boundary integral formulation.
+    Showcasing the power of this interactive computing platform, we study the conditioning of two variants of the boundary integral formulation with just a few lines of code.
     Mesh-refinement studies with a spherical geometry and with real biological structures confirm convergence as $1/N$, for $N$ boundary elements, and
     a comparison with results from the trusted APBS code using various proteins shows agreement.
     Performance results include timings, breakdowns, and computational complexity.
