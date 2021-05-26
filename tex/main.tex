@@ -47,14 +47,14 @@
 %% abstract
 \begin{onecolabstract}
 Biomolecular electrostatics is key in protein function and the chemical processes affecting it.
-Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can provide insights with less computational power than full atomistic models, making large-system studies---at the scale of viruses, for example---accessible to more researchers.
+Implicit-solvent models expressed by the Poisson-Boltzmann (PB) equation can provide insights with less computational cost than full atomistic models, making large-system studies---at the scale of viruses, for example---accessible to more researchers.
     This paper presents a high-productivity and high-performance PB solver based on Exafmm, a fast multipole method (FMM) library, and Bempp, a Galerkin boundary element method (BEM) package.
-    Bempp-Exafmm tightly integrates an easy-to-use Python interface with well-optimized computational kernels that are written in compiled languages.
-    Thanks to Python's rich ecosystem in scientific computing, users can perform PB simulations interactively via Jupyter notebooks, which opens up the possibility for faster prototyping and analyzing.
-    We provide results showcasing the capability of our software, confirming correctness, and evaluating its performance with problem sizes between 8,000 and 2 million boundary elements.
-    A small study comparing two variants of the boundary integral formulation in regards to algebraic conditioning showcases the power of this interactive computing platform to give useful answers with just a few lines of code.
-    As a form of solution verification, mesh refinement studies with a spherical geometry as well as with a real biological structure (5PTI) confirm convergence at the expected $1/N$ rate, for $N$ boundary elements.
-    A comparison with the results from APBS using various proteins also substantiates the software credibility.
+    Bempp-Exafmm tightly integrates an easy-to-use Python interface with well-optimized computational kernels written in compiled languages.
+    Thanks to Python's rich ecosystem in scientific computing, users can perform PB simulations interactively via Jupyter notebooks, enabling faster prototyping and analyzing.
+    Our results showcase the capability of the software, confirm code correctness, and assess the performance with problem sizes between 8,000 and 2 million boundary elements.
+    Showcasing the power of this interactive computing platform, just a few lines of code are needed to compare two variants of the boundary integral formulation in regards to algebraic conditioning.
+    As a form of solution verification, mesh-refinement studies with a spherical geometry as well as with a real biological structure (5PTI) confirm convergence at the expected $1/N$ rate, for $N$ boundary elements.
+    A comparison with the results from the trusted APBS code using various proteins also substantiates the software credibility.
     Performance results include timings, breakdowns, and computational complexity.
     Exafmm offers evaluation speeds of just a few seconds for tens of millions of points, and $\mathcal{O}(N)$ scaling.
     This allowed computing the solvation free energy of a Zika virus, represented by 1.6 million atoms and 10 million boundary elements, at 80-min runtime on a single compute node (dual 20-core Intel Xeon Gold 6148).
