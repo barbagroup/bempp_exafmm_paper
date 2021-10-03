@@ -9,8 +9,8 @@ Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
 - Submitted: 20 March 2021; first revision request: 26 April 2021 (4 peer-review reports provided)
   - submitted version is tagged release [v2.0](https://github.com/barbagroup/bempp_exafmm_paper/releases/tag/v2.0) 
 - Revision submitted: 26 May 2021; request for information from the editors: 8 July 2021. 
-- [Reply to the editor in HackMD](https://hackmd.io/DG_f3UiMSsaAHukBp1SmVQ?view) sent on 12 July.
-- Request for reformatting replies for sending to reviewers for a second round: 31 July. Provided on 2 August.
+- Reply to the editor first sent on 12 July.
+  - 31 July: EiC writes that after discussion with the editorial team, they would like to send our replies to Reviewers 1 and 3, and requests these in PDF. Responses in HackMD for [Reviewer 1](https://hackmd.io/DG_f3UiMSsaAHukBp1SmVQ) and [Reviewer 3](https://hackmd.io/e--_niKFRtWDqKBdGncy5g). Sent to editor 2 August.
 - New review comments provided, with request to respond: 21 September.
 
 
