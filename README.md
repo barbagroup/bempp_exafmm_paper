@@ -7,6 +7,7 @@ Manuscript repository, including all source files for the text and reproducibili
 Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
 
 - Submitted: 20 March 2021; first revision request: 26 April 2021 (4 peer-review reports provided)
+  - submitted version is tagged release [v2.0](https://github.com/barbagroup/bempp_exafmm_paper/releases/tag/v2.0) 
 - Revision submitted: 26 May 2021; request for information from the editors: 8 July 2021. 
 - [Reply to the editor in HackMD](https://hackmd.io/DG_f3UiMSsaAHukBp1SmVQ?view) sent on 12 July.
 - Request for reformatting replies for sending to reviewers for a second round: 31 July. Provided on 2 August.
