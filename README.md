@@ -6,6 +6,13 @@ Manuscript repository, including all source files for the text and reproducibili
 
 Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
 
+- Submitted: 20 March 2021; first revision request: 26 April 2021 (4 peer-review reports provided)
+- Revision submitted: 7 June 2021; request for information from the editors: 8 July 2021. 
+- [Reply to the editor in HackMD](https://hackmd.io/DG_f3UiMSsaAHukBp1SmVQ?view) sent on 12 July.
+- Request for reformatting replies for sending to reviewers for a second round: 31 July. Provided on 2 August.
+- New review comments provided, with request to respond: 21 September.
+
+
 ## Reproducibility package archives
 
 See the [README in the repro-pack folder](https://github.com/barbagroup/bempp_exafmm_paper/tree/master/repro-pack) for instructions.
