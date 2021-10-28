@@ -149,52 +149,6 @@ Both convergence results provide solution verification, and are evidence that ou
     }
 \end{figure*}
 
-% add comparison with results from APBS
-\paragraph{Comparison with trusted community software} \label{comparison}
-We build more confidence on Bempp-Exafmm by comparing our results with a well-established finite-difference code APBS (version 1.5), using 5PTI and 8 other molecules.
-We prepared the molecular structures using the \texttt{charmm} force field.
-For each molecule, we created three successive meshes to study the convergence with each software.
-For Bempp-Exafmm, we used \texttt{Nanoshaper} to generate three surface meshes with the element density set to 4, 8, 16 ${\si{\angstrom}}^{-2}$, respectively.
-In APBS, we controlled the multigrid parameters to ensure that three grid spacings are refined with a constant factor of 2.
-All mesh sizes are listed in Appendix \ref{sec:apbs_mesh}.
-Other parameters are the same as our previous grid-convergence study, as listed in Table \ref{tab:convergence}.
-
-Table \ref{tab:APBS_result} presents the convergence results of both codes using a set of molecules.
-Bempp used the derivative formulation throughout.
-In each case, we obtained an extrapolated value of the solvation energy of each molecule, which serves as the reference value to estimate the discretization error with each software.
-As expected, the solvation energy computed from Bempp converges at the rate of $\mathcal{O}(N^{-1})$, where $N$ is the number of elements.
-With APBS, the average observed order of convergence over all cases is 1.25, with respect to the grid spacing $h$; other studies \cite{CooperBardhanBarba2014,GengKrasny2013} have reported a similar rate. 
-Our $\mathcal{O}(N^{-1})$ convergence corresponds to $\mathcal{O}(h^{-2})$ convergence in grid size, but for boundary elements (surface triangles) it is more natural to look at convergence with respect to $N$.
-The difference in the extrapolated solvation energies obtained with the two codes varies between 0.8\% and 1.8\% across all cases.
-A discrepancy is expected because Bempp-Exafmm and APBS use different geometrical representations for the molecular surface, while the atomic charges in the molecule are mapped to grid points through interpolation in APBS.
-(We also compared our results with MIBPB \cite{chen2011mibpb} using only the finest mesh: the details can be found in Appendix \ref{sec:comp_mibpb}.)
-
-\begin{table*}[]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{cc|ccc|cc|ccc|cc}
-      &   & \multicolumn{5}{c|}{APBS}                                                                    & \multicolumn{5}{c}{Bempp}                                                                   \\
-      &   & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order$(1/h)$} & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order$(1/N)$} \\
-    ID   & $N_{atoms}$ & coarse   & medium   & fine     &                                    &                        & coarse   & medium   & fine     &                                    &                        \\ \hline
-    1AJJ & 513 & 4.40e-02 & 1.33e-02 & 4.00e-03 & -266.15                            & 1.73                   & 2.75e-02 & 1.12e-02 & 4.59e-03 & -268.67                            & 1.29                   \\
-    1VJW & 826 & 3.09e-02 & 1.45e-02 & 6.77e-03 & -297.06                            & 1.09                   & 4.92e-02 & 2.23e-02 & 1.01e-02 & -302.50                            & 1.14                   \\
-    5PTI & 892 & 3.68e-02 & 1.38e-02 & 5.14e-03 & -311.69                            & 1.42                   & 5.12e-02 & 2.23e-02 & 9.67e-03 & -314.34                            & 1.20                   \\
-    1R69 & 997 & 4.31e-02 & 2.10e-02 & 1.02e-02 & -261.02                            & 1.04                   & 5.09e-02 & 2.34e-02 & 1.08e-02 & -265.02                            & 1.12                   \\
-    1A2S & 1272 & 5.25e-02 & 2.40e-02 & 1.10e-02 & -456.56                            & 1.13                   & 4.21e-02 & 1.93e-02 & 8.86e-03 & -461.25                            & 1.12                   \\
-    1SVR & 1433 & 5.28e-02 & 2.21e-02 & 9.28e-03 & -393.45                            & 1.25                   & 6.48e-02 & 2.89e-02 & 1.29e-02 & -398.83                            & 1.16                   \\
-    1A63 & 2065 & 4.51e-02 & 1.88e-02 & 7.82e-03 & -559.39                            & 1.26                   & 5.82e-02 & 2.60e-02 & 1.16e-02 & -567.24                            & 1.16                   \\
-    1A7M & 2804 & 4.13e-02 & 1.88e-02 & 8.53e-03 & -524.29                            & 1.14                   & 4.93e-02 & 2.24e-02 & 1.02e-02 & -531.48                            & 1.14                   \\
-    1F6W & 8247 & 6.45e-02 & 2.78e-02 & 1.20e-02 & -1277.51                           & 1.21                   & 4.18e-02 & 1.80e-02 & 7.76e-03 & -1301.08                           & 1.22                     
-    \end{tabular}
-    }
-    \caption{Convergence results of the solvation energy of 9 molecules using APBS and Bempp with derivative formulation.
-    The error is with respect to an extrapolated value of the solvation energy using Richardson extrapolation.
-    The solvation energy $\Delta G_{solv}$ is in units of kcal/mol.
-    The observed order of convergence is with respect to the grid spacing $h$ for APBS (volumetric-based solver) and with respect to the number of elements $N$ for Bempp (boundary-element solver).}
-    \label{tab:APBS_result}
-\end{table*}
-
-
 \paragraph{Performance study with direct and derivative formulations} \label{result_performance}
 
 In this sub-section, we investigate the computational performance of Bempp-Exafmm using a spherical molecule.
@@ -277,6 +231,65 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
     \caption{Performance on a spherical molecule with 100 random charges inside;
     6 regular quadrature points per element; \fmm expansion order set to 5 to achieve 5 digits of accuracy. Problem size represented by number of elements, $N$. Evaluation time (b) is an average for 1 Laplace \fmm evaluation and 1 Yukawa \fmm evaluation across all iterations in GMRES using direct formulation.
     \textbf{c},\textbf{d}, Time breakdown of \gmres in percentage using direct formulation (\textbf{c}) and derivative formulation (\textbf{d}).}
+\end{figure*}
+
+\paragraph{Performance comparison with APBS} \label{result_comparison_apbs}
+We compare the performance between Bempp and the finite-difference solver of APBS to compute the solvation energy of 1RCX in this section.
+It is only fair to compare the performance of both codes at the same level of accuracy.
+Therefore, due to the absence of an analytical solution, a convergence study for each software is necessary to compute an approximate exact solution using Richardson extrapolation, 
+For APBS, we chose the \texttt{mg-auto} solver and used \texttt{dime} to specify the grid size.
+Using three meshes with a constant refinement ratio of $1.34$, the observed order of convergence is $\mathcal{O}(h^{1.45})$ with respect to the grid spacing $h$.
+The extrapolated solution for APBS is $-10652.89$ kcal/mol, with which we computed the relative error for each case.
+These results are summarized in Table \ref{tab:1RCX_apbs}.
+The memory cost grows linearly and the time to solution grows quadratically with respect to the grid size.
+
+We generated four surface meshes for Bempp with the element density set to 2, 4, 8 and 16 $\si{\angstrom}^{-2}$, respectively.
+To measure the best performance of Bempp, we loosened the parameters moderately without affecting the final accuracy of the solvation energy.
+We used 3 quadrature points for regular integrals and set FMM order to 3.
+With the derivative formulation, the observed order of convergence is $\mathcal{O}(N^{-1.4})$, corresponding to $\mathcal{O}(h^{2.8})$, and the extrapolated solution is $-10973.30$ kcal/mol.
+The detailed results are listed in Table \ref{tab:1RCX_bempp}.
+
+Using the errors from Table \ref{tab:1RCX_apbs} and \ref{tab:1RCX_bempp}, we plotted the comparison of time and space complexity with respect to accuracy between Bempp and APBS, as shown in Figure \ref{fig:performance_comparison_apbs}.
+Bempp shows better scaling in both time and space.
+For this specific protein, the crossover point occurs around 2\%-error mark.
+Applications that require higher accuracy and involve larger structures will favor our boundary element approach.
+
+\begin{table*}[]
+    \centering
+    \begin{tabular}{cc|cc|cc}
+    grid size                   & h ($\si{\angstrom}$) & $\Delta G_{\mathrm{solv}}$ (kcal/mol) & error               & time (s) & memory (GB) \\ \hline
+    $289 \times 289 \times 257$ & 0.776                & -11006.92                             & $3.3\times 10^{-2}$ & 164      & 5.3         \\
+    $385 \times 385 \times 353$ & 0.582                & -10883.47                             & $2.2\times 10^{-2}$ & 734      & 13.0        \\
+    $513 \times 513 \times 481$ & 0.437                & -10803.07                             & $1.4\times 10^{-2}$ & 6075     & 34.2       
+    \end{tabular}
+    \caption{Results of computing the solvation energy of 1RCX using the \texttt{mg-auto} solver in APBS.}
+    \label{tab:1RCX_apbs}
+\end{table*}
+
+\begin{table*}[]
+    \centering
+    \begin{tabular}{cc|cc|cc}
+    N       & element density ($1/ \si{\angstrom}^2$) & $\Delta G_{\mathrm{solv}}$ (kcal/mol) & error               & time (s) & memory (GB) \\ \hline
+    237416  & 2                                       & -11401.11                             & $3.9\times 10^{-2}$ & 229      & 4.4         \\
+    483796  & 4                                       & -11139.84                             & $1.5\times 10^{-2}$ & 410      & 8.0         \\
+    962664  & 8                                       & -11036.34                             & $5.7\times 10^{-3}$ & 806      & 15.3        \\
+    1943736 & 16                                      & -10997.16                             & $2.2\times 10^{-3}$ & 1435     & 30.1       
+    \end{tabular}
+    \caption{Performance of Bempp-Exafmm solving 1RCX.}
+    \label{tab:1RCX_bempp}
+\end{table*}
+
+\begin{figure*}
+    \begin{center}
+        \includegraphics[width=0.4 \textwidth]{time_performance_comparison.pdf}
+        \label{fig:time_performance_comparsion}\qquad
+        \includegraphics[width=0.4 \textwidth]{memory_performance_comparison.pdf}
+        \label{fig:memory_performance_comparison}
+    \end{center}
+    \caption{Time and memory cost with respect to error for APBS and Bempp.
+    Errors are measured against extrapolated exact solution.
+    }
+    \label{fig:performance_comparison_apbs}
 \end{figure*}
 
 \paragraph{Solvation energy of a Zika virus} \label{result_zika}
