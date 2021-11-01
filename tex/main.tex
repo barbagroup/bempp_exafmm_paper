@@ -1,19 +1,34 @@
 \documentclass[twocolumn]{article}
 
 \usepackage{abstract}
+\usepackage{adjustbox}
 \usepackage{algorithm}
 \usepackage{appendix}
 \usepackage{amsmath}
 \usepackage{amsfonts} % \mathbb
+\usepackage{color}
 \usepackage[margin=0.6in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{mathtools} % \multlined
 \usepackage{multirow}
 \usepackage{siunitx}  % use \si{\angstrom} for Angstrom
 
 \usepackage{subfig}
 \usepackage{xspace}
+
+\definecolor{textblue}{rgb}{.2,.2,.7}
+\definecolor{textred}{rgb}{0.54,0,0}
+\definecolor{textgreen}{rgb}{0,0.43,0}
+\definecolor{textpurple}{rgb}{0.59,0,1}
+\definecolor{textcomment}{rgb}{0.2,0.43,0.43}
+
+\lstset{
+    language=Python,
+    basicstyle=\fontfamily{SourceCodePro-TLF}\selectfont\small,
+    commentstyle=\color{textcomment}\fontfamily{SourceCodePro-TLF}\selectfont
+}
 
 \newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
 \newcommand{\pygbe}{\texttt{PyGBe}\xspace}
