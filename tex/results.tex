@@ -168,7 +168,7 @@ The observed order of convergence is 1.001 for the direct formulation and 0.999 
 \paragraph{Mesh refinement study using 5PTI} \label{result_convergence_5PTI}
 
 Next, we tested our software using a real biomolecule: bovine pancreatic trypsin inhibitor (PDB code 5PTI), whose structure \cite{wlodawer1984structure} is shown in Figure \ref{fig:5PTI_structure}.
-We parameterized the molecule with \texttt{pdb2pqr} and the \texttt{charmm} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:convergence}).
+We parameterized the molecule with \texttt{pdb2pqr} and the \texttt{charmm} \cite{brooksCHARMMProgramMacromolecular1983} force field, and then computed the solvation energy using 5 meshes with the element density ranging from 1 to 16 (Table \ref{tab:convergence}).
 This test used the same parameters listed in Table \ref{tab:convergence}, which are fine enough to reveal the discretization error.
 Since an analytical solution is not available for this geometry, we obtained the reference values for error estimation via Richardson extrapolation.
 The estimated relative error with the finest mesh is 1.2\% with the direct formulation, and 1.5\% with the derivative formulation.
@@ -343,7 +343,7 @@ Applications that require higher accuracy and involve larger structures will fav
 \paragraph{Solvation energy of a Zika virus} \label{result_zika}
 
 Finally, we present a more challenging problem that studies the solvation energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
-We parameterized the molecular structure with the \texttt{amber} force field, and generated a mesh on the SES using \texttt{Nanoshaper}. (Mesh generation took less than 5 min.)
+We parameterized the molecular structure with the \texttt{amber} \cite{caseAmberBiomolecularSimulation2005} force field, and generated a mesh on the SES using \texttt{Nanoshaper}. (Mesh generation took less than 5 min.)
 The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements and a total surface area of $3.14\times 10^6 {\si{\angstrom}}^{2}$, corresponding to an element density of $3.16 {\si{\angstrom}}^{-2}$.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
