@@ -40,7 +40,7 @@ We used three grid spacings for APBS: \SIlist{0.776;0.582;0.437}{\angstrom}, and
 For each code, the errors are computed based on the corresponding extrapolated solution.
 Though APBS has an edge over Bempp for low accuracy calculations (error $>2\%$), Bempp performs better when higher accuracy is required due to better scaling.
 We want to admit that APBS, as well as many other grid-based PB solvers, may run faster than Bempp for smaller proteins, as the crossover point in Figure \ref{fig:performance_comparison_apbs} will shift left.
-However, most of them are not suitable to handle large structures at a decent accuracy due to the excessive time and memory cost, as suggested by the scaling in Figure \ref{fig:performance_comparison_apbs}.
+However, most of them are not suitable to handle large structures at a decent accuracy on a workstation due to the excessive time and memory cost, as suggested by the scaling in Figure \ref{fig:performance_comparison_apbs}.
 
 Finally, we computed the solvation energy of a Zika virus using both formulations and verified our results against \pygbe in \ref{result_zika}.
 The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node.
