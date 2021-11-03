@@ -23,9 +23,9 @@ In both cases, we used the direct formulation and the exterior derivative formul
 To reveal the discretization error, we set the \fmm expansion order to 10 to achieve 9 digits of accuracy.
 The error of the computed solvation energy decays linearly with respect to $N$, as shown in Figure \ref{fig:sphere_convergence} and \ref{fig:5PTI_convergence}.
 Our convergence result is consistent with those from \pygbe \cite{CooperBardhanBarba2014} and TABI \cite{GengKrasny2013}, where linear convergence is also observed with real molecules.
-Furthermore, we employed a set of proteins to compare Bempp-Exafmm with the finite-difference version of APBS.
-The 0.8\% to 1.8\% discrepancy in the solvation energy is expected, and possibly results from the difference in the surface representation and the interpolation required to smoothen the atomic charges in APBS.
-These results provide evidence of the code correctness for computing biomolecular solvation energies.
+%Furthermore, we employed a set of proteins to compare Bempp-Exafmm with the finite-difference version of APBS.
+%The 0.8\% to 1.8\% discrepancy in the solvation energy is expected, and possibly results from the difference in the surface representation and the interpolation required to smoothen the atomic charges in APBS.
+%These results provide evidence of the code correctness for computing biomolecular solvation energies.
 
 % performance and Zika virus
 In section \ref{result_performance}, we elaborate on the performance of Bempp-Exafmm for different problem sizes using both formulations.
@@ -34,6 +34,14 @@ Table \ref{tab:sphere_time} lists the timings in detail.
 Despite being ill-conditioned, the direct formulation still shows an advantage in terms of the overall time for smaller problem sizes.
 Conversely, the derivative formulation shines in larger problems.
 The crossover point should be problem- and hardware-specific.
+
+We compared the performance of Bempp and APBS across different levels of accuracy using a moderate-sized structure 1RCX.
+We used three grid spacings for APBS: \SIlist{0.776;0.582;0.437}{\angstrom}, and four mesh densities for Bempp: 2, 4, 8, 16 elements per $\si{\angstrom}^{2}$ in our test.
+For each code, the errors are computed based on the corresponding extrapolated solution.
+Though APBS has an edge over Bempp for low accuracy calculations (error $>2\%$), Bempp performs better when higher accuracy is required due to better scaling.
+We want to admit that APBS, as well as many other grid-based PB solvers, may run faster than Bempp for smaller proteins, as the crossover point in Figure \ref{fig:performance_comparison_apbs} will shift left.
+However, most of them are not suitable to handle large structures at a decent accuracy due to the excessive time and memory cost, as suggested by the scaling in Figure \ref{fig:performance_comparison_apbs}.
+
 Finally, we computed the solvation energy of a Zika virus using both formulations and verified our results against \pygbe in \ref{result_zika}.
 The linear system, for a mesh containing 10 million boundary elements, was solved in 80 minutes on a single node.
 It shows that the performance of our code is in the same ballpark as other state-of-the-art fast BEM PB solvers \cite{GengKrasny2013,ZhangPengHuangPitsianisSunLu2015,CooperBardhanBarba2014} and gives us confidence in its capability of solving virus-scale problems.

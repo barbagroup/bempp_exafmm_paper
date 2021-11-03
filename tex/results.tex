@@ -13,8 +13,8 @@ All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 We used the full GMRES from the SciPy library as our linear solver.
 
-In all of the following test cases, the relative permittivity is $\epsilon_1 = 4$ in the solute region and $\epsilon_2 = 80$ in the solvent region, and the inverse of Debye length in the solvent region is $\kappa = 1/8\ {\si{\angstrom}}^{-1}$.
-We downloaded the molecule structures from the Protein Data Bank (PDB), parameterized them with \texttt{pdb2pqr}~\cite{DolinskyETal2004}, and generated meshes on the solvent-excluded surface (SES) using \texttt{Nanoshaper} with a probe radius of $1.4 \si{\angstrom}$.
+In all of the following test cases, the relative permittivity is $\epsilon_1 = 4$ in the solute region and $\epsilon_2 = 80$ in the solvent region, and the inverse of Debye length in the solvent region is $\kappa = \SI{1/8}{\angstrom}^{-1}$, corresponding to a salt concentration of 150 mM.
+We downloaded the molecule structures from the Protein Data Bank (PDB), parameterized them with \texttt{pdb2pqr}~\cite{DolinskyETal2004}, and generated meshes on the solvent-excluded surface (SES) using \texttt{Nanoshaper} with a probe radius of $\SI{1.4}{\angstrom}$.
 
 \paragraph{Matrix conditioning of two derivative formulations} \label{result_conditioning}
 Section \ref{s:formulation} presents the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
@@ -32,7 +32,7 @@ slp_in = laplace.single_layer(space, space,
     space, assembler="fmm")
     \end{lstlisting}
 \end{adjustbox} \\
-Setting up the system matrix of the two derivative formulations, corresponding to Equation \ref{eq:juffer} and \ref{eq:lu}, can be done within just a few lines, as shown in the code snippets below.
+Setting up the system matrix of the two derivative formulations, corresponding to Equation \ref{eq:juffer} and \ref{eq:lu}, is straightforward, as shown in the code snippets below.
 
 \begin{adjustbox}{max width=\linewidth}
     \begin{lstlisting}[caption=Interior formulation,
@@ -68,7 +68,7 @@ A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adp_ex - adp_in
 
 \noindent
 \texttt{id} is the identity operator, and other variables in blue are boundary operators.
-The prefix denotes the type of operators (single-layer, double-layer, hypersingular or adjoint double-layer), while the suffix suggests whether the operator is the equation corresponding to the solute or solvent region.
+The prefix denotes the type of operators (single-layer, double-layer, hypersingular or adjoint double-layer), while the suffix suggests whether the operator is in the Laplace equation or the linearized PB equation.
 
 We could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
 The programming effort required to implement a second formulation would have been a good reason.
@@ -132,7 +132,7 @@ The first used a spherical molecule with an off-center charge, for which we have
 In the next sub-section, we present a mesh-refinement study with a real molecule of biological relevance.
 Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case:
 a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
-The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = 1/8\ {\si{\angstrom}}^{-1})$.
+The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = \SI{1/8}{\angstrom}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:convergence}.
 With an expansion order of 10, our \fmm achieved 9 digits of accuracy.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
@@ -284,14 +284,15 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
 \paragraph{Performance comparison with APBS} \label{result_comparison_apbs}
 We compare the performance between Bempp and the finite-difference solver of APBS to compute the solvation energy of 1RCX in this section.
 It is only fair to compare the performance of both codes at the same level of accuracy.
-Therefore, due to the absence of an analytical solution, a convergence study for each software is necessary to compute an approximate exact solution using Richardson extrapolation, 
+Therefore, due to the absence of an analytical solution, a convergence study for each software is necessary to compute an approximate exact solution using Richardson extrapolation.
+We parameterized the molecule with \texttt{pdb2pqr} and the \texttt{charmm} force field. 
 For APBS, we chose the \texttt{mg-auto} solver and used \texttt{dime} to specify the grid size.
 Using three meshes with a constant refinement ratio of $1.34$, the observed order of convergence is $\mathcal{O}(h^{1.45})$ with respect to the grid spacing $h$.
 The extrapolated solution for APBS is $-10652.89$ kcal/mol, with which we computed the relative error for each case.
 These results are summarized in Table \ref{tab:1RCX_apbs}.
 The memory cost grows linearly and the time to solution grows quadratically with respect to the grid size.
 
-We generated four surface meshes for Bempp with the element density set to 2, 4, 8 and 16 $\si{\angstrom}^{-2}$, respectively.
+We generated four surface meshes for Bempp with the element density set to 2, 4, 8 and 16 elements per $\si{\angstrom}^{2}$, respectively.
 To measure the best performance of Bempp, we loosened the parameters moderately without affecting the final accuracy of the solvation energy.
 We used 3 quadrature points for regular integrals and set FMM order to 3.
 With the derivative formulation, the observed order of convergence is $\mathcal{O}(N^{-1.4})$, corresponding to $\mathcal{O}(h^{2.8})$, and the extrapolated solution is $-10973.30$ kcal/mol.
@@ -310,7 +311,8 @@ Applications that require higher accuracy and involve larger structures will fav
     $385 \times 385 \times 353$ & 0.582                & -10883.47                             & $2.2\times 10^{-2}$ & 734      & 13.0        \\
     $513 \times 513 \times 481$ & 0.437                & -10803.07                             & $1.4\times 10^{-2}$ & 6075     & 34.2       
     \end{tabular}
-    \caption{Results of computing the solvation energy of 1RCX using the \texttt{mg-auto} solver in APBS.}
+    \caption{Results of computing the solvation energy of 1RCX using the \texttt{mg-auto} solver in APBS.
+    Error is calculated based on the extrapolated solution $-10652.89$ kcal/mol.}
     \label{tab:1RCX_apbs}
 \end{table*}
 
@@ -323,7 +325,9 @@ Applications that require higher accuracy and involve larger structures will fav
     962664  & 8                                       & -11036.34                             & $5.7\times 10^{-3}$ & 806      & 15.3        \\
     1943736 & 16                                      & -10997.16                             & $2.2\times 10^{-3}$ & 1435     & 30.1       
     \end{tabular}
-    \caption{Performance of Bempp-Exafmm solving 1RCX.}
+    \caption{Results of computing the solvation energy of 1RCX using Bempp-Exafmm and derivative formulation.
+    3 quadrature points for regular integrals and \fmm order set to 3.
+    Error is calculated based on the extrapolated solution $-10973.30$ kcal/mol.}
     \label{tab:1RCX_bempp}
 \end{table*}
 
@@ -344,7 +348,7 @@ Applications that require higher accuracy and involve larger structures will fav
 
 Finally, we present a more challenging problem that studies the solvation energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
 We parameterized the molecular structure with the \texttt{amber} \cite{caseAmberBiomolecularSimulation2005} force field, and generated a mesh on the SES using \texttt{Nanoshaper}. (Mesh generation took less than 5 min.)
-The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements and a total surface area of $3.14\times 10^6 {\si{\angstrom}}^{2}$, corresponding to an element density of $3.16 {\si{\angstrom}}^{-2}$.
+The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements and a total surface area of $3.14\times 10^6 {\si{\angstrom}}^{2}$, corresponding to an element density of $\SI{3.16}{\angstrom}^{-2}$.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
 
