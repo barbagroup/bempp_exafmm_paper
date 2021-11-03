@@ -28,7 +28,7 @@ For example, we can create a Laplace single-layer potential boundary operator wi
 \begin{adjustbox}{max width=\linewidth}
     \begin{lstlisting}
 from bempp.api.operators.boundary import laplace
-slp_in = laplace.single_layer(space, space,
+slp_l = laplace.single_layer(space, space,
     space, assembler="fmm")
     \end{lstlisting}
 \end{adjustbox} \\
@@ -37,38 +37,39 @@ Setting up the system matrix of the two derivative formulations, corresponding t
 \begin{adjustbox}{max width=\linewidth}
     \begin{lstlisting}[caption=Interior formulation,
         label={lst:interior_formulation},
-        emph={id, slp_in, slp_ex, dlp_in, dlp_ex,
-        hsp_in, hsp_ex, adp_in, adp_ex},
+        emph={id, slp_l, slp_y, dlp_l, dlp_y,
+        hyp_l, hyp_y, adj_l, adj_y},
         emphstyle=\color{textblue}
         ]
 ep = ep_ex/ep_in   # ratio of permittivity
 A = bempp.api.BlockedOperator(2,2)
-A[0,0] = 0.5*(1+ep)*id - (ep*dlp_ex - dlp_in)
-A[0,1] = slp_ex - slp_in
-A[1,0] = hsp_ex - hsp_in
-A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adp_ex - adp_in
+A[0,0] = 0.5*(1+ep)*id - (ep*dlp_y - dlp_l)
+A[0,1] = slp_y - slp_l
+A[1,0] = hyp_y - hyp_l
+A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adj_y - adj_l
     \end{lstlisting}
 \end{adjustbox}
 
 \begin{adjustbox}{max width=\linewidth}
     \begin{lstlisting}[caption=Exterior formulation, 
         label={lst:exterior_formulation},
-        emph={id, slp_in, slp_ex, dlp_in, dlp_ex,
-        hsp_in, hsp_ex, adp_in, adp_ex},
+        emph={id, slp_l, slp_y, dlp_l, dlp_y,
+        hyp_l, hyp_y, adj_l, adj_y},
         emphstyle=\color{textblue}
         ]
 ep = ep_ex/ep_in
 A = bempp.api.BlockedOperator(2,2)
-A[0,0] = 0.5*(1+1/ep)*id - (dlp_ex - 1/ep*dlp_in)
-A[0,1] = slp_ex - slp_in
-A[1,0] = 1/ep*(hsp_ex - hsp_in)
-A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adp_ex - adp_in
+A[0,0] = 0.5*(1+1/ep)*id - (dlp_y - 1/ep*dlp_l)
+A[0,1] = slp_y - slp_l
+A[1,0] = 1/ep*(hyp_y - hyp_l)
+A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adj_y - adj_l
     \end{lstlisting}
 \end{adjustbox} \\
 
 \noindent
 \texttt{id} is the identity operator, and other variables in blue are boundary operators.
-The prefix denotes the type of operators (single-layer, double-layer, hypersingular or adjoint double-layer), while the suffix suggests whether the operator is in the Laplace equation or the linearized PB equation.
+The prefix denotes the type of operators (single-layer, double-layer, hypersingular or adjoint double-layer), while the suffix suggests whether the operator has a Laplace kernel (in the Laplace equation) or Yukawa kernel (in the linearized PB equation).
+For example, the variable \texttt{hyp\_y} is a Yukawa hypersingular boundary operator, corresponding to the term $W_{Y}^{\Gamma}$ in Equation \ref{eq:juffer} and \ref{eq:lu}.
 
 We could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
 The programming effort required to implement a second formulation would have been a good reason.
