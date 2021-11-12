@@ -10,6 +10,8 @@
 \usepackage[margin=0.6in]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
 \usepackage{listings}
 \usepackage{mathtools} % \multlined
 \usepackage{multirow}
@@ -27,7 +29,9 @@
 \lstset{
     language=Python,
     basicstyle=\fontfamily{SourceCodePro-TLF}\selectfont\small,
-    commentstyle=\color{textcomment}\fontfamily{SourceCodePro-TLF}\selectfont
+    commentstyle=\color{textcomment}\fontfamily{SourceCodePro-TLF}\selectfont,
+    upquote=true,
+    showstringspaces=false
 }
 
 \newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}

@@ -1,5 +1,6 @@
 %!TEX root = main.tex
 We demonstrate the performance and capability of Bempp-Exafmm via electrostatic simulations, including computing the solvation energy of a Zika virus.
+Bempp solves the boundary integral formulation of the linearized PB equation.
 This section presents five types of results.
 The first result explains the behavior of two variants of the mathematical formulation, from the conditioning point of view. 
 Second, we show solution verification through two grid-convergence studies: with a spherical molecule (having an analytical solution), and with a real biomolecule (using Richardson extrapolation).
@@ -24,18 +25,24 @@ Its most common solution method finds the potential and its derivative in the in
 Bempp unfetters the user to experiment with these variants of the boundary element solution method, editing just a few lines of Python.
 
 Bempp allows users to define function spaces and integral operators effortlessly via high-level interfaces.
-For example, we can create a Laplace single-layer potential boundary operator with:
+For example, we can define a space of continuous piecewise linear functions on the mesh and then create a Laplace single-layer potential boundary operator using the code shown in Listing \ref{lst:space_and_operator}.
+The variable \texttt{grid} represents the surface mesh.
 \begin{adjustbox}{max width=\linewidth}
-    \begin{lstlisting}
+    \begin{lstlisting}[caption=Define function spaces and boundary operators in Bempp.,
+        label={lst:space_and_operator}]
 from bempp.api.operators.boundary import laplace
+space = bempp.api.function_space(grid, "P", 1)
 slp_l = laplace.single_layer(space, space,
     space, assembler="fmm")
     \end{lstlisting}
 \end{adjustbox} \\
+
+\noindent
+Other boundary operators can be defined in a similar fashion.
 Setting up the system matrix of the two derivative formulations, corresponding to Equation \ref{eq:juffer} and \ref{eq:lu}, is straightforward, as shown in the code snippets below.
 
 \begin{adjustbox}{max width=\linewidth}
-    \begin{lstlisting}[caption=Interior formulation,
+    \begin{lstlisting}[caption=Interior formulation.,
         label={lst:interior_formulation},
         emph={id, slp_l, slp_y, dlp_l, dlp_y,
         hyp_l, hyp_y, adj_l, adj_y},
@@ -51,7 +58,7 @@ A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adj_y - adj_l
 \end{adjustbox}
 
 \begin{adjustbox}{max width=\linewidth}
-    \begin{lstlisting}[caption=Exterior formulation, 
+    \begin{lstlisting}[caption=Exterior formulation.,
         label={lst:exterior_formulation},
         emph={id, slp_l, slp_y, dlp_l, dlp_y,
         hyp_l, hyp_y, adj_l, adj_y},
@@ -71,7 +78,9 @@ A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adj_y - adj_l
 The prefix denotes the type of operators (single-layer, double-layer, hypersingular or adjoint double-layer), while the suffix suggests whether the operator has a Laplace kernel (in the Laplace equation) or Yukawa kernel (in the linearized PB equation).
 For example, the variable \texttt{hyp\_y} is a Yukawa hypersingular boundary operator, corresponding to the term $W_{Y}^{\Gamma}$ in Equation \ref{eq:juffer} and \ref{eq:lu}.
 
-We could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
+Our workflow in general is nothing different than existing BEM PB software: obtain structures from PDB, parameterize with \texttt{pdb2pqr}, generate the surface mesh, run linear solvers and compute energies.
+However, what differentiates Bempp-Exafmm from other ``black-box" PB solvers is the ability to customize each step --- such as the formulation and preconditioner --- in the computation, making it a great testbed for performing numerical analysis.
+Hence, we could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
 The programming effort required to implement a second formulation would have been a good reason.
 In our experiments, the exterior version used by Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019} took about half as many iterations to converge than the interior version---a sizable advantage.
 This led us to study the properties of the two variants of the derivative formulation in more detail.
