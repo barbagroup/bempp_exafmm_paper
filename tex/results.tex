@@ -141,7 +141,7 @@ As a form of solution verification with the Bempp-Exafmm software, we completed 
 The first used a spherical molecule with an off-center charge, for which we have an analytical solution.
 In the next sub-section, we present a mesh-refinement study with a real molecule of biological relevance.
 Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case:
-a spherical molecule of radius 4 \AA\ and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
+a spherical molecule of radius \SI{4}{\angstrom} and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
 The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = \SI{1/8}{\angstrom}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:convergence}.
 With an expansion order of 10, our \fmm achieved 9 digits of accuracy.
@@ -210,7 +210,7 @@ Both convergence results provide solution verification, and are evidence that ou
 \paragraph{Performance study with direct and derivative formulations} \label{result_performance}
 
 In this sub-section, we investigate the computational performance of Bempp-Exafmm using a spherical molecule.
-The sphere has a radius of 1 \AA\, and 100 charges are placed randomly inside, representing the atoms in the solute.
+The sphere has a radius of \SI{1}{\angstrom}, and 100 charges are placed randomly inside, representing the atoms in the solute.
 We used the same dielectric constants and salt concentration as in previous grid-convergence studies.
 Other simulation parameters are listed in Table \ref{tab:sim_params_performance}.
 
