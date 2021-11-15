@@ -292,9 +292,11 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
 \end{figure*}
 
 \paragraph{Performance comparison with APBS} \label{result_comparison_apbs}
-We compare the performance between Bempp and the finite-difference solver of APBS to compute the solvation energy of 1RCX in this section.
-It is only fair to compare the performance of both codes at the same level of accuracy.
-Therefore, due to the absence of an analytical solution, a convergence study for each software is necessary to compute an approximate exact solution using Richardson extrapolation.
+In this section, we compare the performance of Bempp and the finite-difference solver in APBS when computing the solvation energy of 1RCX.
+Comparing the performance of two solvers is only fair at matching accuracy.
+This is because the user has several runtime choices to make that affect both runtime and accuracy.
+In the absence of an analytical solution, it is necessary to complete a grid convergence study with each solver to obtain an extrapolated solution using Richardson extrapolation, based on which we can compute the accuracy.
+
 We parameterized the molecule with \texttt{pdb2pqr} and the \texttt{charmm} force field. 
 For APBS, we chose the \texttt{mg-auto} solver and used \texttt{dime} to specify the grid size.
 Using three meshes with a constant refinement ratio of $1.34$, the observed order of convergence is $\mathcal{O}(h^{1.45})$ with respect to the grid spacing $h$.
@@ -302,16 +304,15 @@ The extrapolated solution for APBS is $-10652.89$ kcal/mol, with which we comput
 These results are summarized in Table \ref{tab:1RCX_apbs}.
 The memory cost grows linearly and the time to solution grows quadratically with respect to the grid size.
 
-We generated four surface meshes for Bempp with the element density set to 2, 4, 8 and 16 elements per $\si{\angstrom}^{2}$, respectively.
-To measure the best performance of Bempp, we loosened the parameters moderately without affecting the final accuracy of the solvation energy.
-We used 3 quadrature points for regular integrals and set FMM order to 3.
-With the derivative formulation, the observed order of convergence is $\mathcal{O}(N^{-1.4})$, corresponding to $\mathcal{O}(h^{2.8})$, and the extrapolated solution is $-10973.30$ kcal/mol.
+The surface meshes for Bempp have the element density set to 2, 4, 8 and 16 elements per $\si{\angstrom}^{2}$, respectively.
+The performance of Bempp improves, without affecting the final accuracy, using 3 quadrature points for regular integrals and \fmm order equal to 3.
+With the derivative formulation, the observed order of convergence is $\mathcal{O}(N^{-1.4})$, equivalent to $\mathcal{O}(h^{2.8})$, and the extrapolated solution is $-10973.30$ kcal/mol.
 The detailed results are listed in Table \ref{tab:1RCX_bempp}.
 
-Using the errors from Table \ref{tab:1RCX_apbs} and \ref{tab:1RCX_bempp}, we plotted the comparison of time and space complexity with respect to accuracy between Bempp and APBS, as shown in Figure \ref{fig:performance_comparison_apbs}.
-Bempp shows better scaling in both time and space.
-For this specific protein, the crossover point occurs around 2\%-error mark.
-Applications that require higher accuracy and involve larger structures will favor our boundary element approach.
+Using the errors from Table \ref{tab:1RCX_apbs} and \ref{tab:1RCX_bempp}, we plotted the time and space complexity with respect to accuracy obtained with Bempp and APBS, as shown in Figure \ref{fig:performance_comparison_apbs}.
+Bempp displays better scaling in both time and space.
+For this specific protein, the crossover point occurs around the 2\%-error mark.
+Applications that require higher accuracy and involve larger structures will favor our boundary element solver.
 
 \begin{table*}[]
     \centering
