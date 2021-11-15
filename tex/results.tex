@@ -78,9 +78,9 @@ A[1,1] = 0.5*(1+1/ep)*id + (1/ep)*adj_y - adj_l
 The prefix denotes the type of operators (single-layer, double-layer, hypersingular or adjoint double-layer), while the suffix suggests whether the operator has a Laplace kernel (in the Laplace equation) or Yukawa kernel (in the linearized PB equation).
 For example, the variable \texttt{hyp\_y} is a Yukawa hypersingular boundary operator, corresponding to the term $W_{Y}^{\Gamma}$ in Equation \ref{eq:juffer} and \ref{eq:lu}.
 
-Our workflow in general is nothing different than existing BEM PB software: obtain structures from PDB, parameterize with \texttt{pdb2pqr}, generate the surface mesh, run linear solvers and compute energies.
-However, what differentiates Bempp-Exafmm from other ``black-box" PB solvers is the ability to customize each step --- such as the formulation and preconditioner --- in the computation, making it a great testbed for performing numerical analysis.
-Hence, we could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
+The typical workflow for solving PB equations using BEM software involves the following steps: obtain structures from PDB, parameterize with \texttt{pdb2pqr}, generate the surface mesh, run linear solvers and compute energies.
+What differentiates Bempp-Exafmm from other ``black-box'' PB solvers is the ability to customize each step---such as the formulation and preconditioner---in the computation, making it a great testbed for exploratory numerical analysis.
+We could easily try both the interior and exterior versions of the derivative formulation, whereas previous publications opted for one method and used it throughout.
 The programming effort required to implement a second formulation would have been a good reason.
 In our experiments, the exterior version used by Lu and coworkers~\cite{LuETal2006,LuETal2009,ZhangETal2019} took about half as many iterations to converge than the interior version---a sizable advantage.
 This led us to study the properties of the two variants of the derivative formulation in more detail.
