@@ -1,9 +1,18 @@
 \documentclass[12pt]{article}
 
+\usepackage[affil-it]{authblk} 
 \usepackage{graphicx}
+\usepackage{lscape}
 \usepackage{multirow}
 \usepackage{siunitx}  % use \si{\angstrom} for Angstrom
-\title{Supplementary material}
+\title{Supplementary material: ``High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm''}
+\author[1]{\small Tingyu Wang}
+\author[2]{\small Christopher D. Cooper}
+\author[3]{\small Timo Betcke}
+\author[1]{\small Lorena A. Barba\thanks{Corresponding author.}}
+\affil[1]{\footnotesize Department of Mechanical and Aerospace Engineering, The George Washington University, Washington, DC, USA}
+\affil[2]{\footnotesize Department of Mechanical Engineering and Centro Cient\'ifico Tecnol\'ogico de Valpara\'iso, Universidad T\'ecnica Federico Santa Mar\'ia, Valpara\'iso, Chile}
+\affil[3]{\footnotesize Department of Mathematics, University College London, UK}
 
 \begin{document}
 \maketitle
@@ -66,9 +75,10 @@ A discrepancy is expected because (1) Bempp-Exafmm and APBS use different geomet
   \label{tab:APBS_mesh}
 \end{table}
 
-\begin{table*}[]
+\begin{landscape}
+\begin{table}[]
     \centering
-    \resizebox{\textwidth}{!}{%
+    \resizebox{1.4\textheight}{!}{%
     \begin{tabular}{cc|ccc|cc|ccc|cc}
       &   & \multicolumn{5}{c|}{APBS}                                                                    & \multicolumn{5}{c}{Bempp}                                                                   \\
       &   & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order$(1/h)$} & \multicolumn{3}{c|}{Error}     & \multirow{2}{*}{$\Delta G_{solv}$} & \multirow{2}{*}{Order$(1/N)$} \\
@@ -89,7 +99,8 @@ A discrepancy is expected because (1) Bempp-Exafmm and APBS use different geomet
     The solvation energy $\Delta G_{solv}$ is in units of kcal/mol.
     The observed order of convergence is with respect to the grid spacing $h$ for APBS (volumetric-based solver) and with respect to the number of elements $N$ for Bempp (boundary-element solver).}
     \label{tab:APBS_result}
-\end{table*}
+\end{table}
+\end{landscape}
 
 \bibliography{./reference}{}
 \bibliographystyle{elsarticle-num}
