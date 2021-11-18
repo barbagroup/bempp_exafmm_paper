@@ -36,6 +36,8 @@ With APBS, the average observed order of convergence over all cases is 1.25, wit
 Our $\mathcal{O}(N^{-1})$ convergence corresponds to $\mathcal{O}(h^{-2})$ convergence in grid size, but for boundary elements (surface triangles) it is more natural to look at convergence with respect to $N$.
 The difference in the extrapolated solvation energies obtained with the two codes varies between 0.8\% and 1.8\% across all cases.
 A discrepancy is expected because (1) Bempp-Exafmm and APBS use different geometrical representations for the molecular surface, (2) the atomic charges in the molecule are mapped to grid points through interpolation in APBS, while Bempp treats them analytically and (3) the far-field boundary condition is exactly imposed in Bempp.
+Furthermore, as Oberkampf and Roy \cite{oberkampf_roy_2010} remark on code verification, this discrepancy could be due to model differences since Bempp and APBS use different discrete equations.
+We should only expect the same results when the same exact algorithm is employed.
 
 \begin{table}[]
   \centering
