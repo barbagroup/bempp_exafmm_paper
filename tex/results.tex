@@ -289,7 +289,7 @@ The largest case, with more than $2$ million elements, requires $36$GB for the d
         \label{fig:sphere_gmres_derivative}}
     \caption{Performance on a spherical molecule with 100 random charges inside;
     6 regular quadrature points per element; \fmm expansion order set to 5 to achieve 5 digits of accuracy. Problem size represented by number of elements, $N$. Evaluation time (b) is an average for 1 Laplace \fmm evaluation and 1 Yukawa \fmm evaluation across all iterations in GMRES using direct formulation.
-    \textbf{c},\textbf{d}, Time breakdown of \gmres in percentage using direct formulation (\textbf{c}) and derivative formulation (\textbf{d}).}
+    \textbf{d},\textbf{e}, Time breakdown of \gmres in percentage using direct formulation (\textbf{d}) and derivative formulation (\textbf{e}).}
 \end{figure*}
 
 \paragraph{Performance comparison with APBS} \label{result_comparison_apbs}
@@ -350,8 +350,8 @@ Applications that require higher accuracy and involve larger structures will fav
         \includegraphics[width=0.4 \textwidth]{memory_performance_comparison.pdf}
         \label{fig:memory_performance_comparison}
     \end{center}
-    \caption{Time and memory cost with respect to error for APBS and Bempp.
-    Errors are measured against extrapolated solution.
+    \caption{Time and memory cost with respect to error for APBS and Bempp using 1RCX.
+    Errors are measured against the extrapolated solution.
     }
     \label{fig:performance_comparison_apbs}
 \end{figure*}
