@@ -2,11 +2,10 @@
 
 \usepackage[affil-it]{authblk} 
 \usepackage{graphicx}
-%\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage{lscape}
 \usepackage{multirow}
 \usepackage{siunitx}  % use \si{\angstrom} for Angstrom
-\usepackage{xurl}
 \title{Supplementary material: ``High-productivity, high-performance workflow for virus-scale electrostatic simulations with Bempp-Exafmm''}
 \author[1]{\small Tingyu Wang}
 \author[2]{\small Christopher D. Cooper}
@@ -41,7 +40,7 @@ A discrepancy is expected because (1) Bempp-Exafmm and APBS use different geomet
 Furthermore, as Oberkampf and Roy \cite{oberkampf_roy_2010} remark on code verification, this discrepancy could be due to model differences since Bempp and APBS use different discrete equations.
 We should only expect the same results when the same exact algorithm is employed.
 
-You can find the input files and results in this folder in the manuscript repository \url{https://github.com/barbagroup/bempp_exafmm_paper/tree/master/repro-pack/runs/APBS_result}.
+You can find the input files and results in this folder in the manuscript repository: \url{https://github.com/barbagroup/bempp_exafmm_paper/tree/master/repro-pack/runs/APBS_result}.
 You can also find a Jupyter Notebook with the post-processing of results here: \url{https://github.com/barbagroup/bempp_exafmm_paper/blob/master/repro-pack/notebooks/compare_with_other_software.ipynb}.
 
 
