@@ -38,7 +38,7 @@ The crossover point should be problem- and hardware-specific.
 We compared the performance of Bempp and APBS across different levels of accuracy using a moderate-sized structure 1RCX.
 We used three grid spacings for APBS: \SIlist{0.776;0.582;0.437}{\angstrom}, and four mesh densities for Bempp: 2, 4, 8, 16 elements per $\si{\angstrom}^{2}$ in our test.
 For each code, the errors are computed based on the corresponding extrapolated solution.
-Though APBS has an edge over Bempp for low accuracy calculations (error $>2\%$), Bempp performs better when higher accuracy is required due to better scaling.
+Though APBS has an edge over Bempp for low accuracy calculations (error $>3\%$), Bempp performs better when higher accuracy is required due to better scaling.
 We want to admit that APBS, as well as many other grid-based PB solvers, may run faster than Bempp for smaller proteins, as the crossover point in Figure \ref{fig:performance_comparison_apbs} will shift left.
 However, most of these solvers are not suitable to handle large structures at a decent accuracy on a workstation due to the excessive time and memory cost, as suggested by the scaling in Figure \ref{fig:performance_comparison_apbs}.
 
