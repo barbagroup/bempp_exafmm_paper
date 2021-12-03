@@ -1,6 +1,7 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 
 \usepackage[affil-it]{authblk} 
+\usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage{lscape}
@@ -19,7 +20,7 @@
 \maketitle
 
 % add comparison with results from APBS
-\section{Agreement of solvation energy calculations with APBS}
+\section*{Agreement of solvation energy calculations with APBS}
 We build more confidence on Bempp-Exafmm by comparing our results with the finite-difference version of APBS (version 1.5), using 5PTI and 8 other molecules.
 We prepared the molecular structures using the \texttt{charmm} force field.
 For each molecule, we created three successive meshes to study the convergence with each software.
@@ -40,8 +41,11 @@ A discrepancy is expected because (1) Bempp-Exafmm and APBS use different geomet
 Furthermore, as Oberkampf and Roy \cite{oberkampf_roy_2010} remark on code verification, this discrepancy could be due to model differences since Bempp and APBS use different discrete equations.
 We should only expect the same results when the same exact algorithm is employed.
 
-You can find the input files and results in this folder in the manuscript repository: \url{https://github.com/barbagroup/bempp_exafmm_paper/tree/master/repro-pack/runs/APBS_result}.
-You can also find a Jupyter Notebook with the post-processing of results here: \url{https://github.com/barbagroup/bempp_exafmm_paper/blob/master/repro-pack/notebooks/compare_with_other_software.ipynb}.
+\bigskip
+
+Readers can find the input files and results in this folder in the manuscript repository: \url{https://github.com/barbagroup/bempp_exafmm_paper/tree/master/repro-pack/runs/APBS_result}.
+
+Readers can also find a Jupyter Notebook with the post-processing of results here: \url{https://github.com/barbagroup/bempp_exafmm_paper/blob/master/repro-pack/notebooks/compare_with_other_software.ipynb}.
 
 
 \begin{table}[]
