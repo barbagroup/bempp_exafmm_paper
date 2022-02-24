@@ -40,6 +40,9 @@ The difference in the extrapolated solvation energies obtained with the two code
 A discrepancy is expected because (1) Bempp-Exafmm and APBS use different geometrical representations for the molecular surface, (2) the atomic charges in the molecule are mapped to grid points through interpolation in APBS, while Bempp treats them analytically and (3) the far-field boundary condition is exactly imposed in Bempp.
 Furthermore, as Oberkampf and Roy \cite{oberkampf_roy_2010} remark on code verification, this discrepancy could be due to model differences since Bempp and APBS use different discrete equations.
 We should only expect the same results when the same exact algorithm is employed.
+Due to the same reasons, Geng and Krasny \cite{GengKrasny2013} observed a 1\% discrepancy in the solvation energy when comparing between TABI and APBS using 1A63 (Table 4).
+Even among grid-based codes, discrepancies of such magnitude have been reported.
+For example, Table IX in Geng et al. \cite{gengTreatmentChargeSingularities2007} reported a 2\% difference between MIBPB and APBS in results for protein 1SH1, using a grid spacing of 0.25A.
 
 \bigskip
 

@@ -301,14 +301,15 @@ In the absence of an analytical solution, it is necessary to complete a grid con
 We parameterized the molecule with \texttt{pdb2pqr} and the \texttt{charmm} force field. 
 For APBS, we chose the \texttt{mg-auto} solver and used \texttt{dime} to specify the grid size.
 Using three meshes with a constant refinement ratio of $1.34$, the observed order of convergence is $\mathcal{O}(h^{1.45})$ with respect to the grid spacing $h$.
-The extrapolated solution for APBS is $-10652.89$ kcal/mol, with which we computed the relative error for each case.
-These results are summarized in Table \ref{tab:1RCX_apbs}.
+Mesh sizes and the results are summarized in Table \ref{tab:1RCX_apbs}.
+The solvation energy computed from the finest mesh is $-10803.07$ kcal/mol.
 The memory cost grows linearly and the time to solution grows quadratically with respect to the grid size.
 
 The surface meshes for Bempp have the element density set to 2, 4, 8 and 16 elements per $\si{\angstrom}^{2}$, respectively.
 The performance of Bempp improves, without affecting the final accuracy, using 3 quadrature points for regular integrals and \fmm\ order equal to 3.
-With the derivative formulation, the observed order of convergence is $\mathcal{O}(N^{-1.4})$, equivalent to $\mathcal{O}(h^{2.8})$, and the extrapolated solution is $-10973.30$ kcal/mol.
+With the derivative formulation, the observed order of convergence is $\mathcal{O}(N^{-1.4})$, equivalent to $\mathcal{O}(h^{2.8})$.
 The detailed results are listed in Table \ref{tab:1RCX_bempp}.
+The solvation energy computed from the finest mesh is $-10997.16$ kcal/mol.
 
 Using the errors from Table \ref{tab:1RCX_apbs} and \ref{tab:1RCX_bempp}, we plotted the time and space complexity with respect to accuracy obtained with Bempp and APBS, as shown in Figure \ref{fig:performance_comparison_apbs}.
 Bempp displays better scaling in both time and space.
@@ -324,7 +325,7 @@ Applications that require higher accuracy and involve larger structures will fav
     $513 \times 513 \times 481$ & 0.437                & -10803.07                             & $1.4\times 10^{-2}$ & 6075     & 34.2       
     \end{tabular}
     \caption{Results from computing the solvation energy of 1RCX using the \texttt{mg-auto} solver in APBS.
-    Error is calculated based on the extrapolated solution $-10652.89$ kcal/mol.}
+    Error is calculated based on the extrapolated solution.}
     \label{tab:1RCX_apbs}
 \end{table*}
 
@@ -339,7 +340,7 @@ Applications that require higher accuracy and involve larger structures will fav
     \end{tabular}
     \caption{Results from computing the solvation energy of 1RCX using Bempp-Exafmm and derivative formulation.
     3 quadrature points for regular integrals and \fmm\ order set to 3.
-    Error is calculated based on the extrapolated solution $-10973.30$ kcal/mol.}
+    Error is calculated based on the extrapolated solution kcal/mol.}
     \label{tab:1RCX_bempp}
 \end{table*}
 
