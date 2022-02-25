@@ -29,7 +29,7 @@ Modify the commands accordingly if you are running other Linux distributions or 
 
 Finally, install `bempp-cl` and `exafmm-t`:
 ``` bash
-pip install git+git://github.com/bempp/bempp-cl
+pip install git+git://github.com/bempp/bempp-cl@v0.2.2
 pip install git+git://github.com/exafmm/exafmm-t
 ```
 
