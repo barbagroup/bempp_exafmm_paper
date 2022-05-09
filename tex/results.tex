@@ -15,8 +15,8 @@ All runs are based on Bempp-cl version 0.2.2 and Exafmm-t version 0.1.0.
 We compiled Exafmm with Intel compiler (version 19.0.5.281) and enabled \texttt{-xHost} option for vectorization.
 We used the full GMRES from the SciPy library as our linear solver.
 
-In all of the following test cases, the relative permittivity is $\epsilon_1 = 4$ in the solute region and $\epsilon_2 = 80$ in the solvent region, and the inverse of Debye length in the solvent region is $\kappa = \SI{1/8}{\angstrom}^{-1}$, corresponding to a salt concentration of 150 mM.
-We downloaded the molecule structures from the Protein Data Bank (PDB), parameterized them with \texttt{pdb2pqr}~\cite{DolinskyETal2004}, and generated meshes on the solvent-excluded surface (SES) using \texttt{Nanoshaper} with a probe radius of $\SI{1.4}{\angstrom}$.
+In all of the following test cases, the relative permittivity is $\epsilon_1 = 4$ in the solute region and $\epsilon_2 = 80$ in the solvent region, and the inverse of Debye length in the solvent region is $\kappa = \qty{0.125}{\angstrom}^{-1}$, corresponding to a salt concentration of 150 mM.
+We downloaded the molecule structures from the Protein Data Bank (PDB), parameterized them with \texttt{pdb2pqr}~\cite{DolinskyETal2004}, and generated meshes on the solvent-excluded surface (SES) using \texttt{Nanoshaper} with a probe radius of $\qty{1.4}{\angstrom}$.
 
 \paragraph{Matrix conditioning of two derivative formulations} \label{result_conditioning}
 Section \ref{s:formulation} presents the two formulations to solve the integral equations  \eqref{eq:volume_potential} derived from the Poisson-Boltzmann model of biomolecular electrostatics: 
@@ -142,8 +142,8 @@ As a form of solution verification with the Bempp-Exafmm software, we completed 
 The first used a spherical molecule with an off-center charge, for which we have an analytical solution.
 In the next sub-section, we present a mesh-refinement study with a real molecule of biological relevance.
 Figure \ref{fig:sketch_sphere_convergence} depicts the problem setup for the current case:
-a spherical molecule of radius \SI{4}{\angstrom} and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
-The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = \SI{1/8}{\angstrom}^{-1})$.
+a spherical molecule of radius \qty{4}{\angstrom} and relative permittivity $\epsilon_1 = 4$, with a unit charge located at $(1,1,1)$.
+The solvent region has the relative permittivity of water ($\epsilon_2 = 80$), and a salt concentration of $150$mM $(\kappa = \qty{0.125}{\angstrom}^{-1})$.
 Other simulation parameters are listed in Table \ref{tab:convergence}.
 With an expansion order of 10, our \fmm achieved 9 digits of accuracy.
 We computed the solvation energy of this molecule using $5$ different meshes, obtained using a constant refinement factor of 4.
@@ -360,7 +360,7 @@ Applications that require higher accuracy and involve larger structures will fav
 
 Finally, we present a more challenging problem that studies the solvation energy of the Zika virus (PDB code 6CO8), whose structure \cite{sevvana2018refinement} is shown in Figure \ref{fig:6CO8_assembly}.
 We parameterized the molecular structure with the \texttt{amber} \cite{caseAmberBiomolecularSimulation2005} force field, and generated a mesh on the SES using \texttt{Nanoshaper}. (Mesh generation took less than 5 min.)
-The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements and a total surface area of $3.14\times 10^6 {\si{\angstrom}}^{2}$, corresponding to an element density of $\SI{3.16}{\angstrom}^{-2}$.
+The prepared structure contains about 1.6 million atoms and our mesh has around 10 million boundary elements and a total surface area of $3.14\times 10^6 {\si{\angstrom}}^{2}$, corresponding to an element density of $\qty{3.16}{\angstrom}^{-2}$.
 In this experiment, 3 quadrature points were used for regular Galerkin integrals over disjoint elements.
 The \fmm expansion order was set to 4 obtain 4 digits of accuracy in mat-vecs and the tolerance of \gmres was $10^{-4}$.
 
