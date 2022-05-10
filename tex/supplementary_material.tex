@@ -116,6 +116,68 @@ Readers can also find a Jupyter Notebook with the post-processing of results her
 \end{table}
 \end{landscape}
 
+\section*{Binding energy calculations}
+
+Table \ref{tab:solv_bind} lists the solvation energies of 9 Barnase-Barstar complexes and their components.
+The data in the first 4 columns are directly from the supporting information of Nguyen \emph{et al.} \cite{nguyenAccurateRobustReliable2017}.
+
+\begin{table*}[]
+     \centering
+     \begin{tabular}{cc|c|c|c|c|c}
+                           &         & MIBPB   & DELPHI  & PBSA    & APBS    & Bempp   \\ \hline
+     \multirow{3}{*}{1b27} & complex & -2249.3 & -2275.1 & -2276.6 & -2278.3 & -2272.8 \\
+                           & barnase & -1271.9 & -1280.8 & -1281.2 & -1287.5 & -1278.8 \\
+                           & barstar & -1573.2 & -1582.4 & -1583.8 & -1596.9 & -1585.1 \\ \hline
+     \multirow{3}{*}{1b2s} & complex & -2479.2 & -2484.1 & -2484.9 & -2486.6 & -2484.6 \\
+                           & barnase & -1215.1 & -1222.8 & -1223.5 & -1228.0 & -1220.1 \\
+                           & barstar & -1623.4 & -1628.1 & -1628.4 & -1642.2 & -1629.8 \\ \hline
+     \multirow{3}{*}{1b2u} & complex & -2395.2 & -2402.4 & -2404.4 & -2401.7 & -2403.4 \\
+                           & barnase & -1260.6 & -1266.6 & -1267.3 & -1272.8 & -1263.1 \\
+                           & barstar & -1431.9 & -1442.6 & -1443.8 & -1454.7 & -1443.5 \\ \hline
+     \multirow{3}{*}{1b3s} & complex & -2284.8 & -2301.1 & -2301.7 & -2299.5 & -2298.2 \\
+                           & barnase & -1294.6 & -1302.2 & -1302.4 & -1310.0 & -1299.1 \\
+                           & barstar & -1588.0 & -1596.4 & -1597.2 & -1609.3 & -1599.0 \\ \hline
+     \multirow{3}{*}{1x1u} & complex & -2259.8 & -2266.2 & -2267.2 & -2264.1 & -2266.1 \\
+                           & barnase & -1305.8 & -1313.4 & -1313.7 & -1320.4 & -1310.8 \\
+                           & barstar & -1580.4 & -1583.6 & -1585.1 & -1594.3 & -1585.8 \\ \hline
+     \multirow{3}{*}{1x1w} & complex & -2074.3 & -2085.6 & -2086.0 & -2085.8 & -2082.5 \\
+                           & barnase & -1250.9 & -1254.8 & -1254.7 & -1261.7 & -1250.5 \\
+                           & barstar & -1372.4 & -1378.8 & -1379.0 & -1388.0 & -1380.0 \\ \hline
+     \multirow{3}{*}{1x1x} & complex & -2183.0 & -2194.5 & -2196.1 & -2196.6 & -2191.9 \\
+                           & barnase & -1284.0 & -1296.2 & -1296.7 & -1305.0 & -1293.1 \\
+                           & barstar & -1401.0 & -1407.8 & -1408.6 & -1416.6 & -1407.8 \\ \hline
+     \multirow{3}{*}{1x1y} & complex & -2063.9 & -2072.5 & -2073.1 & -2076.3 & -2077.0 \\
+                           & barnase & -1260.6 & -1266.6 & -1267.0 & -1273.6 & -1263.9 \\
+                           & barstar & -1309.8 & -1321.1 & -1321.7 & -1331.2 & -1321.6 \\ \hline
+     \multirow{3}{*}{2za4} & complex & -2186.9 & -2199.8 & -2201.2 & -2190.7 & -2200.2 \\
+                           & barnase & -1190.2 & -1200.3 & -1201.5 & -1207.2 & -1197.9 \\
+                           & barstar & -1369.4 & -1380.4 & -1381.5 & -1393.5 & -1381.2
+     \end{tabular}
+     \caption{Solvation energies of 9 Barnase-Barstar complexes and their components, using various PB solvers.
+     Energies are in units of kcal/mol.
+     \label{tab:solv_bind}
+     }
+\end{table*}
+
+ Table \ref{tab:coul_bind} summarizes $\Delta G_{coul}$, the difference in Coulombic energy, for the 9 complexes.
+
+\begin{table}[]
+     \centering
+     \begin{tabular}{c|cc}
+          & $\Delta G_{coul}$ [kcal/mol] &  \\ \hline
+     1b27 & -499.0       &  \\
+     1b2s & -289.7       &  \\
+     1b2u & -221.9       &  \\
+     1b3s & -546.8       &  \\
+     1x1u & -550.4       &  \\
+     1x1w & -448.7       &  \\
+     1x1x & -390.4       &  \\
+     1x1y & -415.6       & 
+     \end{tabular}
+     \caption{$\Delta G_{coul}$ for 9 different Barnase-Barstar complexes.}
+     \label{tab:coul_bind}
+\end{table}     
+
 \bibliography{./reference}{}
 \bibliographystyle{elsarticle-num}
 
