@@ -27,6 +27,10 @@ Our convergence result is consistent with those from \pygbe \cite{CooperBardhanB
 %The 0.8\% to 1.8\% discrepancy in the solvation energy is expected, and possibly results from the difference in the surface representation and the interpolation required to smoothen the atomic charges in APBS.
 %These results provide evidence of the code correctness for computing biomolecular solvation energies.
 
+Binding energy calculations involve combining multiple solvation energies and thus are more challenging.
+We computed the binding energy of 9 different complexes and compared our finest-grid results with results from 5 grid-based PB solvers using a grid spacing of \qty{0.2}{\angstrom}.
+Figure \ref{fig:bind} displays that our results fall within the range of those from other solvers, which further substantiates the correctness of Bempp-Exafmm.
+
 % performance and Zika virus
 In section \ref{result_performance}, we elaborate on the performance of Bempp-Exafmm for different problem sizes using both formulations.
 The linear complexity of the assembly time (Figure \ref{fig:sphere_assembly_time}) and \fmm time (Figure \ref{fig:sphere_fmm}) guarantees the overall linear time complexity of Bempp-Exafmm, which, together with the linear space complexity shown in Figure \ref{fig:sphere_memory}, makes it feasible to perform large-scale simulations on a workstation.

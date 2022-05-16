@@ -1,11 +1,12 @@
 %!TEX root = main.tex
 We demonstrate the performance and capability of Bempp-Exafmm via electrostatic simulations, including computing the solvation energy of a Zika virus.
 Bempp solves the boundary integral formulation of the linearized PB equation.
-This section presents five types of results.
+This section presents six types of results.
 The first result explains the behavior of two variants of the mathematical formulation, from the conditioning point of view. 
 Second, we show solution verification through two grid-convergence studies: with a spherical molecule (having an analytical solution), and with a real biomolecule (using Richardson extrapolation).
-Third, we demonstrate the performance with problem sizes between 8,000 and 2 million elements, including timings, breakdowns, and computational complexity.
-The fourth type of result compares the performance of Bempp and APBS across different accuracy using a medium-sized protein. 
+Third, we provide more evidence of our software correctness via binding energy computations.
+Fourth, we demonstrate the performance with problem sizes between 8,000 and 2 million elements, including timings, breakdowns, and computational complexity.
+The fifth type of result compares the performance of Bempp and APBS across different accuracy using a medium-sized protein.
 Our final result is a demonstration using a structure with about 1.6 million atoms, the Zika virus, discretized with about 10 million boundary elements.
 In the supplementary material, we show agreement with APBS by computing the solvation energy of 9 different molecules of varying sizes.
 
@@ -219,14 +220,14 @@ This quantity is computed as the energetic difference between the bound complex 
 %
 where $\Delta G_{coul}$ is the difference in Coulombic energy between the bound and unbound states. 
 As $\Delta G^{polar}_{bind}$ is a small difference between large solvation energies, accurate calculations are key for reliable results. 
-Binding energy calculations with finite difference codes were thoroughly studied by other researchers for a large test set (51 compounds) with several solvers, in particular, adaptive cartesian grid (ACG) \cite{HarrisBoschitcshFenley2013} PBE solver, DELPHI, MIBPB, PBSA, and APBS \cite{nguyenAccurateRobustReliable2017}.
+Binding energy calculations with finite-difference codes were thoroughly studied by other researchers for a large test set (51 compounds) with several solvers, in particular, adaptive cartesian grid (ACG) \cite{HarrisBoschitcshFenley2013} PBE solver, DELPHI, MIBPB, PBSA, and APBS \cite{nguyenAccurateRobustReliable2017}.
 In these tests, the authors were specially careful regarding mesh refinement and accuracy.
 
 We performed the same test with Bempp to compute $\Delta G^{polar}_{bind}$ for a subset of the 51 compounds.
 The pqr files were downloaded from \url{http://www.sb.fsu.edu/~mfenley/convergence/downloads/convergence_pqr_sets.tar.gz}.
 The dielectric constants are 1 and 80 in the solute and solvent region, respectively, and $\kappa$ is set to 0.10265 (the ionic strength is 100 mM).
 Table \ref{tab:bind} shows the binding energies of 9 Barnase-Barstar complexes computed with Bempp using the finest meshes (with a mesh density of 48 elements per $\si{\angstrom}^2$), compared with the finest mesh results reported by Harris \emph{et al.} \cite{HarrisBoschitcshFenley2013} and Nguyen \emph{et al.} \cite{nguyenAccurateRobustReliable2017}.
-Figure \ref{fig:bind} demonstrates that our results are within the variability between other codes, indicating correctness of our implementation.
+Figure \ref{fig:bind} demonstrates that our results are within the variability between other codes, indicating the correctness of our implementation.
 The values of each component in Equation \ref{eqn:bind} are available in the supplementary material.
 
 \begin{table*}[]
