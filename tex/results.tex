@@ -259,8 +259,8 @@ The values of each component in Equation \ref{eqn:bind} are available in the sup
 
 \paragraph{Performance study with direct and derivative formulations} \label{result_performance}
 
-In this sub-section, we investigate the computational performance of Bempp-Exafmm using a spherical molecule.
-The sphere has a radius of \qty{1}{\angstrom}, and 100 charges are placed inside, representing the atoms in the solute.
+In this sub-section, we investigate the computational performance of Bempp-Exafmm using 1A7M.
+%The sphere has a radius of \qty{1}{\angstrom}, and 100 charges are placed inside, representing the atoms in the solute.
 We used the same dielectric constants and salt concentration as in previous grid-convergence studies.
 Other simulation parameters are listed in Table \ref{tab:sim_params_performance}.
 
@@ -274,12 +274,12 @@ Other simulation parameters are listed in Table \ref{tab:sim_params_performance}
     \fmm $\ncrit$             & 500  \\
     \hline
     \end{tabular}
-    \caption{Simulation parameters used in the performance study for a spherical molecule.}
+    \caption{Simulation parameters used in the performance study for 1A7M.}
     \label{tab:sim_params_performance}
 \end{table}
 
 To cover a wide range of problem sizes, we used five surface discretizations, with the number of elements ranging from 8 thousand to 2 million.
-Table \ref{tab:sphere_time} presents the assembly time, the solution time and the number of iterations to converge in each case for both formulations.
+Table \ref{tab:1A7M_time} presents the assembly time, the solution time and the number of iterations to converge in each case for both formulations.
 The assembly time includes the time to pre-compute the \fmm invariant matrices, create sparse and singular assemblers and calculate preconditioners.
 The algebraic convergence shows that the condition number grows as the problem size increases with the direct formulation, while it remains at the same level with the derivative formulation.
 
@@ -288,55 +288,55 @@ The algebraic convergence shows that the condition number grows as the problem s
     \begin{tabular}{c|cccc|cccc}
                                                                  & \multicolumn{4}{c|}{direct}                                                                                                                                                                       & \multicolumn{4}{c}{derivative}                                                                                                                                                                        \\ \hline
     \begin{tabular}[c]{@{}c@{}}number of\\ elements\end{tabular} & \begin{tabular}[c]{@{}c@{}}total\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES\\ time (s)\end{tabular} & \# iterations & \begin{tabular}[c]{@{}c@{}}total\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}assembly\\ time (s)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GMRES\\ time (s)\end{tabular} & \# iterations \\ \hline
-    8192                                                         & 14.0                                                     & 5.4                                                         & 8.6                                                      & 20            & 16.1                                                     & 9.6                                                         & 6.5                                                      & 5            \\
-    32768                                                        & 35.1                                                     & 11.7                                                        & 23.4                                                     & 24            & 35.5                                                     & 22.2                                                        & 13.3                                                     & 4            \\
-    131072                                                       & 144.2                                                    & 32.8                                                        & 111.4                                                    & 34            & 114.7                                                    & 67.2                                                        & 47.5                                                     & 4            \\
-    524288                                                       & 675.8                                                    & 121.6                                                       & 554.2                                                    & 51            & 421.3                                                    & 256.3                                                       & 165.0                                                    & 4            \\
-    2097152                                                      & 3159.8                                                   & 483.3                                                       & 2676.5                                                   & 70            & 1592.1                                                   & 1011.6                                                      & 580.5                                                    & 4           
+    7884                                                         & 27.4                                                     & 7.6                                                         & 19.8                                                     & 33            & 31.2                                                     & 11.1                                                        & 20.1                                                     & 12            \\
+    32996                                                        & 89.5                                                     & 12.5                                                        & 77.0                                                     & 50            & 72.7                                                     & 24.2                                                        & 48.5                                                     & 11            \\
+    133512                                                       & 403.9                                                    & 34.6                                                        & 369.3                                                    & 92            & 197.3                                                    & 69.3                                                        & 128.0                                                    & 11            \\
+    536220                                                       & 1570.7                                                   & 126.2                                                       & 1444.5                                                   & 120           & 646.7                                                    & 261.5                                                       & 385.2                                                    & 11            \\
+    2148640                                                      & 7107.8                                                   & 500.7                                                       & 6607.1                                                   & 158           & 2424.3                                                   & 1064.4                                                      & 1359.9                                                   & 11           
     \end{tabular}
-    \caption{Assembly and solution times of calculating the solvation energy of a spherical molecule with 100 random charges inside, using the direct and derivative (exterior) formulations.
+    \caption{Assembly and solution times of calculating the solvation energy of 1A7M, using the direct and derivative (exterior) formulations.
     6 regular quadrature points were used per element and the \fmm expansion order was set to 5.}
-    \label{tab:sphere_time}
+    \label{tab:1A7M_time}
 \end{table*}
 
 In our implementation, each iteration in direct formulation requires $8$ \fmm evaluations, whereas each iteration in the derivative formulation requires 19, making it more than twice as expensive.
-That explains why the direct formulation leads to a shorter solution time (\gmres time), despite a slower convergence, in the two smaller cases.
+That explains why the direct formulation leads to a shorter solution time (\gmres time), despite a slower convergence, in the smallest case.
 For larger problem sizes, faster convergence in the derivative formulation offsets the larger cost per iteration.
 
 As for the assembly time, the derivative formulation is about $2\times$ slower, since it needs to construct twice as many operators as the direct formulation.
 In addition, the two hypersingular operators make it even more involved.
-Figure \ref{fig:sphere_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
+Figure \ref{fig:1A7M_assembly_time} shows the linear scaling of the assembly time with respect to $N$.
 
 Next, we confirm that the time complexity of mat-vecs in \gmres is also $\mathcal{O}(N)$.
 The Poisson equation requires \fmm with a Laplace kernel and the linearized Poisson-Boltzmann equation requires \fmm with a Yukawa kernel.
 As mentioned, each iteration involves multiple \fmm evaluations: 4 Laplace {\fmm}s and 4 Yukawa {\fmm}s for the direct formulation, 8 and 11 for the derivative formulation.
-We averaged the time spent on 1 Laplace \fmm and 1 Yukawa \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:sphere_fmm}.
+We averaged the time spent on 1 Laplace \fmm and 1 Yukawa \fmm respectively using direct formulation, and plotted it with respect to $N$ in Figure \ref{fig:1A7M_fmm}.
 Using an \fmm order of 5, we achieve about 5 digits of accuracy in each mat-vec.
 The timings and linear scaling substantiate the efficiency of our \fmm implementation.
-In the largest case with over 12 million quadrature points, one Laplace \fmm costs $2.1$s and one Yukawa \fmm costs $5.4$s to compute.
+In the largest case with over 12 million quadrature points, one Laplace \fmm costs $2.3$s and one Yukawa \fmm costs $6.0$s to compute.
 
 In Bempp, the matrix-vector product has the shape $A\mathbf{x} = P_2^T (G - C)P_1 \mathbf{x} + S \mathbf{x}$ (see Equation \ref{eq:bempp_fmm_matvec}), where the dominant costs are the \fmm evaluation of the Green's function matrix $G$ and the on-the-fly evaluation of the singular correction matrix $C$. Moreover, as stated above for the full $2\times 2$ block system a number of \fmm passes together with corresponding singular corrections need to be performed.
 Therefore, the \gmres time reported here consists of \fmm time, singular correction time, as well as the time spent on other steps in the \gmres algorithm.
-Figure \ref{fig:sphere_gmres_direct} and \ref{fig:sphere_gmres_derivative} show the time breakdown of \gmres in percentages.
-As problem size increases, \fmm evaluations dominate the solution time.
+Figure \ref{fig:1A7M_gmres_direct} and \ref{fig:1A7M_gmres_derivative} show the time breakdown of \gmres in percentages.
+In all cases, \fmm evaluations dominate the solution time.
 
 We also measured the peak memory usage using the GNU time command \texttt{/usr/bin/time -v}. (Some Linux distributions do not ship with GNU time.)
-We observed a linear space complexity as shown in Figure \ref{fig:sphere_memory}.
-The largest case, with more than $2$ million elements, requires $36$GB for the direct formulation and $43$GB for the derivative formulation.
+We observed a linear space complexity as shown in Figure \ref{fig:1A7M_memory}.
+The largest case, with more than $2$ million elements, requires $30$GB for the direct formulation and $44$GB for the derivative formulation.
 
 \begin{figure*}[t]
 \centering
-    \subfloat[][Assembly time]{\includegraphics[width=0.33\textwidth]{sphere_assembly_time.pdf}
-        \label{fig:sphere_assembly_time}}
-   \subfloat[][Average evaluation time.]{\includegraphics[width=0.33\textwidth]{sphere_fmm.pdf}
-        \label{fig:sphere_fmm}}
-    \subfloat[][Overall memory consumption in GB.]{\includegraphics[width=0.33\textwidth]{sphere_memory.pdf}
-        \label{fig:sphere_memory}}\\
-    \subfloat[][]{\includegraphics[width=0.4\textwidth]{sphere_gmres_direct.pdf}
-        \label{fig:sphere_gmres_direct}}
-  \subfloat[][]{\includegraphics[width=0.4\textwidth]{sphere_gmres_derivative.pdf}
-        \label{fig:sphere_gmres_derivative}}
-    \caption{Performance on a spherical molecule with 100 random charges inside;
+    \subfloat[][Assembly time]{\includegraphics[width=0.33\textwidth]{1A7M_assembly_time.pdf}
+        \label{fig:1A7M_assembly_time}}
+   \subfloat[][Average evaluation time.]{\includegraphics[width=0.33\textwidth]{1A7M_fmm.pdf}
+        \label{fig:1A7M_fmm}}
+    \subfloat[][Overall memory consumption in GB.]{\includegraphics[width=0.33\textwidth]{1A7M_memory.pdf}
+        \label{fig:1A7M_memory}}\\
+    \subfloat[][]{\includegraphics[width=0.4\textwidth]{1A7M_gmres_direct.pdf}
+        \label{fig:1A7M_gmres_direct}}
+  \subfloat[][]{\includegraphics[width=0.4\textwidth]{1A7M_gmres_derivative.pdf}
+        \label{fig:1A7M_gmres_derivative}}
+    \caption{Performance on 1A7M;
     6 regular quadrature points per element; \fmm expansion order set to 5 to achieve 5 digits of accuracy. Problem size represented by number of elements, $N$. Evaluation time (b) is an average for 1 Laplace \fmm evaluation and 1 Yukawa \fmm evaluation across all iterations in GMRES using direct formulation.
     \textbf{d},\textbf{e}, Time breakdown of \gmres in percentage using direct formulation (\textbf{d}) and derivative formulation (\textbf{e}).}
 \end{figure*}

@@ -33,8 +33,8 @@ Figure \ref{fig:bind} displays that our results fall within the range of those f
 
 % performance and Zika virus
 In section \ref{result_performance}, we elaborate on the performance of Bempp-Exafmm for different problem sizes using both formulations.
-The linear complexity of the assembly time (Figure \ref{fig:sphere_assembly_time}) and \fmm time (Figure \ref{fig:sphere_fmm}) guarantees the overall linear time complexity of Bempp-Exafmm, which, together with the linear space complexity shown in Figure \ref{fig:sphere_memory}, makes it feasible to perform large-scale simulations on a workstation.
-Table \ref{tab:sphere_time} lists the timings in detail.
+The linear complexity of the assembly time (Figure \ref{fig:1A7M_assembly_time}) and \fmm time (Figure \ref{fig:1A7M_fmm}) guarantees the overall linear time complexity of Bempp-Exafmm, which, together with the linear space complexity shown in Figure \ref{fig:1A7M_memory}, makes it feasible to perform large-scale simulations on a workstation.
+Table \ref{tab:1A7M_time} lists the timings in detail.
 Despite being ill-conditioned, the direct formulation still shows an advantage in terms of the overall time for smaller problem sizes.
 Conversely, the derivative formulation shines in larger problems.
 The crossover point should be problem- and hardware-specific.
