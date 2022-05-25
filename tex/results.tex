@@ -220,7 +220,7 @@ This quantity is computed as the energetic difference between the bound complex 
 %
 where $\Delta G_{coul}$ is the difference in Coulombic energy between the bound and unbound states. 
 As $\Delta G^{polar}_{bind}$ is a small difference between large solvation energies, accurate calculations are key for reliable results. 
-Binding energy calculations with finite-difference codes were thoroughly studied by other researchers for a large test set (51 compounds) with several solvers, in particular, adaptive cartesian grid (ACG) \cite{HarrisBoschitcshFenley2013} PBE solver, DELPHI, MIBPB, PBSA, and APBS \cite{nguyenAccurateRobustReliable2017}.
+Binding energy calculations with finite-difference codes were thoroughly studied by other researchers for a large test set (51 compounds) with several solvers, in particular, adaptive cartesian grid-based PB solver (CPB) \cite{HarrisBoschitcshFenley2013}, DELPHI, MIBPB, PBSA, and APBS \cite{nguyenAccurateRobustReliable2017}.
 In these tests, the authors were specially careful regarding mesh refinement and accuracy.
 
 We performed the same test with Bempp to compute $\Delta G^{polar}_{bind}$ for a subset of the 51 compounds.
@@ -233,7 +233,7 @@ The values of each component in Equation \ref{eqn:bind} are available in the sup
 \begin{table*}[]
     \centering
     \begin{tabular}{c|c|c|c|c|c|c}
-         & MIBPB & DELPHI & PBSA  & APBS  & Bempp & ACG \\ \hline
+         & MIBPB & DELPHI & PBSA  & APBS  & Bempp & CPB \\ \hline
     1b27 & 96.7  & 89.2   & 89.4  & 107.0 & 92.1  & 85.9   \\
     1b2s & 69.6  & 77.2   & 77.3  & 93.9  & 75.6  & 72.5   \\
     1b2u & 75.4  & 85.0   & 84.8  & 104.0 & 81.3  & 78.9   \\
