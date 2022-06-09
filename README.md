@@ -29,6 +29,7 @@ See the [README in the repro-pack folder](https://github.com/barbagroup/bempp_ex
    - [Documentation](https://exafmm.github.io/exafmm-t/)
 - [Bempp-cl](https://github.com/bempp/bempp-cl) (MIT License)
    - [Installing Bempp](http://bempp.com/installation.html)
+   - _Citation:_ Betcke et al., (2021). Bempp-cl: A fast Python based just-in-time compiling boundary element library.. Journal of Open Source Software, 6(59), 2879, https://doi.org/10.21105/joss.02879
 
 ### LICENSE
 **Not all content in this repository is open source.** The Python code for creating the figures is shared under a BSD3 License. The written content in any Jupyter Notebooks is shared under a Creative Commons Attribution (CC-BY) license. 
