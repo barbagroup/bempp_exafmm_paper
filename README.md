@@ -27,6 +27,7 @@ See the [README in the repro-pack folder](https://github.com/barbagroup/bempp_ex
 
 - [Exafmm-t](https://github.com/exafmm/exafmm-t) (BSD 3-Clause License)
    - [Documentation](https://exafmm.github.io/exafmm-t/)
+   - _Citation:_ Wang et al., (2021). ExaFMM: a high-performance fast multipole method library with C++ and Python interfaces. Journal of Open Source Software, 6(61), 3145, https://doi.org/10.21105/joss.03145
 - [Bempp-cl](https://github.com/bempp/bempp-cl) (MIT License)
    - [Installing Bempp](http://bempp.com/installation.html)
    - _Citation:_ Betcke et al., (2021). Bempp-cl: A fast Python based just-in-time compiling boundary element library.. Journal of Open Source Software, 6(59), 2879, https://doi.org/10.21105/joss.02879
