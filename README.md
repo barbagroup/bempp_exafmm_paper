@@ -12,8 +12,10 @@ Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
   - resubmission version is tagged release [v2.1](https://github.com/barbagroup/bempp_exafmm_paper/releases/tag/v2.1) 
 - Reply to the editor first sent on 12 July.
   - 31 July: EiC writes that after discussion with the editorial team, they would like to send our replies to Reviewers 1 and 3, and requests these in PDF. Responses in HackMD for [Reviewer 1](https://hackmd.io/DG_f3UiMSsaAHukBp1SmVQ) and [Reviewer 3](https://hackmd.io/e--_niKFRtWDqKBdGncy5g). Sent to editor 2 August.
-- New review comments provided, with request to respond: 21 September.
-- First rejection decision: February 15, 2022 (see issue #19)
+- New review comments provided 21 September, with request to respond. See issue [#15] (https://github.com/barbagroup/bempp_exafmm_paper/issues/15) for editorial letter. Issues 16,17,18 address reviewer comments.
+- Email to EiC on Oct. 15, 2021: see [comment](https://github.com/barbagroup/bempp_exafmm_paper/issues/15#issuecomment-1364748153) on issue #15.
+- Revision submitted **Dec. 7, 2021**
+- First rejection decision: February 15, 2022 (see issue [#19](https://github.com/barbagroup/bempp_exafmm_paper/issues/19))
 
 
 ## Reproducibility package archives
