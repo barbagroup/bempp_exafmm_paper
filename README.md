@@ -16,6 +16,8 @@ Preprint on [arxiv:2103.01048](https://arxiv.org/abs/2103.01048)
 - Email to EiC on Oct. 15, 2021: see [comment](https://github.com/barbagroup/bempp_exafmm_paper/issues/15#issuecomment-1364748153) on issue #15.
 - Revision submitted **Dec. 7, 2021**
 - First rejection decision: February 15, 2022 (see issue [#19](https://github.com/barbagroup/bempp_exafmm_paper/issues/19))
+- Appeal, with new evidence, rebuttal and revision: Sep 5, 2022
+- Second rejection decision: December 5, 2022
 
 
 ## Reproducibility package archives
